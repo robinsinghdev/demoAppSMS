@@ -71,8 +71,8 @@ xmlns:cdv="http://cordova.apache.org/ns/1.0">
          
          <!-- 
         <icon src="res/app_icon.png"/>
-        <splash src="res/android/splash.png" />
          -->
+         <splash src="res/android/splash_default.png" />
     </platform>
     <!-- 
     <platform name="ios">
