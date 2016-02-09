@@ -46,40 +46,33 @@ xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
      
-     <!-- <icon src="res/app_icon.png"/> -->
-    
     <platform name="android">
         <allow-intent href="market:*" />
         <preference name="android-minSdkVersion" value="14"/> 
  		<preference name="android-targetSdkVersion" value="22"/>
  		
  		<!-- Icons By Resolutions -->
- 		<icon src="res/android/app_icon_ldpi.png" density="ldpi" />
-        <icon src="res/android/app_icon_mdpi.png" density="mdpi" />
-        <icon src="res/android/app_icon_hdpi.png" density="hdpi" />
-        <icon src="res/android/app_icon_xhdpi.png" density="xhdpi" />
+ 		<icon src="res/android/app_icon_ldpi.png" platform="android" qualifier="ldpi" />
+        <icon src="res/android/app_icon_mdpi.png" platform="android" qualifier="mdpi" />
+        <icon src="res/android/app_icon_hdpi.png" platform="android" qualifier="hdpi" />
+        <icon src="res/android/app_icon_xhdpi.png" platform="android" qualifier="xhdpi" />
  		
  		<!-- Splash Screen By Resolutions -->
- 		<splash  src="res/android/splash_land_hdpi.png" qualifier="land-hdpi" />
- 		<splash  src="res/android/splash_land_ldpi.png" qualifier="land-ldpi" />
-        <splash  src="res/android/splash_land_mdpi.png" qualifier="land-mdpi" />
-        <splash  src="res/android/splash_land_xhdpi.png" qualifier="land-xhdpi" />
+ 		<splash  src="res/android/splash_land_hdpi.png" platform="android" qualifier="hdpi" />
+ 		<splash  src="res/android/splash_land_ldpi.png" platform="android" qualifier="ldpi" />
+        <splash  src="res/android/splash_land_mdpi.png" platform="android" qualifier="mdpi" />
+        <splash  src="res/android/splash_land_xhdpi.png" platform="android" qualifier="xhdpi" />
         <!-- 
         <splash  src="res/android/splash_port_hdpi.png" density="port-hdpi" />
  		<splash  src="res/android/splash_port_ldpi.png" density="port-ldpi" />
         <splash  src="res/android/splash_port_mdpi.png" density="port-mdpi" />
         <splash  src="res/android/splash_port_xhdpi.png" density="port-xhdpi" />
-        
-        <splash src="ldpi.png" platform="android" qualifier="ldpi" />
-		<splash src="mdpi.png" platform="android" qualifier="mdpi" />
-		<splash src="hdpi.png" platform="android" qualifier="hdpi" />
-		<splash src="xhdpi.png" platform="android" qualifier="xhdpi" />
-		        
          -->
          
+         <!-- 
         <icon src="res/app_icon.png"/>
         <splash src="res/android/splash.png" />
-        
+         -->
     </platform>
     <!-- 
     <platform name="ios">
