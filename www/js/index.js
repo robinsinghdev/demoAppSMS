@@ -649,9 +649,7 @@ function alertexit(button){
 }
 
 function doLogout() {
-	alert("doLogout");
 	var connectionType=checkConnection();
-	alert(connectionType);
 	//var connectionType="Unknown connection";//For Testing
 	
 	if(connectionType=="Unknown connection" || connectionType=="No network connection"){
