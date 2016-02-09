@@ -70,9 +70,10 @@ xmlns:cdv="http://cordova.apache.org/ns/1.0">
         <splash  src="res/android/splash_port_mdpi.png" platform="android" qualifier="port-mdpi" />
         <splash  src="res/android/splash_port_xhdpi.png" platform="android" qualifier="port-xhdpi" />
          
+        <splash src="res/android/splash_default.png" />
          <!-- 
         <icon src="res/app_icon.png"/>
-        <splash src="res/android/splash_default.png" />
+        
          -->
          
     </platform>
