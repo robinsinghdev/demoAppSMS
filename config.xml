@@ -42,9 +42,9 @@ xmlns:cdv="http://cordova.apache.org/ns/1.0">
 	 -->
 	
 	<plugin name="cordova-plugin-whitelist" spec="1" />
-	<plugin name="org.apache.cordova.dialogs" />
-	<plugin name="org.apache.cordova.network-information"/>
-	<plugin name="io.litehelpers.cordova.sqlite" />
+	<plugin name="org.apache.cordova.dialogs" source="pgb" spec="0.2.10" />
+	<plugin name="org.apache.cordova.network-information" source="pgb" spec="0.2.12" />
+	<plugin name="io.litehelpers.cordova.sqlite" source="pgb" spec="0.7.10" />
 	
 	<!--     <access origin="*" /> -->
     <!-- New Addition 04Feb216 8:20pm -->
