@@ -21,7 +21,7 @@ var rightPanelObj = '<div id="rightPanel" class="panel right" data-role="panel" 
 						'<div id="menu-wrapper">'+
 							'<div class="menu-title">'+
 						    	'<span>SETTING</span>'+
-								'<a href="#" data-rel="close" class="ui-btn ui-corner-all ui-icon-delete ui-btn-icon-notext ui-btn-right"  title="Close"> </a>'+
+								//'<a href="#" class="ui-btn ui-corner-all ui-icon-delete ui-btn-icon-notext ui-btn-right"  title="Close" onclick="closePanels();"> </a>'+
 						    '</div>'+
 						
 							'<ul class="menu">'+
@@ -54,7 +54,7 @@ var rightPanelObj = '<div id="rightPanel" class="panel right" data-role="panel" 
 										'<span class="menu-li-title">Profile</span>'+
 									'</a>'+
 								'</li>'+
-								*/
+								
 								'<li class="icon holiday">'+
 									'<a href="#" data-rel="close" >'+
 										'<span class="menu-li-title">Holidays List</span>'+
@@ -70,6 +70,7 @@ var rightPanelObj = '<div id="rightPanel" class="panel right" data-role="panel" 
 										'<span class="menu-li-title">Change Paswword</span>'+
 									'</a>'+
 								'</li>'+
+								*/
 								'<li class="icon logout">'+
 									'<a href="#" onclick="doLogout();">'+
 										'<span class="menu-li-title">Logout</span>'+
@@ -91,7 +92,7 @@ var leftPanelObj='<div id="leftPanel" class="panel left" data-role="panel" data-
 					'<div id="menu-wrapper">'+			
 						'<div class="menu-title">'+
 					    	'<span>MENU</span>'+
-							'<a href="#" data-rel="close" class="ui-btn ui-corner-all ui-icon-delete ui-btn-icon-notext ui-btn-right"  title="Close"> </a>'+
+							//'<a href="#" onclick="closePanels();" class="ui-btn ui-corner-all ui-icon-delete ui-btn-icon-notext ui-btn-right"  title="Close"> </a>'+
 					    '</div>'+
 						'<ul class="menu">'+					
 							'<li class="icon home">'+
@@ -112,13 +113,6 @@ var leftPanelObj='<div id="leftPanel" class="panel left" data-role="panel" data-
 									'<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">'+
 								'</a>'+
 							'</li>'+					
-												
-							'<li class="icon institute">'+
-								'<a href="#" onclick="getPreviousInstitutes();">'+
-									'<span class="menu-li-title">Previous Institutes</span>'+
-									'<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">'+
-								'</a>'+
-							'</li>'+							
 							'<li class="icon achievement">'+
 								'<a href="#" onclick="getAcademicAcheivements();">'+
 									'<span class="menu-li-title">Academic Achievements</span>'+
@@ -148,13 +142,21 @@ var leftPanelObj='<div id="leftPanel" class="panel left" data-role="panel" data-
 									'<span class="menu-li-title">Disciplines</span>'+
 									'<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">'+
 								'</a>'+
-							'</li>'+							
+							'</li>'+				
+							/*
 							'<li class="icon timetable">'+
 								'<a href="#" onclick="getTimetable();">'+
 									'<span class="menu-li-title">Time Table</span>'+
 									'<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">'+
 								'</a>'+
-							'</li>'+											
+							'</li>'+	
+							'<li class="icon institute">'+
+							'<a href="#" onclick="getPreviousInstitutes();">'+
+								'<span class="menu-li-title">Previous Institutes</span>'+
+								'<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">'+
+							'</a>'+
+							*/
+						'</li>'+
 						'</ul>'+					
 					'</div>'+					 
 				'</div>';
@@ -296,7 +298,8 @@ function logout() {
 }
 
 function gotoHome(){
-	$("[data-role=panel]").panel("close");
+	//$("[data-role=panel]").panel("close");
+	closePanels();
 	$.mobile.changePage('#home-page','slide');
 }
 
@@ -952,6 +955,9 @@ function errorCB(err) {
 			var $parentEleObj=$('.common-page-tab1 .table-main-div');
 			$parentEleObj.html("");
 			
+			var actionHeading=responseJson["actionHeading"];
+			$('.common-page-tab1 .common-page-tab-heading').html(actionHeading);
+			
 			var action=responseJson["action"];
 			var jsonData=responseJson["data"];
 			
@@ -983,12 +989,18 @@ function errorCB(err) {
 				commonPageTimetableData($parentEleObj, jsonData);
 			}
 			
-			$("[data-role=panel]").panel("close");
+			//$("[data-role=panel]").panel("close");
+			closePanels();
 			$.mobile.changePage('#common-page','slide');
 		}else{
 			navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');					
 		}
 		hideModal();
+	}
+	
+	
+	function closePanels(){
+		$("[data-role=panel]").panel("close");
 	}
 	
 	function commonPageNoDataMsg($parentEleObj){
@@ -1029,6 +1041,10 @@ function errorCB(err) {
 		
 		if(responseJson.statusCode == "0" ){
 			var actionResponse=responseJson["actionResponse"];
+			
+			var actionHeading=responseJson["actionHeading"];
+			$('.common-page-tab1 .common-page-tab-heading').html(actionHeading);
+			
 			var $parentEleObj=$('.common-page-tab1 .table-main-div');
 			$parentEleObj.html("");
 			if(actionResponse.length > 0){
@@ -1050,7 +1066,8 @@ function errorCB(err) {
 				dataEleObj=dataEleObj.replace(/replaceName/g,msg);
 				$parentEleObj.append(dataEleObj);
 			}
-			$("[data-role=panel]").panel("close");
+			//$("[data-role=panel]").panel("close");
+			closePanels();
 			$.mobile.changePage('#common-page','slide');
 		}else{
 			navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');					

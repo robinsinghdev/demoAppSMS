@@ -31,7 +31,7 @@ img, iframe {
 }
 
 .ui-panel {
-    top: -1px;
+   /*  top: -1px; */
 }
 
 /*
@@ -54,7 +54,7 @@ img, iframe {
 
 .ui-panel-wrapper {
     height: 100%;
-    top: -1px;
+    /* top: -1px; */
     margin-bottom: -2px;
 }
 
@@ -572,7 +572,7 @@ ul.features_list_detailed li .view_more a.ui-link-more {
 	margin-top: 15px;
 }
 
-.div-block .div-block-data.bottom-border{
+.div-block .div-block-data.bottom-border, .bottom-border{
 	border-bottom: 1px solid #cfcfcf;
 }
 
@@ -1107,3 +1107,11 @@ table.leave-description-table > tbody > tr > td, .table > tbody > tr > th{
 .link-custom-span a.delete-link{
 	color: #ff0000;
 }
+
+.common-page-tab-heading{
+    font-size: 16px;
+    padding-bottom: 10px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
