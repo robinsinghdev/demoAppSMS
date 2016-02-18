@@ -37,6 +37,9 @@
 	<body>
 		
         <div id="app">
+        	
+        	
+        	
         	<div  id="login-page" data-role="page" class="login-page">
                 <div data-role="content">
 					
@@ -64,21 +67,82 @@
                 </div>
             </div>
             
+            
+            
 			<div id="home-page" data-role="page">
+			
+				<!-- <div id="rightPanel" class="panel right" data-role="panel" data-position="right" data-display="push" >
+						 <div id="menu-wrapper">
+							<div class="menu-title">
+						  	<span>SETTING</span>
+								<a href="#" class="ui-btn ui-corner-all ui-icon-delete ui-btn-icon-notext ui-btn-right"  title="Close" onclick="closePanels();"> </a>
+						    </div>
+						
+							<ul class="menu">
+							
+								<li class="profile-detail">
+									<div class="personal_detail">
+										<div class="circular"></div>
+										<span class="name">window.localStorage["name"]+</span>
+										<a class="edit-link" href="#" onclick="editProfile();"><img src="img/icons/edit.png" class="img-circle" alt=""></a>
+									</div>
+									
+									<div class="sub_info">
+										<img src="img/icons/email118.png" alt="email"></a>
+										<span class="name">window.localStorage["email"]+</span>
+									</div>
+									<div class="sub_info">
+										<img src="img/icons/contact1.png" alt="contacts"></a>
+										<span class="name">window.localStorage["mobile"]+</span>
+									</div>
+								</li>
+							</ul>
+						</div>		
+			</div>
+			
+			<div id="leftPanel" class="panel left" data-role="panel" data-position="left" data-display="push" >
+						 <div id="menu-wrapper">
+							<div class="menu-title">
+						  	<span>SETTING</span>
+								<a href="#" class="ui-btn ui-corner-all ui-icon-delete ui-btn-icon-notext ui-btn-right"  title="Close" onclick="closePanels();"> </a>
+						    </div>
+						
+							<ul class="menu">
+							
+								<li class="icon home">
+									<a href="#" onclick="gotoHome();">
+										<span class="menu-li-title">Home</span>
+										<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">
+									</a>
+								</li>					
+								<li class="icon assignment">
+									<a href="#" onclick="getAssignments();" >
+										<span class="menu-li-title">Assignment & Test</span>
+										<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">
+									</a>
+								</li>	
+							</ul>
+						</div>		
+			</div> -->
+			
 				<div data-role="header" data-id="header" id="header" data-position="fixed" class="ui-header app-header-section">
+					<!-- 
 					<a href="#leftPanel" data-theme="none" data-inline="true" class="ui-btn ui-btn-icon-notext edit-logo" title="Menu">
 						<img src="img/edit-sm-logo.png" alt="logo" />
 					</a>
+					 -->
 <!--                     <a data-role="button" data-theme="none" data-corners="false" data-shadow="false" data-inline="true" href="/path/to/link"><img src="path_to_img" alt="Picture" /></a>   -->
                     <h1>Home</h1>
-					
+                    
+					<!-- 
 					<div class="ui-btn-right right-space">
-						<!-- Notification Button -->
-						<!-- <a href="#notification-page" class="ui-btn ui-corner-all ui-icon-info ui-btn-icon-notext"  title="Notification"> </a> -->
+						Notification Button
+						<a href="#notification-page" class="ui-btn ui-corner-all ui-icon-info ui-btn-icon-notext"  title="Notification"> </a>
 						&nbsp;
-						<!-- Setting Button -->
+						Setting Button
 						<a href="#rightPanel" class="ui-btn ui-corner-all ui-icon-gear ui-btn-icon-notext"  title="Setting"> </a>
 					</div>
+					 -->
                 </div>	
 				<div class="st-background">
 					<div data-role="content">
@@ -421,17 +485,19 @@
 			
 			<div id="common-page" data-role="page">
                 <div data-role="header" data-id="header" id="header" data-position="fixed" class="ui-header app-header-section">
+					<!-- 
 					<div class="ui-btn-left">
-						<!-- Back Button -->
+						Back Button
 						<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-icon-back ui-btn-icon-notext">Back</a>
 						&nbsp;
-						<!-- Menu Button -->
+						Menu Button
 						<a href="#leftPanel" data-theme="none" data-inline="true" class="ui-btn edit-logo" title="Menu">
 							<img src="img/edit-sm-logo.png" alt="logo" />
 						</a>
 					</div>
+					 -->
                     <h1 class="common-page-heading"></h1>
-					<a href="#rightPanel" class="ui-btn ui-corner-all ui-icon-gear ui-btn-icon-notext ui-btn-right"  title="Setting"> </a>
+<!-- 					<a href="#rightPanel" class="ui-btn ui-corner-all ui-icon-gear ui-btn-icon-notext ui-btn-right"  title="Setting"> </a> -->
                 </div>
                 
                 <div data-role="content" >

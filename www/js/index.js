@@ -17,7 +17,7 @@ $( document ).on( "mobileinit", function() {
      $.mobile.toolbar.prototype.options.tapToggle = false;
 });
 
-var rightPanelObj = '<div id="rightPanel" class="panel right" data-role="panel" data-position="right" data-display="push" >'+
+var rightPanelObj = //'<div id="rightPanel" class="panel right" data-role="panel" data-position="right" data-display="push" >'+
 						'<div id="menu-wrapper">'+
 							'<div class="menu-title">'+
 						    	'<span>SETTING</span>'+
@@ -50,7 +50,7 @@ var rightPanelObj = '<div id="rightPanel" class="panel right" data-role="panel" 
 								
 								/*
 								'<li class="icon profile2">'+
-									'<a href="#user-profile-page">'+
+									'<a href="#user-profile-page" data-rel="close">'+
 										'<span class="menu-li-title">Profile</span>'+
 									'</a>'+
 								'</li>'+
@@ -66,13 +66,13 @@ var rightPanelObj = '<div id="rightPanel" class="panel right" data-role="panel" 
 									'</a>'+
 								'</li>'+
 								'<li class="icon password">'+
-									'<a href="#page-2">'+
+									'<a href="#" data-rel="close">'+
 										'<span class="menu-li-title">Change Paswword</span>'+
 									'</a>'+
 								'</li>'+
 								*/
 								'<li class="icon logout">'+
-									'<a href="#" onclick="doLogout();">'+
+									'<a href="#" onclick="doLogout();" data-rel="close">'+
 										'<span class="menu-li-title">Logout</span>'+
 									'</a>'+
 								'</li>'+
@@ -88,7 +88,7 @@ var rightPanelObj = '<div id="rightPanel" class="panel right" data-role="panel" 
 //getScholoarships
 //getPreviousInstitutes
 //getTimetable
-var leftPanelObj='<div id="leftPanel" class="panel left" data-role="panel" data-position="left" data-display="push" >'+
+var leftPanelObj= //'<div id="leftPanel" class="panel left" data-role="panel" data-position="left" data-display="push" >'+
 					'<div id="menu-wrapper">'+			
 						'<div class="menu-title">'+
 					    	'<span>MENU</span>'+
@@ -96,62 +96,62 @@ var leftPanelObj='<div id="leftPanel" class="panel left" data-role="panel" data-
 					    '</div>'+
 						'<ul class="menu">'+					
 							'<li class="icon home">'+
-								'<a href="#" onclick="gotoHome();">'+
+								'<a href="#" onclick="gotoHome();" data-rel="close" >'+
 									'<span class="menu-li-title">Home</span>'+
 									'<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">'+
 								'</a>'+
 							'</li>'+					
 							'<li class="icon assignment">'+
-								'<a href="#" onclick="getAssignments();" >'+
+								'<a href="#" onclick="getAssignments();" data-rel="close" >'+
 									'<span class="menu-li-title">Assignment & Test</span>'+
 									'<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">'+
 								'</a>'+
 							'</li>'+	
 							'<li class="icon book">'+
-								'<a href="#" onclick="getLibraryBooksAllocated();">'+
+								'<a href="#" onclick="getLibraryBooksAllocated();" data-rel="close">'+
 									'<span class="menu-li-title">Library</span>'+
 									'<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">'+
 								'</a>'+
 							'</li>'+					
 							'<li class="icon achievement">'+
-								'<a href="#" onclick="getAcademicAcheivements();">'+
+								'<a href="#" onclick="getAcademicAcheivements();" data-rel="close">'+
 									'<span class="menu-li-title">Academic Achievements</span>'+
 									'<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">'+
 								'</a>'+
 							'</li>'+							
 							'<li class="icon external">'+
-								'<a href="#" onclick="getExternalActivies();">'+
+								'<a href="#" onclick="getExternalActivies();" data-rel="close">'+
 									'<span class="menu-li-title">External Activity</span>'+
 									'<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">'+
 								'</a>'+
 							'</li>'+					
 							'<li class="icon scholarship">'+
-								'<a href="#" onclick="getScholoarships();">'+
+								'<a href="#" onclick="getScholoarships();" data-rel="close">'+
 									'<span class="menu-li-title">Scholarships</span>'+
 									'<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">'+
 								'</a>'+
 							'</li>'+							
 							'<li class="icon seminar">'+
-								'<a href="#" onclick="getSeminars();">'+
+								'<a href="#" onclick="getSeminars();" data-rel="close">'+
 									'<span class="menu-li-title">Seminars</span>'+
 									'<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">'+
 								'</a>'+
 							'</li>'+							
 							'<li class="icon desciplines">'+
-								'<a href="#" onclick="getDisciplines();">'+
+								'<a href="#" onclick="getDisciplines();" data-rel="close">'+
 									'<span class="menu-li-title">Disciplines</span>'+
 									'<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">'+
 								'</a>'+
 							'</li>'+				
 							/*
 							'<li class="icon timetable">'+
-								'<a href="#" onclick="getTimetable();">'+
+								'<a href="#" onclick="getTimetable(); " data-rel="close">'+
 									'<span class="menu-li-title">Time Table</span>'+
 									'<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">'+
 								'</a>'+
 							'</li>'+	
 							'<li class="icon institute">'+
-							'<a href="#" onclick="getPreviousInstitutes();">'+
+							'<a href="#" onclick="getPreviousInstitutes();" data-rel="close">'+
 								'<span class="menu-li-title">Previous Institutes</span>'+
 								'<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">'+
 							'</a>'+
@@ -161,20 +161,54 @@ var leftPanelObj='<div id="leftPanel" class="panel left" data-role="panel" data-
 					'</div>'+					 
 				'</div>';
 
+
+var dynPanelCount = 1,
+dynPanelBtnCount = 1;
 $(document).one('pagebeforecreate', function () {
-	
+	/*
 	var panelDOM = $("[data-role=panel]").length;
     if (panelDOM === 0) {
-        /* add panel */
+         //add panel 
     	$.mobile.pageContainer.prepend(rightPanelObj);
     	$.mobile.pageContainer.prepend(leftPanelObj);
-    	$("#rightPanel").panel();
-    	$("#leftPanel").panel();
-    	
-    } else {
-        /* nothing */
+    	$("#rightPanel").panel().enhanceWithin();
+    	$("#leftPanel").panel().enhanceWithin();
+    	 alert("pagebeforecreate");
+    	//
+    	setTimeout(function(){
+    	   
+    	 }, 300);
     }
-  
+   */
+    
+    $.mobile.pageContainer.find("[data-role=page]").each(function () {
+        var leftPanelDynObj = '<div id="leftPanel' + dynPanelCount + '" class="panel left" data-role="panel" data-position="left" data-display="push" >'+
+        			leftPanelObj;
+        var rightPanelDynObj = '<div id="rightPanel' + dynPanelCount + '"  class="panel right" data-role="panel" data-position="right" data-display="push" >'+
+        						rightPanelObj;
+        $(this).prepend(leftPanelDynObj);
+        $(this).prepend(rightPanelDynObj);
+        dynPanelCount++;
+    });
+    $.mobile.pageContainer.find("[data-role=header]").each(function () {
+        var leftPanelDynBtn='<a href="#leftPanel' + (dynPanelBtnCount+1) + '" data-theme="none" data-inline="true" class="ui-btn ui-btn-icon-notext edit-logo" title="Menu">'+
+						'<img src="img/edit-sm-logo.png" alt="logo" /></a>';
+        
+        var rightPanelDynBtn='<div class="ui-btn-right right-space">'+
+								'<a href="#rightPanel' + (dynPanelBtnCount+1) + '" class="ui-btn ui-corner-all ui-icon-gear ui-btn-icon-notext"  title="Setting"> </a>'+
+							'</div>';
+        
+        $(this).append(leftPanelDynBtn);
+        $(this).append(rightPanelDynBtn);
+        dynPanelBtnCount++;
+    });
+});
+
+$(document).on("pageinit", function () {
+    if($(this).attr("href") == "#"+$.mobile.pageContainer.pagecontainer("getActivePage")[0].id) {
+    	alert($.mobile.pageContainer.pagecontainer("getActivePage")[0].id);
+    	//$("[data-role=panel]").panel("close");
+    }
 });
 
 //var appUrl='http://192.168.1.11:8080/Edit/appEntry.do';
@@ -255,7 +289,9 @@ function onBackKeyDown() {
        $.mobile.changePage('#home-page','slide');
    }
 	else{
-		window.history.back();
+		$.mobile.changePage('#home-page','slide');
+		//closePanels();
+		//window.history.back();
    }
 }
 
@@ -299,8 +335,9 @@ function logout() {
 
 function gotoHome(){
 	//$("[data-role=panel]").panel("close");
-	closePanels();
+	//closePanels();
 	$.mobile.changePage('#home-page','slide');
+	
 }
 
 function handleLogin() {
@@ -990,7 +1027,7 @@ function errorCB(err) {
 			}
 			
 			//$("[data-role=panel]").panel("close");
-			closePanels();
+			//closePanels();
 			$.mobile.changePage('#common-page','slide');
 		}else{
 			navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');					
@@ -1067,7 +1104,7 @@ function errorCB(err) {
 				$parentEleObj.append(dataEleObj);
 			}
 			//$("[data-role=panel]").panel("close");
-			closePanels();
+			//closePanels();
 			$.mobile.changePage('#common-page','slide');
 		}else{
 			navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');					
