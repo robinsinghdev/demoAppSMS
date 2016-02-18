@@ -354,8 +354,8 @@ function handleLogin() {
 	
 	if(u != '' && p!= '') {
 		
-		var connectionType=checkConnection();
-		//var connectionType="WiFi connection";//For Testing
+		//var connectionType=checkConnection();
+		var connectionType="WiFi connection";//For Testing
 		
 		var loginData={};
 		
@@ -370,8 +370,7 @@ function handleLogin() {
 				navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');
 			}	
 		}
-		else if(connectionType=="WiFi connection" || connectionType=="Cell 4G connection" || connectionType=="Cell 3G connection" || connectionType=="Cell 2G connection")
-		{
+		else if(connectionType=="WiFi connection" || connectionType=="Cell 4G connection" || connectionType=="Cell 3G connection" || connectionType=="Cell 2G connection"){
 			
 			showModal();
 			loginData.username=u;
@@ -640,8 +639,7 @@ function handleLogin() {
 			   error:function(data,t,f){
 				   //alert(' ajax error--'+JSON.stringify(data));
 				   hideModal();
-				   alert(data+' '+t+' '+f);
-				   //navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');
+				   navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');
 				 /*
 				   var responseJson = $.parseJSON(data);
 				 
@@ -848,8 +846,8 @@ function errorCB(err) {
 /*  ------------------- Function/Module Wise Code(For Parents/Student) Starts -------------------------  */
 
 	function getDataByAction(actionName, mDataJsonString, successCallbackFn, errorCallbackFn) {
-		var connectionType=checkConnection();
-		//var connectionType="WiFi connection";//For Testing
+		//var connectionType=checkConnection();
+		var connectionType="WiFi connection";//For Testing
 		
 		if(connectionType=="Unknown connection" || connectionType=="No network connection"){
 			navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');
