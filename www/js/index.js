@@ -354,8 +354,8 @@ function handleLogin() {
 	
 	if(u != '' && p!= '') {
 		
-		//var connectionType=checkConnection();
-		var connectionType="WiFi connection";//For Testing
+		var connectionType=checkConnection();
+		//var connectionType="WiFi connection";//For Testing
 		
 		var loginData={};
 		
@@ -846,8 +846,8 @@ function errorCB(err) {
 /*  ------------------- Function/Module Wise Code(For Parents/Student) Starts -------------------------  */
 
 	function getDataByAction(actionName, mDataJsonString, successCallbackFn, errorCallbackFn) {
-		//var connectionType=checkConnection();
-		var connectionType="WiFi connection";//For Testing
+		var connectionType=checkConnection();
+		//var connectionType="WiFi connection";//For Testing
 		
 		if(connectionType=="Unknown connection" || connectionType=="No network connection"){
 			navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');
