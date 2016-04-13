@@ -11,8 +11,12 @@
 
         <link rel="stylesheet"  href="libs/jQueryMobile/jquery.mobile-1.4.5.min.css">
         <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
         <link rel="stylesheet" href="libs/jqm-datebox-1.4.5.css" />
-		
+        
+        <link rel="stylesheet" href="css/fontawesome/css/font-awesome.min.css" />
+<!--         <link rel="stylesheet" href="css/animate.css" /> -->
+        
         <script type="text/javascript" src="libs/fastclick.min.js"></script>
         <script type="text/javascript" src="phonegap.js"></script>
         <!-- <script type="text/javascript" src="libs/jquery-2.0.3.min.js"></script> -->
@@ -38,8 +42,6 @@
 		
         <div id="app">
         	
-        	
-        	
         	<div  id="login-page" data-role="page" class="login-page">
                 <div data-role="content">
 					
@@ -59,71 +61,15 @@
 									<input type="password" name="password" id="password" placeholder="Password" autocomplete="off"/>
 								</div>
 								
+								<!-- <input type="submit" value="Login" id="submitButton" data-theme="a" /> -->
 								<input type="button" value="Login" id="submitButton" data-theme="a" onclick="handleLogin();" />
-								
 							</form>
 						</div>	
 					</div>
                 </div>
             </div>
             
-            
-            
 			<div id="home-page" data-role="page">
-			
-				<!-- <div id="rightPanel" class="panel right" data-role="panel" data-position="right" data-display="push" >
-						 <div id="menu-wrapper">
-							<div class="menu-title">
-						  	<span>SETTING</span>
-								<a href="#" class="ui-btn ui-corner-all ui-icon-delete ui-btn-icon-notext ui-btn-right"  title="Close" onclick="closePanels();"> </a>
-						    </div>
-						
-							<ul class="menu">
-							
-								<li class="profile-detail">
-									<div class="personal_detail">
-										<div class="circular"></div>
-										<span class="name">window.localStorage["name"]+</span>
-										<a class="edit-link" href="#" onclick="editProfile();"><img src="img/icons/edit.png" class="img-circle" alt=""></a>
-									</div>
-									
-									<div class="sub_info">
-										<img src="img/icons/email118.png" alt="email"></a>
-										<span class="name">window.localStorage["email"]+</span>
-									</div>
-									<div class="sub_info">
-										<img src="img/icons/contact1.png" alt="contacts"></a>
-										<span class="name">window.localStorage["mobile"]+</span>
-									</div>
-								</li>
-							</ul>
-						</div>		
-			</div>
-			
-			<div id="leftPanel" class="panel left" data-role="panel" data-position="left" data-display="push" >
-						 <div id="menu-wrapper">
-							<div class="menu-title">
-						  	<span>SETTING</span>
-								<a href="#" class="ui-btn ui-corner-all ui-icon-delete ui-btn-icon-notext ui-btn-right"  title="Close" onclick="closePanels();"> </a>
-						    </div>
-						
-							<ul class="menu">
-							
-								<li class="icon home">
-									<a href="#" onclick="gotoHome();">
-										<span class="menu-li-title">Home</span>
-										<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">
-									</a>
-								</li>					
-								<li class="icon assignment">
-									<a href="#" onclick="getAssignments();" >
-										<span class="menu-li-title">Assignment & Test</span>
-										<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">
-									</a>
-								</li>	
-							</ul>
-						</div>		
-			</div> -->
 			
 				<div data-role="header" data-id="header" id="header" data-position="fixed" class="ui-header app-header-section">
 					<!-- 
@@ -143,12 +89,367 @@
 						<a href="#rightPanel" class="ui-btn ui-corner-all ui-icon-gear ui-btn-icon-notext"  title="Setting"> </a>
 					</div>
 					 -->
-                </div>	
+                </div>
+                
 				<div class="st-background">
 					<div data-role="content">
 						
-						<div class="home-dashboard">
+						<div id="student_homepage" class="home-dashboard display-none">
+							<section id="#" class="mb-stuent-sm-info user-compact-info">
+									<div class="mb-student-photo"><img src="img/avatars/avatar-male.png" /></div>
+									<p class="mb-student-name">----</p>
+									<ul class="mb-student-more-info">
+										<li class="user-id">ID:<span></span></li>
+										<li class="user-id-other">Adm No: <span>--</span></li>
+										<li class="gender">M/F:<span>--</span></li>
+										<li class="age">Age:<span>--</span></li>
+									</ul>
+									<ul class="mb-student-links">
+										<li><a href="#"  rel="mb-student-profile" class="current"><span class="icon icon1"></span></a></li>
+										<li><a href="#" rel="mb-student-assignment"><span class="icon icon2"></span></a></li>
+										<li><a href="#" rel="mb-student-communication"><span class="icon icon3"></span></a></li>
+									</ul>
+							</section>
+							
+							<section id="" class="mb-student-profile mb-student-tab-content user-detailed-info">
+							
+								<div class="student-profile-title user-contact-info-title" onclick="studentProfileTitleClick(this);">
+									<span class="icon"></span>
+									<p>Contact Details </p>
+									<span class="view-more-arrow"></span>
+								</div>
+								
+								<div class="student-profile-content user-contact-info-content">
+									<div class="user-contact-info">
+										<span class="address-info line-break-span"><i class="fa fa-map-marker fa-fw"></i><span>---- </span></span>
+										<span class="mobile-info line-break-span"><i class="fa fa-phone fa-fw"></i><span>----</span></span>
+										<span class="email-info line-break-span"><i class="fa fa-envelope-o fa-fw"></i><span>----</span></span>
+									</div>
+								</div>
+								
+								<div class="student-profile-title user-parent-info-title mini" onclick="studentProfileTitleClick(this);">
+									<span class="icon icon1"></span>
+									<p>Parent Detail</p>
+									<span class="view-more-arrow"></span>
+								</div>
+								<div class="student-profile-content user-parent-info-content" style="display: none;">
+									<div class="user-contact-info">
+										<span class="parent-name line-break-span"><i class="fa fa-user fa-fw"></i><span>----</span></span>
+										<span class="parent-mobile line-break-span"><i class="fa fa-phone fa-fw"></i><span>----</span></span>
+										<span class="parent-email line-break-span"><i class="fa fa-envelope-o fa-fw"></i><span>----</span></span>
+									</div>
+								</div>
+								
+								<div class="student-profile-title user-award-info-title mini" onclick="studentProfileTitleClick(this);">
+									<span class="icon icon2"></span>
+									<p>Awards</p>
+									<span class="view-more-arrow"></span>
+								</div>
+								<div class="student-profile-content user-award-info-content" style="display: none;">
+									<div class="user-data-info">
+										<span class="line-break-span">
+											<i class="fa fa-info-circle fa-fw"></i>
+											<span>No awards gained yet, just Belive You Can.</span>
+										</span>
+									</div>
+								</div>
+								
+								<div class="student-profile-title mini" onclick="studentProfileTitleClick(this);">
+									<span class="icon icon3"></span>
+									<p>Attendance and Discipline</p>
+									<span class="view-more-arrow"></span>
+								</div>
+								<div class="student-profile-content" style="display: none;">
+									<p class="heading">Attendance: <span id="monthWithYear">2016</span> </p>
+									<p>
+											<span class="dynamicSparkbar"></span>
+									</p>
+									 
+									 <table class="leave-description-table table table-hover table-striped table-bordered" id="leaveDescription">
+										<tbody>
+										<!-- 
+				                     		<tr>
+						                 		<td class="date">
+						                 			06-Jan
+						                 		</td>
+						                 		<td class="reason">	
+						                 			&nbsp; <strong>NO REASONS</strong>
+						                 		</td>
+				                 				<td class="approve-type red">
+						                 			&nbsp; Not Approved
+						                 		</td>
+					                		</tr>
+					                		 -->
+										</tbody>
+									</table>
+									<img src="img/st_icons/student-behaviour.png"/>
+								</div>
+								
+							</section>
+							
+							<section id="" class="mb-student-assignment mb-student-tab-content" style="display:none;">
+									<ul class="mb-student-assignment-dashboard">
+										<li class="highlighte">
+											<div class="dashboard-content">
+												<a href="#"  rel="mb-st-assignment-list">
+													<span class="st-assign-status">10</span>
+													<p>Assignment</p>
+												</a>
+												<span></span>
+											</div>
+										</li>
+										<li class="">
+											<div class="dashboard-content">
+												<a href="#" rel="mb-st-assignment-completed">
+													<span class="st-assign-status">10</span>
+													<p>Completed</p>
+												</a>
+												<span></span>
+											</div>
+										</li>
+										<li class="">
+											<div class="dashboard-content">
+												<a href="#" rel="mb-st-assignment-pending">
+													<span class="st-assign-status">10</span>
+													<p>Pending</p>
+												</a>
+												<span></span>
+											</div>
+										</li>
+										<li class="" style="display: none;">
+											<div class="dashboard-content">
+												<img src="img/st_icons/assignment-list.png" />
+											</div>
+										</li>		
+									</ul>
+									
+									<div id="" class="mb-st-assignment-list mb-assignment-tab-content">
+										<ul class="st-assigment">
+											<li>
+												<i class="fa fa-dot-circle-o status-circle"></i>
+												<div class="st-assign-detail">
+													<span class="assign-arrow"></span>
+														<div class="assign-header">
+															<span class="sub-name">Subject:Basic Design</span>
+															<span class="assign-date">Posted On 29 Apr 2015</span>
+														</div>
+														<p class="assign-title">True, but it is meant for designing on their platform, which has these types: Floating action <a href="" class="assign-attachment"><i class="fa fa-paperclip"></i></a></p>
+														<div class="st-assign-more-info">
+															<span class="teacher-name">By : Teacher Name  </span>
+															<span class="submit-date">Due on 31 Apr 2015  </span>
+															<span class="submit-status">Status : Done</span>
+														</div>
+												</div>
+											</li>
+											<li>
+												<i class="fa fa-dot-circle-o status-circle status-completed"></i>
+												<div class="st-assign-detail">
+													<span class="assign-arrow"></span>
+														<div class="assign-header">
+															<span class="sub-name">Subject:Basic Design</span>
+															<span class="assign-date">Posted On 29 Apr 2015</span>
+														</div>
+														<p class="assign-title">True, but it is meant for designing on their platform, which has these types: Floating action <a href="" class="assign-attachment"><i class="fa fa-paperclip"></i></a></p>
+														<div class="st-assign-more-info">
+															<span class="teacher-name">By : Teacher Name  </span>
+															<span class="submit-date">Due on 31 Apr 2015  </span>
+															<span class="submit-status">Status : Done</span>
+														</div>
+												</div>
+											</li>
+											<li>
+												<i class="fa fa-dot-circle-o status-circle status-pending"></i>
+												<div class="st-assign-detail">
+													<span class="assign-arrow"></span>
+														<div class="assign-header">
+															<span class="sub-name">Subject:Basic Design</span>
+															<span class="assign-date">Posted On 29 Apr 2015</span>
+														</div>
+														<p class="assign-title">True, but it is meant for designing on their platform, which has these types: Floating action <a href="" class="assign-attachment"><i class="fa fa-paperclip"></i></a></p>
+														<div class="st-assign-more-info">
+															<span class="teacher-name">By : Teacher Name  </span>
+															<span class="submit-date">Due on 31 Apr 2015  </span>
+															<span class="submit-status">Status : Done</span>
+														</div>
+												</div>
+											</li>
+										</ul>
+										
+										<div class="assign-search display-none">
+											<textarea></textarea><button type="button" class="btn btn-primary">SEARCH</button>
+										</div>
+									</div>
+								
+									<div id="" class="mb-st-common-list mb-st-assignment-completed mb-assignment-tab-content" style="display:none;">
+										<ul class="st-assigment">
+											<li>
+												<i class="fa fa-dot-circle-o status-circle"></i>
+												<div class="st-assign-detail">
+													<span class="assign-arrow"></span>
+														<div class="assign-header">
+															<span class="sub-name">Subject:Basic Design</span>
+															<span class="assign-date">Posted On 29 Apr 2015</span>
+														</div>
+														<p class="assign-title">True, but it is meant for designing on their platform, which has these types: Floating action <a href="" class="assign-attachment"><i class="fa fa-paperclip"></i></a></p>
+														<div class="st-assign-more-info">
+															<span class="teacher-name">By : Teacher Name  </span>
+															<span class="submit-date">Due on 31 Apr 2015  </span>
+															<span class="submit-status">Status : Done</span>
+														</div>
+												</div>
+											</li>
+											<li>
+												<i class="fa fa-dot-circle-o status-circle status-completed"></i>
+												<div class="st-assign-detail">
+													<span class="assign-arrow"></span>
+														<div class="assign-header">
+															<span class="sub-name">Subject:Basic Design</span>
+															<span class="assign-date">Posted On 29 Apr 2015</span>
+														</div>
+														<p class="assign-title">True, but it is meant for designing on their platform, which has these types: Floating action <a href="" class="assign-attachment"><i class="fa fa-paperclip"></i></a></p>
+														<div class="st-assign-more-info">
+															<span class="teacher-name">By : Teacher Name  </span>
+															<span class="submit-date">Due on 31 Apr 2015  </span>
+															<span class="submit-status">Status : Done</span>
+														</div>
+												</div>
+											</li>
+											<li>
+												<i class="fa fa-dot-circle-o status-circle status-pending"></i>
+												<div class="st-assign-detail">
+													<span class="assign-arrow"></span>
+														<div class="assign-header">
+															<span class="sub-name">Subject:Basic Design</span>
+															<span class="assign-date">Posted On 29 Apr 2015</span>
+														</div>
+														<p class="assign-title">True, but it is meant for designing on their platform, which has these types: Floating action <a href="" class="assign-attachment"><i class="fa fa-paperclip"></i></a></p>
+														<div class="st-assign-more-info">
+															<span class="teacher-name">By : Teacher Name  </span>
+															<span class="submit-date">Due on 31 Apr 2015  </span>
+															<span class="submit-status">Status : Done</span>
+														</div>
+												</div>
+											</li>
+										</ul>
+										<div class="assign-search display-none">
+											<textarea></textarea><button type="button" class="btn btn-primary">SEARCH</button>
+										</div>
+									</div>
+								
+									<div id="" class="mb-st-common-list mb-st-assignment-pending mb-assignment-tab-content" style="display:none;">
+										<ul class="st-assigment">
+											<li>
+												<i class="fa fa-dot-circle-o status-circle"></i>
+												<div class="st-assign-detail">
+													<span class="assign-arrow"></span>
+														<div class="assign-header">
+															<span class="sub-name">Subject:Basic Design</span>
+															<span class="assign-date">Posted On 29 Apr 2015</span>
+														</div>
+														<p class="assign-title">True, but it is meant for designing on their platform, which has these types: Floating action <a href="" class="assign-attachment"><i class="fa fa-paperclip"></i></a></p>
+														<div class="st-assign-more-info">
+															<span class="teacher-name">By : Teacher Name  </span>
+															<span class="submit-date">Due on 31 Apr 2015  </span>
+															<span class="submit-status">Status : Done</span>
+														</div>
+												</div>
+											</li>
+											<li>
+												<i class="fa fa-dot-circle-o status-circle status-completed"></i>
+												<div class="st-assign-detail">
+													<span class="assign-arrow"></span>
+														<div class="assign-header">
+															<span class="sub-name">Subject:Basic Design</span>
+															<span class="assign-date">Posted On 29 Apr 2015</span>
+														</div>
+														<p class="assign-title">True, but it is meant for designing on their platform, which has these types: Floating action <a href="" class="assign-attachment"><i class="fa fa-paperclip"></i></a></p>
+														<div class="st-assign-more-info">
+															<span class="teacher-name">By : Teacher Name  </span>
+															<span class="submit-date">Due on 31 Apr 2015  </span>
+															<span class="submit-status">Status : Done</span>
+														</div>
+												</div>
+											</li>
+											<li>
+												<i class="fa fa-dot-circle-o status-circle status-pending"></i>
+												<div class="st-assign-detail">
+													<span class="assign-arrow"></span>
+														<div class="assign-header">
+															<span class="sub-name">Subject:Basic Design</span>
+															<span class="assign-date">Posted On 29 Apr 2015</span>
+														</div>
+														<p class="assign-title">True, but it is meant for designing on their platform, which has these types: Floating action <a href="" class="assign-attachment"><i class="fa fa-paperclip"></i></a></p>
+														<div class="st-assign-more-info">
+															<span class="teacher-name">By : Teacher Name  </span>
+															<span class="submit-date">Due on 31 Apr 2015  </span>
+															<span class="submit-status">Status : Done</span>
+														</div>
+												</div>
+											</li>
+										</ul>
+										<div class="assign-search display-none">
+											<textarea></textarea><button type="button" class="btn btn-primary">SEARCH</button>
+										</div>
+									</div>
+								
+							</section>
+							
+							<section id="#" class="mb-student-communication mb-student-tab-content" style="display:none;">
+								<ul class="chat">
+									<li class="msg-in">
+										<span class="avatar"><span></span><img src="img/avatars/avatar-male.png" alt=""></span>
+										<div class="message">
+											<div class="msg-txt">
+												<span class="arrow"></span>
+												<p class="msg-body">
+													True, but it is meant for designing on their platform, which has these types:
+													Floating action button, a circular button made of paper that lifts and emits ink reactions on press. 
+												</p>
+											</div>
+											<div class="msg-detail">
+												<span class="st-sender name">Student Name</span>
+												<span class="st-sender msg-date pull-right"><i class="fa fa-clock-o"></i>12/04/2015</span>
+											</div>
+										</div>							
+									</li>
+									<li class="msg-out">
+										<span class="avatar"><img src="img/avatars/avatar-male.png" alt=""></span>
+										<div class="message">
+											<div class="msg-txt">
+												<span class="arrow"></span>
+												<p class="msg-body">
+													True, but it is meant for designing on their platform, which has these types:
+													Floating action button, a circular button made of paper that lifts and emits ink reactions on press. 
+												</p>
+											</div>
+											<div class="msg-detail">
+												<span class="st-sender name">me</span>
+												<span class="st-sender msg-date pull-right"><i class="fa fa-clock-o"></i>12/04/2015</span>
+											</div>
+										</div>							
+									</li>
+									<li class="msg-in">
+										<span class="avatar"><span></span><img src="img/avatars/avatar-male.png" alt=""></span>
+										<div class="message">
+											<div class="msg-txt">
+												<span class="arrow"></span>
+												<p class="msg-body">
+													Ok Done:)
+												</p>
+											</div>
+											<div class="msg-detail">
+												<span class="st-sender name">Student Name</span>
+												<span class="st-sender msg-date pull-right"><i class="fa fa-clock-o"></i>12/04/2015</span>
+											</div>
+										</div>							
+									</li>
+								</ul>
+								<div class="msg-send display-none">
+									<textarea></textarea><button type="button" class="btn btn-primary">SEND</button>
+								</div>
+							</section>
 						
+							<!-- 
 							<div class="div-block">
 								
 								<div class="div-block-container" >
@@ -164,7 +465,7 @@
 										 
 										 <table class="leave-description-table table table-hover table-striped table-bordered" id="leaveDescription">
 											<tbody>
-											<!-- 
+											
 					                     		<tr>
 							                 		<td class="date">
 							                 			06-Jan
@@ -176,7 +477,7 @@
 							                 			&nbsp; Not Approved
 							                 		</td>
 						                		</tr>
-						                		 -->
+						                		
 											</tbody>
 										</table>
 										
@@ -185,19 +486,18 @@
 								</div>
 								 
 							</div>
-							
 							<div class="div-block stud-profile-container">
+							
 							     <div class="profile-details">
 									<div class="profile-photo" data-toggle="modal" >
 										<img class="image" src="img/avatars/avatar-male.png">
 									</div>
-									<table class="profile-info">
+									<table class="user-profile-info">
 										<tbody>
 											<tr>
 												<td colspan="2"><p class="name">Name</p></td>
 											</tr>
 											<tr>
-												<!-- <td><strong>ID: </strong> 1</td> -->
 												<td colspan="2" class="admission-number"><strong>Adm No: </strong> <span>Adm No:</span></td>
 											</tr>
 											<tr>
@@ -238,7 +538,6 @@
 									<span class="rel-info-thumb"><span></span>Awards</span>
 											
 									<ul id="achievementDetailsUl" class="rel-info-list">
-										<!-- <li><p></p></li> -->	
 									</ul>
 								 </div>
 							</div>
@@ -267,11 +566,9 @@
 									<div class="div-block-data">
 										<p class="message"></p>
 									</div>
-									<!-- 
 									<div class="div-block-footer">
 										<a href="#" class="link right">View All</a>
 									</div>
-									 -->
 								</div>
 							</div>
 							
@@ -286,6 +583,7 @@
 									</div>
 								</div>
 							</div>
+							-->
 							<!-- 
 							<div class="div-block latest-updates">
 								<div class="div-block-container" >
@@ -335,6 +633,11 @@
 							</div>
 							 -->
 							
+						</div>
+						
+						<div id="staff_homepage" class="home-dashboard display-none">
+							Staff homepage
+						
 						</div>
 					</div>
 				</div>
@@ -458,6 +761,126 @@
                 
             </div>
             
+            <div id="stan-div-students-page" data-role="page">
+                <div data-role="header" data-id="header" id="header" data-position="fixed" class="ui-header app-header-section">
+                    <h1></h1>
+                </div>
+                
+                <div data-role="content" >   
+                	
+                	<div class="stan-div-students-details"> 
+    					<div class="page-tab-heading common-page-tab-heading bottom-border"></div>
+    					
+    					<div>
+							<ul class="user_list_detailed" id="markAttendanceUl" data-filter="true" data-filter-placeholder="Search..">
+								
+							</ul>
+						</div>	
+					</div>
+                	             	
+                </div>
+                
+            </div>
+            
+            <div id="common-user-list-page" data-role="page">
+                <div data-role="header" data-id="header" id="header" data-position="fixed" class="ui-header app-header-section">
+                    <h1></h1>
+                </div>
+                
+                <div data-role="content" >   
+                	
+                	<div class="common-user-list-details"> 
+    					<div class="page-tab-heading common-page-tab-heading bottom-border"></div>
+    					
+    					<div>
+							<ul class="user_list_detailed" id="markAttendanceUl" data-filter="true" data-filter-placeholder="Search..">
+								
+							</ul>
+						</div>	
+					</div>
+                	             	
+                </div>
+                
+            </div>
+            
+            <div id="mark-attendance-page" data-role="page">
+                <div data-role="header" data-id="header" id="header" data-position="fixed" class="ui-header app-header-section">
+                    <h1>Mark Attendance</h1>
+                </div>
+                
+                <div data-role="content" >   
+                	
+                	<div class=""> 
+    
+						<ul class="user_list_detailed" id="markAttendanceUl" data-filter="true" data-filter-placeholder="Search..">
+					  
+							<li class="user_list_li" onclick="openAttendanceDetails(this);" >
+								<div class="user-details">
+									<div class="user-img"><img title="" alt="" src="img/avatars/avatar-male.png"></div>
+									
+									<div class="small_details">
+										<h5>Anamika Apte</h5>
+										<a href="#" class="ui-link">Roll 15213</a>
+									</div>
+									
+									<div class="action_icon">
+										<a href="#" class="ui-link"><img title="" alt="" src=""></a>
+									</div>
+								</div>
+								
+								<div class="period-list-attendance-div" style="display: none;">
+								    	<ul class="period-list-attendance" id="period-list-attendance">
+										  <li class="select-all selected">All</li>
+										  <li onclick="selectPeriodLi(this);">1</li>
+										  <li onclick="selectPeriodLi(this);">2</li>
+										  <li onclick="selectPeriodLi(this);">3</li>
+										  <li onclick="selectPeriodLi(this);">4</li>
+										  <li onclick="selectPeriodLi(this);">5</li>
+										  <li onclick="selectPeriodLi(this);">6</li>
+										  <li onclick="selectPeriodLi(this);">7</li>
+										  <li onclick="selectPeriodLi(this);">8</li>
+									   </ul>
+								</div>	
+							
+							</li> 
+							
+							<li class="user_list_li" onclick="openAttendanceDetails(this);" >
+								<div class="user-details">
+									<div class="user-img"><img title="" alt="" src="img/avatars/avatar-male.png"></div>
+									
+									<div class="small_details">
+										<h5>Urvi darji</h5>
+										<a href="#" class="ui-link">Roll 15213</a>
+									</div>
+									
+									<div class="action_icon">
+										<a href="#" class="ui-link"><img title="" alt="" src=""></a>
+									</div>
+								</div>
+								
+								<div class="period-list-attendance-div" style="display: none;">
+								    	<ul class="period-list-attendance" id="period-list-attendance">
+										  <li class="select-all selected">All</li>
+										  <li onclick="selectPeriodLi(this);">1</li>
+										  <li onclick="selectPeriodLi(this);">2</li>
+										  <li onclick="selectPeriodLi(this);">3</li>
+										  <li onclick="selectPeriodLi(this);">4</li>
+										  <li onclick="selectPeriodLi(this);">5</li>
+										  <li onclick="selectPeriodLi(this);">6</li>
+										  <li onclick="selectPeriodLi(this);">7</li>
+										  <li onclick="selectPeriodLi(this);">8</li>
+									   </ul>
+								</div>	
+							
+							</li> 
+							
+						</ul>
+					</div>
+                	             	
+                </div>
+                
+            </div>
+            
             <div id="change-password-page" data-role="page">
                 <div data-role="header" data-id="header" id="header" data-position="fixed" class="ui-header app-header-section">
                 	
@@ -506,7 +929,14 @@
   									
 							</div>
 							
+							<div class="mb-st-assignment-list mb-assignment-tab-content" id="">
+								<ul class="st-assigment">
+								
+								</ul>
+							</div>	
+							
 						    <div class="table-main-div">
+						    	<ul class="st-assigment"></ul>
 								<!-- 
 								<div class="table-div">
 								    <div class="date-time-details">
