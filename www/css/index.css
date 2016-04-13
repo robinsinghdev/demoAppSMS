@@ -1,7 +1,9 @@
 body {
     margin: 0;
     padding: 0;
-    font-size: 13px;
+/*     font-size: 13px; */
+    font-family: 'Titillium Web', sans-serif;
+	font-size:14px;
 }
 * {
     -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
@@ -97,7 +99,7 @@ img, iframe {
     margin: 0;
     min-height: 2.2em;
     text-align: left;
-	padding: 0.1em 0;
+	/* padding: 0.1em 0; */
 }
 
 .input-field {
@@ -662,7 +664,7 @@ ul.features_list_detailed li .view_more a.ui-link-more {
     padding-bottom: 10px;
 }
 
-.menu .profile-detail .personal_detail{
+.menu .profile-detail .person_details{
 	border-bottom: 1px solid #6c6c6c;
 	padding: 0 0 5px;
 	
@@ -680,7 +682,7 @@ ul.features_list_detailed li .view_more a.ui-link-more {
     width: 50px;
 }
 
-.menu .personal_detail .name {
+.menu .person_details .name {
     color: #fff;
     float: left;
     font-size: 13px;
@@ -689,7 +691,7 @@ ul.features_list_detailed li .view_more a.ui-link-more {
     margin-right: 30px;
 }
 
-.menu .personal_detail a.edit-link {
+.menu .person_details a.edit-link {
     height: auto;
 }
 
@@ -703,7 +705,7 @@ ul.features_list_detailed li .view_more a.ui-link-more {
 }
 
 
-.sub_info .name {
+.sub_info .details-data {
     /* color: #009688;
     font-size: 12px;
     vertical-align: top; */
@@ -734,7 +736,7 @@ ul.features_list_detailed li .view_more a.ui-link-more {
 /* Home Page Dashboard Posts Ends */
 
 
-html, body, div, span, applet, object, iframes,
+/* html, body, div, span, applet, object, iframes,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
@@ -753,7 +755,7 @@ time, mark, audio, video {
     font-size: 100%;
     font: inherit;
     vertical-align: baseline;
-}
+} */
 
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
@@ -779,10 +781,9 @@ table {
     /*box-sizing: border-box; */
 }
 
-body {
-    font-family: 'Roboto', sans-serif;
+/* body {
     background-color: #EEE;
-}
+} */
 
 footer {
     position: absolute;
@@ -1108,10 +1109,114 @@ table.leave-description-table > tbody > tr > td, .table > tbody > tr > th{
 	color: #ff0000;
 }
 
-.common-page-tab-heading{
-    font-size: 16px;
-    padding-bottom: 10px;
+.common-page-tab-heading {
+    font-size: 18px;
+    font-weight: 500;
+    padding: 10px;
     text-align: center;
     text-transform: uppercase;
 }
+
+/* List user_list_detailed CSS Starts */
+
+ul.user_list_detailed {
+    clear: both;
+    float: left;
+    list-style: outside none none;
+    margin: 0;
+    padding: 10px 0 30px;
+    width: 100%;
+}
+
+ul.user_list_detailed li.user_list_li {
+    background: #fff none repeat scroll 0 0;
+    border: 1px solid #c6c6c6;
+    border-radius: 3px;
+    clear: both;
+    display: block;
+    float: left;
+    margin-bottom: 5px;
+    /* 
+    margin: 1px 0 10px -11px;
+    padding: 10px;
+     */
+    width: 100%;
+}
+
+ul.user_list_detailed li.user_list_li .user-details{
+	width: 100%;
+	float: left;
+}
+
+ul.user_list_detailed li.user_list_li .user-img {
+    float: left;
+    width: 20%;
+    padding: 2px;
+}
+
+ul.user_list_detailed li.user_list_li .user-img img {
+    display: inline-block;
+    max-width: 95%;
+    height: 64px;
+    width: 64px;
+}
+
+ul.user_list_detailed li.user_list_li .small_details {
+    float: left;
+    width: 60%;
+}
+
+ul.user_list_detailed li.user_list_li .small_details h5 {
+    color: #535353;
+    font-size: 15px;
+    font-weight: 700;
+    margin: 5px 0 0;
+    padding: 0 0 5px;
+}
+
+ul.user_list_detailed li.user_list_li .small_details a {
+    color: #8e9091;
+    font-size: 15px;
+    font-weight: normal;
+}
+
+ul.user_list_detailed li.user_list_li .action_icon {
+    float: left;
+    width: 18%;
+}
+
+/* List user_list_detailed CSS Starts */
+
+/* period-list-attendance-div CSS Starts */
+
+.period-list-attendance-div {
+   /*  height: 30px;
+    padding: 0 20px;
+    position: absolute;
+    right: 0;
+    top: 0; */
+}
+
+.period-list-attendance {	
+    margin: 10px 0 0 0;    
+}
+.period-list-attendance > li {
+   	background: #ddd none repeat scroll 0 0;
+    cursor: pointer;
+    float: left;
+    font-size: 16px;
+    height: 40px;
+    line-height: 40px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+    text-align: center;
+    width: 40px;
+}
+.period-list-attendance > li.selected {
+    background: #fe6c6d none repeat scroll 0 0;
+}
+
+/* period-list-attendance-div CSS Starts */
+
+
 
