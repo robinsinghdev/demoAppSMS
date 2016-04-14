@@ -1,4 +1,5 @@
 
+var noDataFoundMsg = "No data found.";
 $( document ).on( "mobileinit", function() {
     // Make your jQuery Mobile framework configuration changes here!
 	 $.support.cors = true;
@@ -21,16 +22,15 @@ var rightPanelObj = //'<div id="rightPanel" class="panel right" data-role="panel
 						'<div id="menu-wrapper">'+
 							'<div class="menu-title">'+
 						    	'<span>SETTING</span>'+
-								//'<a href="#" class="ui-btn ui-corner-all ui-icon-delete ui-btn-icon-notext ui-btn-right"  title="Close" onclick="closePanels();"> </a>'+
 						    '</div>'+
 						
 							'<ul class="menu">'+
 							
-								'<li class="profile-detail">'+
-									'<div class="personal_detail">'+
+								'<li class="profile-detail person_details_right_panel">'+
+									'<div class="person_details">'+
 										'<div class="circular">'+'</div>'+
-										'<span class="name">'+window.localStorage["name"]+'</span>'+
-										'<a class="edit-link" href="#" onclick="editProfile();"><img src="img/icons/edit.png" class="img-circle" alt="">'+'</a>'+
+										'<span class="details-data name">'+window.localStorage["name"]+'</span>'+
+										'<a class="edit-link display-none" href="#" onclick="editProfile();"><img src="img/icons/edit.png" class="img-circle" alt="">'+'</a>'+
 									'</div>'+
 									/*
 									'<div class="sub_info">'+
@@ -40,12 +40,18 @@ var rightPanelObj = //'<div id="rightPanel" class="panel right" data-role="panel
 									*/
 									'<div class="sub_info">'+
 										'<img src="img/icons/email118.png" alt="email">'+'</a>'+
-										'<span class="name">'+window.localStorage["email"]+'</span>'+
+										'<span class="email details-data">'+window.localStorage["username"]+'</span>'+
 									'</div>'+
 									'<div class="sub_info">'+
 										'<img src="img/icons/contact1.png" alt="contacts">'+'</a>'+
-										'<span class="name">'+window.localStorage["mobile"]+'</span>'+
+										'<span class="contact_number details-data">'+window.localStorage["mobile"]+'</span>'+
 									'</div>'+
+								'</li>'+
+								
+								'<li class="icon holiday">'+
+									'<a href="#" onclick="getHolidays();" data-rel="close" >'+
+										'<span class="menu-li-title">Holidays List</span>'+
+									'</a>'+
 								'</li>'+
 								
 								/*
@@ -55,11 +61,6 @@ var rightPanelObj = //'<div id="rightPanel" class="panel right" data-role="panel
 									'</a>'+
 								'</li>'+
 								
-								'<li class="icon holiday">'+
-									'<a href="#" data-rel="close" >'+
-										'<span class="menu-li-title">Holidays List</span>'+
-									'</a>'+
-								'</li>'+
 								'<li class="icon master_document">'+
 									'<a href="#" data-rel="close" >'+
 										'<span class="menu-li-title">Master Documents</span>'+
@@ -88,11 +89,10 @@ var rightPanelObj = //'<div id="rightPanel" class="panel right" data-role="panel
 //getScholoarships
 //getPreviousInstitutes
 //getTimetable
-var leftPanelObj= //'<div id="leftPanel" class="panel left" data-role="panel" data-position="left" data-display="push" >'+
+var leftPanelObjForStudent= //'<div id="leftPanel" class="panel left" data-role="panel" data-position="left" data-display="push" >'+
 					'<div id="menu-wrapper">'+			
 						'<div class="menu-title">'+
 					    	'<span>MENU</span>'+
-							//'<a href="#" onclick="closePanels();" class="ui-btn ui-corner-all ui-icon-delete ui-btn-icon-notext ui-btn-right"  title="Close"> </a>'+
 					    '</div>'+
 						'<ul class="menu">'+					
 							'<li class="icon home">'+
@@ -118,31 +118,31 @@ var leftPanelObj= //'<div id="leftPanel" class="panel left" data-role="panel" da
 									'<span class="menu-li-title">Academic Achievements</span>'+
 									'<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">'+
 								'</a>'+
-							'</li>'+							
+							'</li>'+
 							'<li class="icon external">'+
 								'<a href="#" onclick="getExternalActivies();" data-rel="close">'+
 									'<span class="menu-li-title">External Activity</span>'+
 									'<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">'+
 								'</a>'+
-							'</li>'+					
+							'</li>'+	
 							'<li class="icon scholarship">'+
 								'<a href="#" onclick="getScholoarships();" data-rel="close">'+
 									'<span class="menu-li-title">Scholarships</span>'+
 									'<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">'+
 								'</a>'+
-							'</li>'+							
+							'</li>'+	
 							'<li class="icon seminar">'+
 								'<a href="#" onclick="getSeminars();" data-rel="close">'+
 									'<span class="menu-li-title">Seminars</span>'+
 									'<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">'+
 								'</a>'+
-							'</li>'+							
+							'</li>'+			
 							'<li class="icon desciplines">'+
 								'<a href="#" onclick="getDisciplines();" data-rel="close">'+
 									'<span class="menu-li-title">Disciplines</span>'+
 									'<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">'+
 								'</a>'+
-							'</li>'+				
+							'</li>'+		
 							/*
 							'<li class="icon timetable">'+
 								'<a href="#" onclick="getTimetable(); " data-rel="close">'+
@@ -157,6 +157,76 @@ var leftPanelObj= //'<div id="leftPanel" class="panel left" data-role="panel" da
 							'</a>'+
 							*/
 						'</li>'+
+						'</ul>'+
+					'</div>'+
+				'</div>';
+
+var leftPanelObjForStaff= //'<div id="leftPanel" class="panel left" data-role="panel" data-position="left" data-display="push" >'+
+					'<div id="menu-wrapper">'+			
+						'<div class="menu-title">'+
+					    	'<span>MENU</span>'+
+					    '</div>'+
+						'<ul class="menu">'+		
+							'<li class="icon home">'+
+								'<a href="#" onclick="gotoHome();" data-rel="close" >'+
+									'<span class="menu-li-title">Home</span>'+
+									'<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">'+
+								'</a>'+
+							'</li>'+
+							
+							'<li class="icon">'+
+								'<a href="#" onclick="getStanDivisionMapForStaff();" data-rel="close">'+
+									'<span class="menu-li-title">My Classes</span>'+
+									'<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">'+
+								'</a>'+
+							'</li>'+							
+							'<li class="icon">'+
+								'<a href="#" onclick="getSubjectAllocationForStaff();" data-rel="close">'+
+									'<span class="menu-li-title">My Subjects</span>'+
+									'<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">'+
+								'</a>'+
+							'</li>'+		
+							'<li class="icon">'+
+								'<a href="#" onclick="getStaffAttendanceForStaff();" data-rel="close">'+
+									'<span class="menu-li-title">My Attendance</span>'+
+									'<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">'+
+								'</a>'+
+							'</li>'+
+							
+							/*
+							'<li class="icon timetable">'+
+								'<a href="#" onclick="getTimetable(); " data-rel="close">'+
+									'<span class="menu-li-title">Holidays</span>'+
+									'<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">'+
+								'</a>'+
+							'</li>'+
+							
+							'<li class="icon assignment">'+
+								'<a href="#" onclick="getStaffDetails();" data-rel="close" >'+
+									'<span class="menu-li-title">My Details</span>'+
+									'<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">'+
+								'</a>'+
+							'</li>'+	
+							'<li class="icon book">'+
+								'<a href="#" onclick="getEducationalQualificationForStaff();" data-rel="close">'+
+									'<span class="menu-li-title">Educational Qualification</span>'+
+									'<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">'+
+								'</a>'+
+							'</li>'+					
+							'<li class="icon scholarship">'+
+								'<a href="#" onclick="getLeaveDetailsForStaff();" data-rel="close">'+
+									'<span class="menu-li-title">Leave Details</span>'+
+									'<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">'+
+								'</a>'+
+							'</li>'+
+							'<li class="icon seminar">'+
+								'<a href="#" onclick="getSeminars();" data-rel="close">'+
+									'<span class="menu-li-title">Seminars</span>'+
+									'<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">'+
+								'</a>'+
+							'</li>'+
+							*/
+							
 						'</ul>'+					
 					'</div>'+					 
 				'</div>';
@@ -181,34 +251,87 @@ $(document).one('pagebeforecreate', function () {
     }
    */
     
-    $.mobile.pageContainer.find("[data-role=page]").each(function () {
-        var leftPanelDynObj = '<div id="leftPanel' + dynPanelCount + '" class="panel left" data-role="panel" data-position="left" data-display="push" >'+
-        			leftPanelObj;
-        var rightPanelDynObj = '<div id="rightPanel' + dynPanelCount + '"  class="panel right" data-role="panel" data-position="right" data-display="push" >'+
-        						rightPanelObj;
-        $(this).prepend(leftPanelDynObj);
-        $(this).prepend(rightPanelDynObj);
-        dynPanelCount++;
+	panelsInitialization(true, true, 0);
+});
+
+function panelsInitialization(initLeftPanelFlag, initRightPanelFlag, roleId){
+	dynPanelCount = 1;
+	dynPanelBtnCount = 1;
+	
+	$(".st-leftPanel").remove();
+    $(".st-rightPanel").remove();
+    $(".st-leftPanel-btn").remove();
+    $(".st-rightPanel-btn").remove();
+    
+	
+	 $.mobile.pageContainer.find("[data-role=page]").each(function () {
+	        var leftPanelDynObj="";
+	        leftPanelDynObj += '<div id="leftPanel' + dynPanelCount + '" class="panel left st-leftPanel" data-role="panel" data-position="left" data-display="push" >';
+	        
+	        if(roleId==0 || roleId==4 || roleId==9){
+	        	leftPanelDynObj += leftPanelObjForStudent;
+	        }
+	        else if(roleId==2){
+	        	leftPanelDynObj += leftPanelObjForStaff;
+	        }
+	        
+	        var rightPanelDynObj = '<div id="rightPanel' + dynPanelCount + '"  class="panel right st-rightPanel" data-role="panel" data-position="right" data-display="push" >'+
+	        						rightPanelObj;
+	        
+	        $(this).prepend(leftPanelDynObj);
+	        $(this).prepend(rightPanelDynObj);
+	        dynPanelCount++;
     });
+	 
     $.mobile.pageContainer.find("[data-role=header]").each(function () {
-        var leftPanelDynBtn='<a href="#leftPanel' + (dynPanelBtnCount+1) + '" data-theme="none" data-inline="true" class="ui-btn ui-btn-icon-notext edit-logo" title="Menu">'+
+        var leftPanelDynBtn='<a href="#leftPanel' + (dynPanelBtnCount+1) + '" data-theme="none" data-inline="true" class="ui-btn ui-btn-icon-notext st-leftPanel-btn edit-logo" title="Menu">'+
 						'<img src="img/edit-sm-logo.png" alt="logo" /></a>';
         
         var rightPanelDynBtn='<div class="ui-btn-right right-space">'+
-								'<a href="#rightPanel' + (dynPanelBtnCount+1) + '" class="ui-btn ui-corner-all ui-icon-gear ui-btn-icon-notext"  title="Setting"> </a>'+
+								'<a href="#rightPanel' + (dynPanelBtnCount+1) + '" class="ui-btn ui-corner-all ui-icon-gear ui-btn-icon-notext st-rightPanel-btn"  title="Setting"> </a>'+
 							'</div>';
         
         $(this).append(leftPanelDynBtn);
         $(this).append(rightPanelDynBtn);
         dynPanelBtnCount++;
     });
-});
+    
+}
 
 $(document).on("pageinit", function () {
     if($(this).attr("href") == "#"+$.mobile.pageContainer.pagecontainer("getActivePage")[0].id) {
     	alert($.mobile.pageContainer.pagecontainer("getActivePage")[0].id);
     	//$("[data-role=panel]").panel("close");
     }
+    
+    /* New Design for Edit CSS Starts */
+	$('.mb-student-links li a').click(function(){
+		var currentDivName = $(this).attr('rel');
+		var hideDivName='.'+$(this).attr('rel');												
+		$('.mb-student-tab-content').hide();
+		$(hideDivName).show();
+		$('.mb-student-links li a').removeClass('current');
+		$(this).addClass('current');
+		
+		if(currentDivName == "mb-student-assignment"){
+			getAssignmentForStudTabs();
+		}
+		else if(currentDivName == "mb-student-communication"){
+			
+		}
+		
+		return false;
+	});
+	
+	$('.mb-student-assignment-dashboard li a').click(function(){
+		var hideDivName='.'+$(this).attr('rel');										
+		$('.mb-assignment-tab-content').hide();
+		$(hideDivName).show();
+		$('.mb-student-assignment-dashboard li').removeClass('highlighte');
+		$(this).parent().parent().addClass('highlighte');
+		return false;
+	});
+	/* New Design for Edit CSS Ends */	
 });
 
 //var appUrl='http://192.168.1.11:8080/Edit/appEntry.do';
@@ -242,24 +365,16 @@ var app = {
     },
     // Phonegap is now ready...
     onDeviceReady: function() {
-        //console.log("device ready, start making you custom calls!");
         document.addEventListener("backbutton", onBackKeyDown, false);
         // Start adding your code here....
-		//app.receivedEvent('deviceready');
-		
 		//db = window.sqlitePlugin.openDatabase({name: "stims.db", location: 2});
 		//db.transaction(initializeDB, errorCB, successCB);
         
         //checkPreAuth();
-		//$("#loginForm").on("submit",handleLogin);
-		
+		$("#loginForm").on("submit",handleLogin);
     },
 	// Update DOM on a Received Event
-    /*
-    receivedEvent: function(id) {
-		
-    }
-    */
+    /* receivedEvent: function(id) {}   */
 };
 
 function showModal(){
@@ -290,7 +405,6 @@ function onBackKeyDown() {
    }
 	else{
 		$.mobile.changePage('#home-page','slide');
-		//closePanels();
 		//window.history.back();
    }
 }
@@ -334,23 +448,27 @@ function logout() {
 }
 
 function gotoHome(){
-	//$("[data-role=panel]").panel("close");
-	//closePanels();
-	$.mobile.changePage('#home-page','slide');
+	if(window.localStorage["userRoleId"] ==4 || window.localStorage["userRoleId"]==9){
+		$("#staff_homepage").hide();
+		$("#student_homepage").show();
+	}else if(loginDataResponse["userRoleId"]==2){ // Teacher Role
+		$("#staff_homepage").show();
+		$("#student_homepage").hide();
+	}
 	
+	$.mobile.changePage('#home-page','slide');
 }
 
 function handleLogin() {
-	//checkConnection();
-	//alert('handle login called');
 	var form = $("#loginForm");
 	//disable the button so we can't resubmit while we wait
-	//$("#submitButton",form).attr("disabled","disabled");
+	$("#submitButton",form).attr("disabled","disabled");
 	var u = $("#username", form).val();
 	var p = $("#password", form).val();
-	u='hcsvenkatesh@g.com';
-	//u='sanjithhcs@g.com';
-	p='admin';
+	//u='hcsvenkatesh@g.com'; //parent username
+	//u='sanjithhcs@g.com'; //student username sanjithhcs@g.com
+	//u='jat@g.com'; //staff username jat@g.com
+	//p='admin';
 	
 	if(u != '' && p!= '') {
 		
@@ -359,12 +477,11 @@ function handleLogin() {
 		
 		var loginData={};
 		
-		
 		if(connectionType=="Unknown connection" || connectionType=="No network connection"){
 			
 			if(window.localStorage["user_logged_in"] ==1) {
 				//checkingUserAssignedRoles();
-				$.mobile.changePage('#home-page',{ transition: "slideup"});
+				//$.mobile.changePage('#home-page',{ transition: "slideup"});
 			}
 			else{
 				navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');
@@ -441,6 +558,8 @@ function handleLogin() {
 						}
 				*/
 				var responseJson=jQuery.parseJSON(data);
+				var responseMessage=responseJson["msg"];
+				
 				if(responseJson.statusCode == "0" ){
 					//var appUserData=responseJson.appUserData;
 					window.localStorage["username"] = u;
@@ -455,10 +574,18 @@ function handleLogin() {
 					window.localStorage["name"] = loginDataResponse["name"];
 					window.localStorage["userRoleId"] = loginDataResponse["userRoleId"];
 					window.localStorage["userRoleName"] = loginDataResponse["userRoleName"];
+					
 					//checkingUserAssignedRoles(); 
+					$person_details_right_panel=$(".person_details_right_panel");
+					$person_details_right_panel.find(".name").html(window.localStorage["name"]);
+					$person_details_right_panel.find(".email").html(window.localStorage["username"]);
 					
 					var allData=responseJson["allData"];
-					if(loginDataResponse["userRoleId"]==4){ // Parent Role
+					
+					if(loginDataResponse["userRoleId"]==4 || loginDataResponse["userRoleId"]==9){ // 4= Parent Role, 9= Student Role
+						
+						$("#staff_homepage").hide();
+						$("#student_homepage").show();
 						
 						// Student & Parent Related data
 						var studData= allData["jsonObjStudData"];
@@ -472,75 +599,88 @@ function handleLogin() {
 						var studentStandardDivisionId=studData["studentStandardDivisionId"];
 						var age=studData["age"];
 						var gender=studData["gender"];
+						
+						var userImgSrc = "img/avatars/avatar-male.png";
+						var studImage = studData["image"];
 						if(gender){
 							gender='Male';
+							userImgSrc = "img/avatars/avatar-male.png";
 						}else{
 							gender='Female';
+							userImgSrc = "img/avatars/avatar-female.png";
 						}
 						
 						var addressOne=studData["addressOne"];
 						var addressTwo=studData["addressTwo"];
 						var studContactNo=studData["studContactNo"];
 						
-						var studImage=studData["image"];
-						
 						var parentsName=studData["parentsName"];
 						var parentEmail=studData["email"];
 						window.localStorage["email"]=parentEmail;
 						
 						var parentsMobileNo=studContactNo;
-						window.localStorage["mobile"]=parentsMobileNo;
+						
+						// 4= Parent Role, 9= Student Role
+						if(loginDataResponse["userRoleId"]==4 ){
+							window.localStorage["mobile"]=parentsMobileNo;
+						}
+						else if(loginDataResponse["userRoleId"]==9){
+							window.localStorage["mobile"]=studMobileNo;
+						}
+						$person_details_right_panel.find(".contact_number").html(window.localStorage["mobile"]);
 						
 						window.localStorage["studDetailsId"] = studentDetailsId;
 						window.localStorage["studStandardDivisionId"] = studentStandardDivisionId;
 						
-						var $profileInfoTableObj=$('table.profile-info');
-						$profileInfoTableObj.find("p.name").html(studName);
-						$profileInfoTableObj.find("td.admission-number span").html(admissionNo);
-						$profileInfoTableObj.find("td.gender span").html(gender);
-						$profileInfoTableObj.find("td.age span").html(age);
-						$profileInfoTableObj.find("td.email span").html(studentEmail);
-						$profileInfoTableObj.find("td.address-data span").html(addressOne+addressTwo);
-						$profileInfoTableObj.find("td.contact span").html(parentsMobileNo);
+						// User Profile Details - Compact Info
+						var $userCompactInfoObj = $('.user-compact-info');
+						$userCompactInfoObj.find(".mb-student-photo img").attr("src", userImgSrc);
+						$userCompactInfoObj.find(".mb-student-name").html(studName);
 						
-						var $parentInfo=$(".parent-info");
-						$parentInfo.find("p.parent-name").html(parentsName);
-						$parentInfo.find("p.parent-mobile").html(parentsMobileNo);
-						$parentInfo.find("p.parent-email").html(parentEmail);
+						// User Profile Details - More Info
+						var $userMoreInfoObj = $userCompactInfoObj.find(".mb-student-more-info");
+						$userMoreInfoObj.find(".user-id").html("");
+						$userMoreInfoObj.find(".user-id-other span").html(admissionNo);
+						$userMoreInfoObj.find(".gender span").html(gender);
+						$userMoreInfoObj.find(".age span").html(age);
 						
-						// Student Acheivements
+						// User Profile Details - Deatiled Info
+						// Student Contact Details
+						var $userDetailedInfoObj = $(".user-detailed-info");
+						var $userDetailedContactInfo = $userDetailedInfoObj.find(".user-contact-info-content");
+						$userDetailedContactInfo.find(".address-info span").html(addressOne+" "+addressTwo);
+						$userDetailedContactInfo.find(".mobile-info span").html(parentsMobileNo);
+						$userDetailedContactInfo.find(".email-info span").html(studentEmail);
+						
+						// Student Parent Details
+						var $parentInfoObj = $userDetailedInfoObj.find(".user-parent-info-content");
+						$parentInfoObj.find(".parent-name span").html(parentsName);
+						$parentInfoObj.find(".parent-mobile span").html(parentsMobileNo);
+						$parentInfoObj.find(".parent-email span").html(parentEmail);
+						
+						// Student Acheivements/Awards Details
+						var $userAwardInfoContentObj = $userDetailedInfoObj.find(".user-award-info-content .user-data-info");
+						$userAwardInfoContentObj.find('span').remove();
+						
 						var jsonObjAcheivements = allData["jsonObjAcheivements"];
 						var jsonArrAcheivements=jsonObjAcheivements["jsonArrAcheivements"];
 						
 						var $achievementDetailsUlObj=$('#achievementDetailsUl');
-						$achievementDetailsUlObj.find('li').remove();
 						if(jsonArrAcheivements.length>0){
 							jQuery.each(jsonArrAcheivements, function(index, item) {
-								var jsonObj=item;
-								
-								var dataEleObj='<li>'+
-													'<p>'+jsonObj["studentAcademicAchievementDetails"]+'</p>'+
-												'</li>';
-								$achievementDetailsUlObj.append(dataEleObj);
+								var dataEleObj='<span class="line-break-span">'+
+													'<i class="fa fa-trophy fa-fw"></i>'+
+													'<span>'+item["studentAcademicAchievementDetails"]+'</span>'+
+												'</span>';
+								$userAwardInfoContentObj.append(dataEleObj);
 							});
 						}
 						else{
-							var dataEleObj='<li><p>No Awards Gained Yet.</p></li>'+
-										   '<li><p>Just Belive You Can.</p></li>';
-							$achievementDetailsUlObj.append(dataEleObj);
-						}
-						
-						if (jsonArrAcheivements.length > 2) {
-							$achievementDetailsUlObj.find('li').hide().filter(':lt(1)').show();
-							$achievementDetailsUlObj.append('<li style="cursor:pointer">Expand>></li>');
-							$achievementDetailsUlObj.find('li:last').click(function() {
-								$(this).siblings(':gt(0)').toggle();
-								if ($(this).text() == "Expand>>") {
-									$(this).text("<<Collapse");
-								} else if ($(this).text() == "<<Collapse") {
-									$(this).text("Expand>>");
-								}
-							});
+							var dataEleObj='<span class="line-break-span">'+
+												'<i class="fa fa-info-circle fa-fw"></i>'+
+												'<span>No awards gained yet, just Belive You Can.</span>'+
+											'</span>';
+							$userAwardInfoContentObj.append(dataEleObj);
 						}
 						
 						// Student Attendance related data
@@ -556,11 +696,13 @@ function handleLogin() {
 					                 	'<td class="reason">'+jsonObj["reason"]+'</td>'+
 			                 			'<td class="approve-type red">'+jsonObj["approveType"]+'</td>'+
 				                	 '</tr>';
-							$leaveDescriptionTableObj.find('tbody').append(trObj);
+							//$leaveDescriptionTableObj.find('tbody').append(trObj);
 						});
 						
 						var mDataGetStudentAttendance={};
 						mDataGetStudentAttendance.p1=studentStandardDivisionId;
+						mDataGetStudentAttendance.p2=1;
+						mDataGetStudentAttendance.p3=0;
 						getDataByAction("getStudentAttendance", JSON.stringify(mDataGetStudentAttendance), getAttendanceSuccessCallback, commonErrorCallback);
 						
 						// Assignment related data
@@ -609,8 +751,14 @@ function handleLogin() {
 						}
 						
 					}
-					else if(loginDataResponse["userRoleId"]==9){ // Student Role
+					else if(loginDataResponse["userRoleId"]==2){ // Teacher Role
+						window.localStorage["staffDetailsId"] = loginDataResponse["staffDetailsId"];
+						$("#staff_homepage").show();
+						$("#student_homepage").hide();
 						
+						panelsInitialization(true, true, loginDataResponse["userRoleId"]);
+						
+						console.log(responseJson["loginDataResponse"]);
 					}
 					
 					$.mobile.changePage('#home-page',{ transition: "slideup"});
@@ -625,28 +773,23 @@ function handleLogin() {
 					$("#username", form).val(window.localStorage["username"]);
 					$.mobile.changePage('#login-page','slide');
 					
-					//navigator.notification.alert("Invalid Credentials, please try again", function() {});
 					navigator.notification.alert(
-						'Invalid Credentials, please try again.',
+						responseMessage,
+						//'Invalid Credentials, please try again.',
 					    alertConfirm,
 					    'EDIT',            // title
 					    'Ok'                  // buttonName
 					);
 				}
 				hideModal();
-				//$('#userFullName').html(window.localStorage.getItem("full_name"));
 			   },
 			   error:function(data,t,f){
-				   //alert(' ajax error--'+JSON.stringify(data));
 				   hideModal();
 				   navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');
-				 /*
 				   var responseJson = $.parseJSON(data);
-				 
-				 if(responseJson.status==404){
-					 navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');
-				 }
-				 */
+				   if(responseJson.status==404){
+					   navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');
+				   }
 			   }
 			});
 		}
@@ -656,7 +799,6 @@ function handleLogin() {
 		$("#submitButton").removeAttr("disabled");
 	}
 	else{
-		//navigator.notification.alert("You must enter a username and password", function() {});
 		navigator.notification.alert(
 			'You must enter a username and password.',
 			alertConfirm,
@@ -692,7 +834,6 @@ function doLogout() {
 	//var connectionType="Unknown connection";//For Testing
 	
 	if(connectionType=="Unknown connection" || connectionType=="No network connection"){
-		//navigator.notification.alert("Logout requires active internet connection.", function() {});
 		navigator.notification.alert(
 		    'Logout requires active internet connection',
 		    alertConfirm,
@@ -988,8 +1129,10 @@ function errorCB(err) {
 		var responseJson=jQuery.parseJSON(data);
 		
 		if(responseJson.statusCode == "0" ){
-			var $parentEleObj=$('.common-page-tab1 .table-main-div');
+			//var $parentEleObj=$('.common-page-tab1 .table-main-div');
+			var $parentEleObj = $('.common-page-tab1 .mb-st-assignment-list ul.st-assigment');
 			$parentEleObj.html("");
+			$('.common-page-tab1 .mb-st-assignment-list').show();
 			
 			var actionHeading=responseJson["actionHeading"];
 			$('.common-page-tab1 .common-page-tab-heading').html(actionHeading);
@@ -1024,9 +1167,19 @@ function errorCB(err) {
 			else if(action=="getTimetable"){
 				commonPageTimetableData($parentEleObj, jsonData);
 			}
+			else if(action=="getHolidays"){
+				commonPageHolidaysData($parentEleObj, jsonData);
+			}
+			else if(action=="getStanDivisionMapForStaff"){
+				commonPageStanDivisionMapForStaffData($parentEleObj, jsonData);
+			}
+			else if(action=="getSubjectAllocationForStaff"){
+				commonPageSubjectAllocationForStaffData($parentEleObj, jsonData);
+			}
+			else if(action=="getStaffAttendanceForStaff"){
+				commonPageStaffAttendanceForStaffData($parentEleObj, jsonData);
+			}
 			
-			//$("[data-role=panel]").panel("close");
-			//closePanels();
 			$.mobile.changePage('#common-page','slide');
 		}else{
 			navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');					
@@ -1034,15 +1187,16 @@ function errorCB(err) {
 		hideModal();
 	}
 	
-	
-	function closePanels(){
-		$("[data-role=panel]").panel("close");
-	}
-	
-	function commonPageNoDataMsg($parentEleObj){
-		var dataEleObj=tableDivObjEmpty;
-		var msg="No Data Found.";
-		dataEleObj=dataEleObj.replace(/replaceName/g,msg);
+	function commonPageLiNoDataMsg($parentEleObj, msg){
+		var statusClass = "status-common";
+		var dataEleObj = '<li>'+
+							'<i class="fa fa-dot-circle-o status-circle '+statusClass+' "></i>'+
+							'<div class="st-assign-detail">'+
+								'<span class="assign-arrow"></span>'+
+									'<p class="assign-title"> ' + msg +
+									'</p>'+
+							'</div>'+
+						'</li>';
 		$parentEleObj.append(dataEleObj);
 	}
 	
@@ -1054,71 +1208,79 @@ function errorCB(err) {
 	}
 	
 	function commonPageLibraryData($parentEleObj, jsonData){
+		$parentEleObj.html("");
 		if(jsonData.length > 0){
 			jQuery.each(jsonData, function(index, item) {
-				var dataEleObj=tableDivObj;
-				var jsonObj=item;
-				dataEleObj=dataEleObj.replace(/replaceDate/g,jsonObj["bookIssuedDate"]);
-				dataEleObj=dataEleObj.replace(/replaceTime/g,jsonObj["bookReturnDate"]);
-				dataEleObj=dataEleObj.replace(/replaceName/g,jsonObj["book"]);
-				var otherDetails='Standard Division:'+jsonObj["stanDiv"];
-				dataEleObj=dataEleObj.replace(/replaceOtherDetails/g,otherDetails);
+				var statusClass = "status-common";
+				
+				var dataEleObj = '<li>'+
+									'<i class="fa fa-dot-circle-o status-circle '+statusClass+' "></i>'+
+									'<div class="st-assign-detail">'+
+										'<span class="assign-arrow"></span>'+
+											'<div class="assign-header">'+
+												//'<span class="sub-name">Subject: ' + item["assignmentSubjectName"] + ' </span>'+
+												'<span class="assign-date">Issued On:' + item["bookIssuedDate"] + ' </span>'+
+											'</div>'+
+											'<p class="assign-title"> ' + item["book"] +
+											'</p>'+
+											'<div class="st-assign-more-info">'+
+												'<span class="sub-name">Return Date: ' + item["bookReturnDate"] + ' </span>'+
+												'<span class="submit-date">Standard Division:  ' + item["stanDiv"] + '   </span>'+
+											'</div>'+
+									'</div>'+
+								'</li>';
 				
 				$parentEleObj.append(dataEleObj);
 			});
 		
 		}else{
-			commonPageNoDataMsg($parentEleObj);
+			commonPageLiNoDataMsg($parentEleObj, noDataFoundMsg);
 		}
 	}
 	
-	function getLibraryDataSuccessCallback(data){
-		var responseJson=jQuery.parseJSON(data);
-		
-		if(responseJson.statusCode == "0" ){
-			var actionResponse=responseJson["actionResponse"];
-			
-			var actionHeading=responseJson["actionHeading"];
-			$('.common-page-tab1 .common-page-tab-heading').html(actionHeading);
-			
-			var $parentEleObj=$('.common-page-tab1 .table-main-div');
-			$parentEleObj.html("");
-			if(actionResponse.length > 0){
-				jQuery.each(actionResponse, function(index, item) {
-					var dataEleObj=tableDivObj;
-					var jsonObj=item;
-					dataEleObj=dataEleObj.replace(/replaceDate/g,jsonObj["bookIssuedDate"]);
-					dataEleObj=dataEleObj.replace(/replaceTime/g,jsonObj["bookReturnDate"]);
-					dataEleObj=dataEleObj.replace(/replaceName/g,jsonObj["book"]);
-					var otherDetails='Standard Division:'+jsonObj["stanDiv"];
-					dataEleObj=dataEleObj.replace(/replaceOtherDetails/g,otherDetails);
-					
-					$parentEleObj.append(dataEleObj);
-				});
-			
-			}else{
-				var dataEleObj=tableDivObjEmpty;
-				var msg="No Data Found.";
-				dataEleObj=dataEleObj.replace(/replaceName/g,msg);
+	//getAssignments -- revamped(For Student Parent Only)
+	//getAcademicAcheivements -- revamped(For Student Parent Only)
+	//getSeminars -- revamped(For Student Parent Only)
+	//getExternalActivies -- revamped(For Student Parent Only)
+	//getDisciplines -- revamped(For Student Parent Only)
+	//getScholoarships -- revamped(For Student Parent Only)
+	//getPreviousInstitutes -- revamped(For Student Parent Only)
+	//getTimetable -- revamped(For Student Parent Only)
+	//getHolidays -- revamped(For Student Parent Only)
+	
+	function getHolidays(){
+		mData={};	
+		mData.p1="";
+		getDataByAction("getHolidays", JSON.stringify(mData), commonPageSuccessCallback, commonErrorCallback);
+	}
+	
+	function commonPageHolidaysData($parentEleObj, jsonData){
+		$parentEleObj.html("");
+		if(jsonData.length > 0){
+			jQuery.each(jsonData, function(index, item) {
+				var statusClass = "status-common";
+				var dataEleObj = '<li>'+
+									'<i class="fa fa-dot-circle-o status-circle '+statusClass+' "></i>'+
+									'<div class="st-assign-detail">'+
+										'<span class="assign-arrow"></span>'+
+											'<div class="assign-header">'+
+												'<span class="sub-name">Day: ' + item["day"] + ' </span>'+
+												'<span class="assign-date">Year: ' + item["year"] + ' </span>'+
+											'</div>'+
+											'<p class="assign-title"> ' + item["date"] +"("+item["reason"]+")" +
+											'</p>'+
+											'<div class="st-assign-more-info">'+
+												'<span class="sub-name">Reason: ' + item["reason"] + ' </span>'+
+											'</div>'+
+									'</div>'+
+								'</li>';
+				
 				$parentEleObj.append(dataEleObj);
-			}
-			//$("[data-role=panel]").panel("close");
-			//closePanels();
-			$.mobile.changePage('#common-page','slide');
+			});
 		}else{
-			navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');					
+			commonPageLiNoDataMsg($parentEleObj, noDataFoundMsg);
 		}
-		hideModal();
 	}
-	
-	//getAssignments
-	//getAcademicAcheivements
-	//getSeminars
-	//getExternalActivies
-	//getDisciplines
-	//getScholoarships
-	//getPreviousInstitutes
-	//getTimetable
 	
 	function getAssignments(){
 		mData={};	
@@ -1128,22 +1290,155 @@ function errorCB(err) {
 	}
 	
 	function commonPageAssignmentData($parentEleObj, jsonData){
+		$parentEleObj.html("");
 		if(jsonData.length > 0){
 			jQuery.each(jsonData, function(index, item) {
-				var dataEleObj=tableDivObj;
-				var jsonObj=item;
+				var statusClass = "";
+				var studAssignmentStatus = item["studAssignmentStatus"];
 				
-				dataEleObj=dataEleObj.replace(/replaceDate/g, jsonObj["submissionDate"]);
-				dataEleObj=dataEleObj.replace(/replaceTime/g,"");
-				dataEleObj=dataEleObj.replace(/replaceName/g,jsonObj["assignmentName"]);
-				var otherDetails='Comment :'+jsonObj["comment"]+'<br/><p>Description: '+jsonObj["assignmentDescription"]+'</p>';
-				dataEleObj=dataEleObj.replace(/replaceOtherDetails/g,otherDetails);
+				if(studAssignmentStatus == 2 || studAssignmentStatus == 8 || studAssignmentStatus == 9  ){
+					statusClass = "status-completed";
+				}else if(studAssignmentStatus == 3 || studAssignmentStatus == 6 || studAssignmentStatus == 7  ){
+					statusClass = "status-pending";
+				}
+				
+				var dataEleObj = '<li>'+
+									'<i class="fa fa-dot-circle-o status-circle '+statusClass+' "></i>'+
+									'<div class="st-assign-detail">'+
+										'<span class="assign-arrow"></span>'+
+											'<div class="assign-header">'+
+												//'<span class="sub-name">Subject: ' + item["assignmentSubjectName"] + ' </span>'+
+												'<span class="assign-date">Posted On:' + item["assignmentPublishdDate"] + ' </span>'+
+											'</div>'+
+											'<p class="assign-title"> ' + item["assignmentName"] +
+												//'<a href="" class="assign-attachment"><i class="fa fa-paperclip"></i></a>'+
+											'</p>'+
+											'<div class="st-assign-more-info">'+
+												// '<span class="teacher-name">By :  ' + item["assignmentSubjectName"] + '   </span>'+
+												'<span class="sub-name">Subject: ' + item["assignmentSubjectName"] + ' </span>'+
+												'<span class="submit-date">Due on:  ' + item["submissionDate"] + '   </span>'+
+												'<span class="submit-status">Status :  ' + item["studAssignmentStatusName"] + ' </span>'+
+											'</div>'+
+									'</div>'+
+								'</li>';
+				
+				var otherDetails='Comment :'+item["comment"]+'<br/><p>Description: '+item["assignmentDescription"]+'</p>';
 				
 				$parentEleObj.append(dataEleObj);
 			});
 		}else{
-			commonPageNoDataMsg($parentEleObj);
+			commonPageLiNoDataMsg($parentEleObj, noDataFoundMsg);
 		}
+	}
+	
+	function getAssignmentForStudTabs(){
+		mData={};	
+		mData.p1=window.localStorage["studDetailsId"];
+		mData.p2=window.localStorage["studStandardDivisionId"];
+		getDataByAction("getAssignmentsForStudTabs", JSON.stringify(mData), assignmentForStudTabsSuccessCB, commonErrorCallback);
+	}
+	
+	function assignmentForStudTabsSuccessCB(data){
+		var responseJson=jQuery.parseJSON(data);
+		
+		if(responseJson.statusCode == "0" ){
+			
+			var $mbStudentAssignment =$('.mb-student-assignment');
+			var $parentEleObj = $mbStudentAssignment.find('.mb-st-assignment-list ul.st-assigment');
+			var $parentEleObjCompleted = $mbStudentAssignment.find('.mb-st-assignment-completed ul.st-assigment');
+			var $parentEleObjPending = $mbStudentAssignment.find('.mb-st-assignment-pending ul.st-assigment');
+			$parentEleObj.html("");
+			$parentEleObjCompleted.html("");
+			$parentEleObjPending.html("");
+			
+			var jsonData=responseJson["data"];
+			
+			var totalAssignmentCount=0, pendingAssignmentCount = 0, completedAssignmentCount= 0, notCompletedAssignmentCount= 0;
+			totalAssignmentCount = jsonData.length;
+			if(jsonData.length > 0){
+				jQuery.each(jsonData, function(index, item) {
+					var pendingFlag= false, completedFlag= false;
+					
+					var statusClass = "";
+					var studAssignmentStatus = item["studAssignmentStatus"];
+					
+					// Yellow 1 4 5 
+					// Green 2 8 9
+					// Red 3 6 7
+					if(studAssignmentStatus == 1 || studAssignmentStatus == 4 || studAssignmentStatus == 5  ){
+						statusClass = "";
+						pendingFlag =  true;
+						pendingAssignmentCount++;
+					}
+					else if(studAssignmentStatus == 2 || studAssignmentStatus == 8 || studAssignmentStatus == 9  ){
+						statusClass = "status-completed";
+						completedFlag =  true;
+						completedAssignmentCount++;
+					}else if(studAssignmentStatus == 3 || studAssignmentStatus == 6 || studAssignmentStatus == 7  ){
+						statusClass = "status-pending";
+						notCompletedAssignmentCount++;
+					}
+					
+					var dataEleObj = '<li>'+
+										'<i class="fa fa-dot-circle-o status-circle '+statusClass+' "></i>'+
+										'<div class="st-assign-detail">'+
+											'<span class="assign-arrow"></span>'+
+												'<div class="assign-header">'+
+													//'<span class="sub-name">Subject: ' + item["assignmentSubjectName"] + ' </span>'+
+													'<span class="assign-date">Posted On:' + item["assignmentPublishdDate"] + ' </span>'+
+												'</div>'+
+												'<p class="assign-title"> ' + item["assignmentName"] +
+													//'<a href="" class="assign-attachment"><i class="fa fa-paperclip"></i></a>'+
+												'</p>'+
+												'<div class="st-assign-more-info">'+
+													// '<span class="teacher-name">By :  ' + item["assignmentSubjectName"] + '   </span>'+
+													'<span class="sub-name">Subject: ' + item["assignmentSubjectName"] + ' </span>'+
+													'<span class="submit-date">Due on:  ' + item["submissionDate"] + '   </span>'+
+													'<span class="submit-status">Status :  ' + item["studAssignmentStatusName"] + ' </span>'+
+												'</div>'+
+										'</div>'+
+									'</li>';
+					
+					var otherDetails='Comment :'+item["comment"]+'<br/><p>Description: '+item["assignmentDescription"]+'</p>';
+					
+					if(pendingFlag){
+						$parentEleObjPending.append(dataEleObj);
+					}else if(completedFlag){
+						$parentEleObjCompleted.append(dataEleObj);
+					}
+					$parentEleObj.append(dataEleObj);
+				});
+				
+				if(completedAssignmentCount == 0){
+					commonPageLiNoDataMsg($parentEleObjCompleted, noDataFoundMsg);
+				}
+				if(pendingAssignmentCount == 0){
+					commonPageLiNoDataMsg($parentEleObjPending, noDataFoundMsg);
+				}
+				
+			}else{
+				commonPageLiNoDataMsg($parentEleObj, noDataFoundMsg);
+				commonPageLiNoDataMsg($parentEleObjCompleted, noDataFoundMsg);
+				commonPageLiNoDataMsg($parentEleObjPending, noDataFoundMsg);
+			}
+			
+			$(".mb-student-assignment .mb-student-assignment-dashboard li").each(function( index ) {
+				var $currentLink = $(this).find("a");
+				var relAttr = $(this).find("a").attr("rel");
+				
+				if(relAttr == "mb-st-assignment-list"){
+					$currentLink.find("span").html(totalAssignmentCount);
+				}else if(relAttr == "mb-st-assignment-completed"){
+					$currentLink.find("span").html(completedAssignmentCount);
+				}else if(relAttr == "mb-st-assignment-pending"){
+					$currentLink.find("span").html(pendingAssignmentCount);
+				}
+			});
+			
+		}else{
+			navigator.notification.alert(serverBusyMsg, alertConfirm,'EDIT','Ok');					
+		}
+		hideModal();
 	}
 	
 	function getAcademicAcheivements(){
@@ -1154,20 +1449,30 @@ function errorCB(err) {
 	}
 	
 	function commonPageAcademicAcheivementsData($parentEleObj, jsonData){
+		$parentEleObj.html("");
 		if(jsonData.length > 0){
+			var statusClass = "status-common";
 			jQuery.each(jsonData, function(index, item) {
-				var dataEleObj=tableDivObj;
-				var jsonObj=item;
-				dataEleObj=dataEleObj.replace(/replaceDate/g,jsonObj["year"]);
-				dataEleObj=dataEleObj.replace(/replaceTime/g,"");
-				dataEleObj=dataEleObj.replace(/replaceName/g,jsonObj["studentAcadimicAchievementsDetails"]);
-				var otherDetails="";
-				dataEleObj=dataEleObj.replace(/replaceOtherDetails/g,otherDetails);
+				var dataEleObj = '<li>'+
+									'<i class="fa fa-dot-circle-o status-circle '+statusClass+' "></i>'+
+									'<div class="st-assign-detail">'+
+										'<span class="assign-arrow"></span>'+
+											'<div class="assign-header">'+
+												//'<span class="sub-name">Subject: ' + item["assignmentSubjectName"] + ' </span>'+
+												//'<span class="assign-date">For: ' + item["standardName"] + item["divisionName"] + ' </span>'+
+											'</div>'+
+											'<p class="assign-title"> ' + item["studentAcadimicAchievementsDetails"] +
+											'</p>'+
+											'<div class="st-assign-more-info">'+
+												// '<span class="teacher-name">By :  ' + item["assignmentSubjectName"] + '   </span>'+
+											'</div>'+
+									'</div>'+
+								'</li>';
 				
 				$parentEleObj.append(dataEleObj);
 			});
 		}else{
-			commonPageNoDataMsg($parentEleObj);
+			commonPageLiNoDataMsg($parentEleObj, noDataFoundMsg);
 		}
 	}
 	
@@ -1179,20 +1484,30 @@ function errorCB(err) {
 	}
 	
 	function commonPageSeminarsData($parentEleObj, jsonData){
+		$parentEleObj.html("");
 		if(jsonData.length > 0){
 			jQuery.each(jsonData, function(index, item) {
-				var dataEleObj=tableDivObj;
-				var jsonObj=item;
-				dataEleObj=dataEleObj.replace(/replaceDate/g,jsonObj["year"]);
-				dataEleObj=dataEleObj.replace(/replaceTime/g,"");
-				dataEleObj=dataEleObj.replace(/replaceName/g,jsonObj["scholarshipType"]);
-				var otherDetails="";
-				dataEleObj=dataEleObj.replace(/replaceOtherDetails/g,otherDetails);
+				var statusClass = "status-common";
+				var dataEleObj = '<li>'+
+									'<i class="fa fa-dot-circle-o status-circle '+statusClass+' "></i>'+
+									'<div class="st-assign-detail">'+
+										'<span class="assign-arrow"></span>'+
+											'<div class="assign-header">'+
+												//'<span class="sub-name">Day: ' + item["day"] + ' </span>'+
+												//'<span class="assign-date">For: ' + item["standardName"] + item["divisionName"] + ' </span>'+
+											'</div>'+
+											'<p class="assign-title"> ' + item["seminarName"] +
+											'</p>'+
+											'<div class="st-assign-more-info">'+
+												'<span class="sub-name">Details: ' + item["seminarDetails"] + ' </span>'+
+											'</div>'+
+									'</div>'+
+								'</li>';
 				
 				$parentEleObj.append(dataEleObj);
 			});
 		}else{
-			commonPageNoDataMsg($parentEleObj);
+			commonPageLiNoDataMsg($parentEleObj, noDataFoundMsg);
 		}
 	}
 	
@@ -1204,20 +1519,30 @@ function errorCB(err) {
 	}
 	
 	function commonPageExternalActiviesData($parentEleObj, jsonData){
+		$parentEleObj.html("");
 		if(jsonData.length > 0){
 			jQuery.each(jsonData, function(index, item) {
-				var dataEleObj=tableDivObj;
-				var jsonObj=item;
-				dataEleObj=dataEleObj.replace(/replaceDate/g,jsonObj["year"]);
-				dataEleObj=dataEleObj.replace(/replaceTime/g,"");
-				dataEleObj=dataEleObj.replace(/replaceName/g,jsonObj["studentExternalActivityName"]);
-				var otherDetails="Details: "+jsonObj["studentExternalActivityAchievement"];
-				dataEleObj=dataEleObj.replace(/replaceOtherDetails/g,otherDetails);
+				var statusClass = "status-common";
+					var dataEleObj = '<li>'+
+										'<i class="fa fa-dot-circle-o status-circle '+statusClass+' "></i>'+
+										'<div class="st-assign-detail">'+
+											'<span class="assign-arrow"></span>'+
+												'<div class="assign-header">'+
+													//'<span class="sub-name">Subject: ' + item["assignmentSubjectName"] + ' </span>'+
+													//'<span class="assign-date">Year:' + item["year"] + ' </span>'+
+												'</div>'+
+												'<p class="assign-title"> ' + item["studentExternalActivityName"] +
+												'</p>'+
+												'<div class="st-assign-more-info">'+
+													'<span class="teacher-name">Type:' + item["studentExternalActivityAchievement"] + '   </span>'+
+												'</div>'+
+										'</div>'+
+									'</li>';
 				
 				$parentEleObj.append(dataEleObj);
 			});
 		}else{
-			commonPageNoDataMsg($parentEleObj);
+			commonPageLiNoDataMsg($parentEleObj, noDataFoundMsg);
 		}
 	}
 	
@@ -1230,20 +1555,31 @@ function errorCB(err) {
 	}
 	
 	function commonPageDisciplinesData($parentEleObj, jsonData){
+		$parentEleObj.html("");
 		if(jsonData.length > 0){
 			jQuery.each(jsonData, function(index, item) {
-				var dataEleObj=tableDivObj;
-				var jsonObj=item;
-				dataEleObj=dataEleObj.replace(/replaceDate/g, jsonObj["date"]);
-				dataEleObj=dataEleObj.replace(/replaceTime/g, jsonObj["year"]);
-				dataEleObj=dataEleObj.replace(/replaceName/g, jsonObj["warningLevel"]);
-				var otherDetails="Comment: "+jsonObj["comment"];
-				dataEleObj=dataEleObj.replace(/replaceOtherDetails/g,otherDetails);
+				var statusClass = "status-common";
+				var dataEleObj = '<li>'+
+									'<i class="fa fa-dot-circle-o status-circle '+statusClass+' "></i>'+
+									'<div class="st-assign-detail">'+
+										'<span class="assign-arrow"></span>'+
+											'<div class="assign-header">'+
+												'<span class="sub-name">Date: ' + item["date"] + ' </span>'+
+												//'<span class="assign-date">Year: ' + item["year"] + ' </span>'+
+											'</div>'+
+											'<p class="assign-title"> ' + item["warningLevel"] +
+											'</p>'+
+											'<div class="st-assign-more-info">'+
+												'<span class="teacher-name">Comment:  ' + item["comment"] + '   </span>'+
+												//'<span class="assign-date">For: ' + item["standardName"] + item["divisionName"] + ' </span>'+
+											'</div>'+
+									'</div>'+
+								'</li>';
 				
 				$parentEleObj.append(dataEleObj);
 			});
 		}else{
-			commonPageNoDataMsg($parentEleObj);
+			commonPageLiNoDataMsg($parentEleObj, noDataFoundMsg);
 		}
 	}
 	
@@ -1255,20 +1591,31 @@ function errorCB(err) {
 	}
 	
 	function commonPageScholoarshipsData($parentEleObj, jsonData){
+		$parentEleObj.html("");
 		if(jsonData.length > 0){
 			jQuery.each(jsonData, function(index, item) {
-				var dataEleObj=tableDivObj;
-				var jsonObj=item;
-				dataEleObj=dataEleObj.replace(/replaceDate/g, jsonObj["year"]);
-				dataEleObj=dataEleObj.replace(/replaceTime/g, jsonObj["studentSchlorshipAmount"]);
-				dataEleObj=dataEleObj.replace(/replaceName/g, jsonObj["scholarshipType"]);
-				var otherDetails="";
-				dataEleObj=dataEleObj.replace(/replaceOtherDetails/g,otherDetails);
+				var statusClass = "status-common";
+				var dataEleObj = '<li>'+
+									'<i class="fa fa-dot-circle-o status-circle '+statusClass+' "></i>'+
+									'<div class="st-assign-detail">'+
+										'<span class="assign-arrow"></span>'+
+											'<div class="assign-header">'+
+												//'<span class="sub-name">Date: ' + item["date"] + ' </span>'+
+												//'<span class="assign-date">For: ' + item["standardName"] + item["divisionName"] + ' </span>'+
+											'</div>'+
+											'<p class="assign-title"> ' + item["scholarshipType"] +
+											'</p>'+
+											'<div class="st-assign-more-info">'+
+												'<span class="teacher-name">Schlorship Prize:  ' + item["studentSchlorshipAmount"] + '   </span>'+
+												'<span class="teacher-name">Schlorship Grade:  ' + item["studentSchlorshipGrade"] + '   </span>'+
+											'</div>'+
+									'</div>'+
+								'</li>';
 				
 				$parentEleObj.append(dataEleObj);
 			});
 		}else{
-			commonPageNoDataMsg($parentEleObj);
+			commonPageLiNoDataMsg($parentEleObj, noDataFoundMsg);
 		}
 	}	
 	
@@ -1280,20 +1627,15 @@ function errorCB(err) {
 	}
 	
 	function commonPagePreviousInstitutesData($parentEleObj, jsonData){
+		$parentEleObj.html("");
 		if(jsonData.length > 0){
 			jQuery.each(jsonData, function(index, item) {
-				var dataEleObj=tableDivObj;
-				var jsonObj=item;
-				dataEleObj=dataEleObj.replace(/replaceDate/g, "");
-				dataEleObj=dataEleObj.replace(/replaceTime/g, "");
-				dataEleObj=dataEleObj.replace(/replaceName/g, "");
-				var otherDetails="";
-				dataEleObj=dataEleObj.replace(/replaceOtherDetails/g,otherDetails);
+				var dataEleObj="";
 				
 				$parentEleObj.append(dataEleObj);
 			});
 		}else{
-			commonPageNoDataMsg($parentEleObj);
+			commonPageLiNoDataMsg($parentEleObj, noDataFoundMsg);
 		}
 	}	
 	
@@ -1305,21 +1647,186 @@ function errorCB(err) {
 	}
 	
 	function commonPageTimetableData($parentEleObj, jsonData){
+		$parentEleObj.html("");
 		if(jsonData.length > 0){
 			jQuery.each(jsonData, function(index, item) {
-				var dataEleObj=tableDivObj;
-				var jsonObj=item;
-				dataEleObj=dataEleObj.replace(/replaceDate/g, "");
-				dataEleObj=dataEleObj.replace(/replaceTime/g, "");
-				dataEleObj=dataEleObj.replace(/replaceName/g, "");
-				var otherDetails="";
-				dataEleObj=dataEleObj.replace(/replaceOtherDetails/g,otherDetails);
+				var dataEleObj="";
 				
 				$parentEleObj.append(dataEleObj);
 			});
 		}else{
-			commonPageNoDataMsg($parentEleObj);
+			commonPageLiNoDataMsg($parentEleObj, noDataFoundMsg);
 		}
+	}
+	
+	// Staff Realted Ajax Methods	
+	// getStanDivisionMapForStaff 
+	// getSubjectAllocationForStaff 
+	// getStaffAttendanceForStaff
+	
+	var userListsLi='<li class="user_list_li" onclick="replaceOnClickMethod;" >'+
+						'<div class="user-details">'+
+							'<div class="user-img"><img title="" alt="" src="img/avatars/avatar-male.png"></div>'+
+							
+							'<div class="small_details">'+
+								'<h5 class="user-name">replaceName</h5>'+
+								'<input type="hidden" id="user-id" value="replaceUserId" >'+
+								'<a href="#" class="ui-link">replaceUserData1</a>'+
+							'</div>'+
+							
+							'<div class="display-none">replaceHiddenFields</div>'+
+							
+							'<div class="action_icon">'+
+								'<a href="#" class="ui-link"><img title="" alt="" src=""></a>'+
+							'</div>'+
+						'</div>'+
+					'</li>';
+	
+	var userListsLiNoData='<li class="user_list_li" >'+
+							'<div class="user-details">'+
+								'<div class="small_details">'+
+									'<h5 class="user-name">replaceName</h5>'+
+								'</div>'+
+							'</div>'+
+						'</li>';
+	
+	var periodListAttendanceDiv = 	'<div class="period-list-attendance-div display-none" >'+
+										'<ul class="period-list-attendance" id="period-list-attendance">'+
+											'<li class="select-all selected">All</li>'+
+										'</ul>'+
+									'</div>';
+	
+	function getStanDivisionMapForStaff(){
+		mData={};	
+		mData.p1=window.localStorage["staffDetailsId"];
+		mData.p2="";
+		
+		getDataByAction("getStaffSDMapByStaffData", JSON.stringify(mData), getStanDivisionMapForStaffSuccessCallback, commonErrorCallback);
+	}
+	
+	function getStanDivisionMapForStaffSuccessCallback(data){
+		var responseJson=jQuery.parseJSON(data);
+		
+		if(responseJson.statusCode == "0" ){
+			var $parentEleObj=$('.common-user-list-details ul.user_list_detailed');
+			$parentEleObj.html("");
+			
+			var actionHeading=responseJson["actionHeading"];
+			$('.common-user-list-details .page-tab-heading').html(actionHeading);
+			
+			var action=responseJson["action"];
+			var jsonData=responseJson["data"];
+		
+			getStanDivisionMapForStaffDataParse($parentEleObj, jsonData);
+		}
+		else{
+			navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');					
+		}
+		hideModal();
+		//stan-div-students-page
+		$.mobile.changePage('#common-user-list-page', 'slide');
+	}
+	
+	function getStanDivisionMapForStaffDataParse($parentEleObj, jsonData){
+		$parentEleObj.html("");
+		if(jsonData.length > 0){
+			jQuery.each(jsonData, function(index, item) {
+				var dataEleObj=userListsLi;
+				var jsonObj=item;
+				
+				dataEleObj=dataEleObj.replace(/replaceName/g, jsonObj["stanDivName"]);
+				dataEleObj=dataEleObj.replace(/replaceUserId/g, jsonObj["ssdmid"]);
+				dataEleObj=dataEleObj.replace(/replaceUserData1/g, jsonObj["stanName"]);
+				
+				var yearString=0;
+				var onClickMethod='getSSDListByStanDivIdYear( '+ jsonObj["sdid"] +' , '+ yearString +' )';
+				dataEleObj=dataEleObj.replace(/replaceOnClickMethod/g, onClickMethod);
+				var hiddenData="";
+				hiddenData+="";
+				dataEleObj=dataEleObj.replace(/replaceHiddenFields/g, hiddenData);
+				// replaceHiddenFields
+				
+				$parentEleObj.append(dataEleObj);
+			});
+		
+		}else{
+			var dataEleObj=tableDivObj;
+			$parentEleObj.append(userListsLiNoData);
+		}
+	}
+	
+	
+	function getSSDListByStanDivIdYear(stanDivId, year){
+		mData={};	
+		mData.p1 = stanDivId;
+		mData.p2 = "";
+		mData.p3 = window.localStorage["staffDetailsId"];
+		
+		getDataByAction("getSSDListByStanDivIdYear", JSON.stringify(mData), getSSDListByStanDivIdYearSuccessCallback, commonErrorCallback);
+	}
+	
+	function getSSDListByStanDivIdYearSuccessCallback(data){
+		var responseJson=jQuery.parseJSON(data);
+		
+		if(responseJson.statusCode == "0" ){
+			var $parentEleObj=$('.stan-div-students-details ul.user_list_detailed');
+			$parentEleObj.html("");
+			
+			var actionHeading=responseJson["actionHeading"];
+			$('.stan-div-students-details .page-tab-heading').html(actionHeading);
+			
+			var action=responseJson["action"];
+			var jsonData=responseJson["data"];
+		
+			sSDListByStanDivIdYearDataParse($parentEleObj, jsonData);
+		}
+		else{
+			navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');					
+		}
+		hideModal();
+		//stan-div-students-page
+		$.mobile.changePage('#stan-div-students-page','slide');
+	}
+	
+	function sSDListByStanDivIdYearDataParse($parentEleObj, jsonData){
+		$parentEleObj.html("");
+		if(jsonData.length > 0){
+			jQuery.each(jsonData, function(index, item) {
+				var dataEleObj=userListsLi;
+				var jsonObj=item;
+				
+				dataEleObj=dataEleObj.replace(/replaceName/g, jsonObj["name"]);
+				dataEleObj=dataEleObj.replace(/replaceUserId/g, jsonObj["ssdid"]);
+				dataEleObj=dataEleObj.replace(/replaceUserData1/g, jsonObj["roll_no"]);
+				
+				var onClickMethod='';
+				dataEleObj=dataEleObj.replace(/replaceOnClickMethod/g, onClickMethod);
+				var hiddenData='';
+				hiddenData+='<input type="hidden" id="ssdid" value="'+ jsonObj["ssdid"] +'">';
+				hiddenData+='<input type="hidden" id="studid" value="'+ jsonObj["sid"] +'">';
+				dataEleObj=dataEleObj.replace(/replaceHiddenFields/g, hiddenData);
+				
+				$parentEleObj.append(dataEleObj);
+			});
+		
+		}else{
+			var dataEleObj=tableDivObj;
+			$parentEleObj.append(userListsLiNoData);
+		}
+	}
+	
+	function getSubjectAllocationForStaff(){
+		mData={};	
+		mData.p1=window.localStorage["studDetailsId"];
+		mData.p2=window.localStorage["studStandardDivisionId"];
+		getDataByAction("getTimetable", JSON.stringify(mData), commonPageSuccessCallback, commonErrorCallback);
+	}
+	
+	function getStaffAttendanceForStaff(){
+		mData={};	
+		mData.p1=window.localStorage["studDetailsId"];
+		mData.p2=window.localStorage["studStandardDivisionId"];
+		getDataByAction("getTimetable", JSON.stringify(mData), commonPageSuccessCallback, commonErrorCallback);
 	}
 	
 
@@ -1337,3 +1844,25 @@ function errorCB(err) {
 	        $moreDetails.show();
 		}
 	}
+	
+	
+	function openAttendanceDetails(obj){
+		$("ul#markAttendanceUl li .period-list-attendance-div").hide();
+		$(obj).find(".period-list-attendance-div").show();
+	}
+	
+	function selectPeriodLi(obj){
+		if($(obj).hasClass("selected")){
+			$(obj).removeClass("selected");
+		}else{
+			$(obj).addClass("selected");
+		}
+		
+	}
+	
+	/* New Design for Edit CSS Starts */
+	function studentProfileTitleClick(thiss){
+		$(thiss).toggleClass('mini').next().toggle();
+		return false;
+	}
+	/* New Design for Edit CSS Ends */		
