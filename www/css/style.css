@@ -1,0 +1,942 @@
+ /*  @import url(https://fonts.googleapis.com/css?family=Titillium+Web:400,300,300italic,400italic,600,700,600italic); */
+
+/* latin-ext */
+@font-face {
+  font-family: 'Titillium Web';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Titillium WebLight'), local('TitilliumWeb-Light'), url(font/titilliumweb/v4/anMUvcNT0H1YN4FII8wpr9INifKjd1RJ3NxxEi9Cy2w.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Titillium Web';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Titillium WebLight'), local('TitilliumWeb-Light'), url(font/titilliumweb/v4/anMUvcNT0H1YN4FII8wpr4-67659ICLY8bMrYhtePPA.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Titillium Web';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Titillium Web'), local('TitilliumWeb-Regular'), url(font/titilliumweb/v4/7XUFZ5tgS-tD6QamInJTcSo_WB_cotcEMUw1LsIE8mM.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Titillium Web';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Titillium Web'), local('TitilliumWeb-Regular'), url(font/titilliumweb/v4/7XUFZ5tgS-tD6QamInJTcZSnX671uNZIV63UdXh3Mg0.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Titillium Web';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Titillium WebSemiBold'), local('TitilliumWeb-SemiBold'), url(font/titilliumweb/v4/anMUvcNT0H1YN4FII8wpr_SNRT0fZ5CX-AqRkMYgJJo.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Titillium Web';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Titillium WebSemiBold'), local('TitilliumWeb-SemiBold'), url(font/titilliumweb/v4/anMUvcNT0H1YN4FII8wpr46gJz9aNFrmnwBdd69aqzY.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Titillium Web';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Titillium WebBold'), local('TitilliumWeb-Bold'), url(font/titilliumweb/v4/anMUvcNT0H1YN4FII8wpr-y7CP8YvcHYdGV61pt7QTE.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Titillium Web';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Titillium WebBold'), local('TitilliumWeb-Bold'), url(font/titilliumweb/v4/anMUvcNT0H1YN4FII8wprxP6Eu1_xfSBSoi9uie1FdE.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Titillium Web';
+  font-style: italic;
+  font-weight: 300;
+  src: local('Titillium WebLight Italic'), local('TitilliumWeb-LightItalic'), url(font/titilliumweb/v4/RZunN20OBmkvrU7sA4GPPoJk2PUjA3BuZ7-sn6ahBAU.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Titillium Web';
+  font-style: italic;
+  font-weight: 300;
+  src: local('Titillium WebLight Italic'), local('TitilliumWeb-LightItalic'), url(font/titilliumweb/v4/RZunN20OBmkvrU7sA4GPPpqmdMmZ3RU_nSyRBdIw_WA.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Titillium Web';
+  font-style: italic;
+  font-weight: 400;
+  src: local('Titillium WebItalic'), local('TitilliumWeb-Italic'), url(font/titilliumweb/v4/r9OmwyQxrgzUAhaLET_KO86gOKNGPbHY3c2d_06TbvM.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Titillium Web';
+  font-style: italic;
+  font-weight: 400;
+  src: local('Titillium WebItalic'), local('TitilliumWeb-Italic'), url(font/titilliumweb/v4/r9OmwyQxrgzUAhaLET_KO6qVnG43xFTRN40gwdrG-aE.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Titillium Web';
+  font-style: italic;
+  font-weight: 600;
+  src: local('Titillium WebSemiBold Italic'), local('TitilliumWeb-SemiBoldItalic'), url(font/titilliumweb/v4/RZunN20OBmkvrU7sA4GPPjAIC19vemm8z_7Iwl5FvF4.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Titillium Web';
+  font-style: italic;
+  font-weight: 600;
+  src: local('Titillium WebSemiBold Italic'), local('TitilliumWeb-SemiBoldItalic'), url(font/titilliumweb/v4/RZunN20OBmkvrU7sA4GPPqnxEWeSxeYH5Yv0OHgSghs.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+
+/* 
+body {
+    margin: 0;
+    padding: 0;
+	font-family: 'Titillium Web', sans-serif;
+	font-size:14px;
+	
+}
+ */
+ 
+ .ui-content {
+    padding: 0 !important;
+}
+
+/*-------------mb-stuent-sm-info---------------*/
+.mb-stuent-sm-info {background:#3a0e4e; text-align:center;padding:25px;}
+.mb-stuent-sm-info .mb-student-photo {
+    border-radius: 50%;
+    display: inline-block;
+    height: 160px;
+    overflow: hidden;
+    width: 160px;
+	margin-bottom: 5px;
+}
+.mb-stuent-sm-info .mb-student-name {
+    color: #fff;
+    font-size: 22px;
+}
+
+.mb-stuent-sm-info .mb-student-more-info {
+    list-style: outside none none;
+    margin: 0 0 20px;
+    padding: 0;
+}
+.mb-stuent-sm-info .mb-student-more-info > li {
+    border-right: 1px solid #9c90a3;
+    color: #9c90a3;
+    display: inline-block;
+    font-size: 15px;
+    line-height: 16px;
+    padding: 0 6px;
+}
+.mb-stuent-sm-info .mb-student-more-info > li:last-child{border-right:0}
+.mb-student-links {
+    display: table;
+    list-style: outside none none;
+    margin: 0;
+    padding: 0;
+	width:100%;
+}
+.mb-student-links li{
+    display: table-cell;
+}
+.mb-student-links > li a{
+    background: #4c245e none repeat scroll 0 0;
+    border-radius: 50%;
+    display: inline-block;
+    height: 80px;
+    width: 80px;
+	text-align:center;
+	outline: 0 none;
+}
+.mb-student-links > li a span{background:url(../img/st_icons/mb-student-links-icon.png) no-repeat; height:53px; width:53px; display:inline-block; vertical-align: middle; opacity:.5;
+margin: 15px 0 0;
+
+}
+.mb-student-links > li a span.icon2{background-position:-53px 0}
+.mb-student-links > li a span.icon3{background-position:-106px 0}
+.mb-student-links > li a.current span{opacity:1}
+/*-------------mb-stuent-Communication---------------*/
+.mb-student-communication{padding:50px 20px; background:#f3f3f3;}
+.mb-student-communication ul.chat {
+    list-style: outside none none;
+    margin: 0;
+    padding: 0;
+}
+.mb-student-communication .chat li span.avatar {
+    border-radius: 50%;
+    float:left;
+    height: 50px;
+    overflow: hidden;
+    width: 50px;
+	position: relative;
+}
+.mb-student-communication .chat li{margin-bottom:60px;}
+.mb-student-communication .chat li .avatar span {
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.6) inset;
+    position: absolute;
+	 border-radius: 50%;
+     float:left;
+    height: 50px;
+    overflow: hidden;
+    width: 50px;
+}
+.mb-student-communication .chat  .message .msg-txt .msg-body {
+    background:#ffd02b;
+    border-radius: 15px;
+    color: #141212;
+    font-size: 16px;
+    padding: 15px;
+}
+.mb-student-communication .chat  .message .msg-txt {
+    position: relative;
+}
+.mb-student-communication .chat .message .msg-txt span {
+    background: rgba(0, 0, 0, 0) url("../img/st_icons/msg-bg-arrow.png") no-repeat scroll 0 0;
+    color: #ffd02b;
+    display: inline-block;
+    height: 15px;
+    left: -12px;
+    position: absolute;
+    top: 15px;
+    width: 13px;
+}
+.mb-student-communication .msg-detail span {
+    color: #747373;
+    font-size: 14px;
+}
+.mb-student-communication .chat li .message {
+    padding: 0 0 0 70px;	
+}
+.mb-student-communication .chat li .avatar img{width:100%;}
+
+.mb-student-communication .chat li.msg-out .avatar{float:right;}
+.mb-student-communication .chat li.msg-out .message{padding:0 70px 0 0 ;}
+.mb-student-communication .chat li.msg-out .message .msg-txt .msg-body {
+    background: #fff none repeat scroll 0 0;
+    border: 1px solid #dcdcdc;
+    box-shadow: 1px 1px 0 0 #dcdcdc;
+
+}
+
+.mb-student-communication .chat li.msg-out .message .msg-txt span {
+    background: rgba(0, 0, 0, 0) url("../img/st_icons/msg-bg-arrow2.png") no-repeat scroll 0 0;
+	 margin-left: -1px;
+	 left:100%;
+}
+.mb-student-communication .msg-send {
+    background: #fff none repeat scroll 0 0;
+    bottom: 0;
+    padding-right: 80px;
+    position: fixed;
+    width: 100%;
+	left: 0;
+}
+.mb-student-communication .msg-send textarea {
+    border: 1px solid #dadada;
+    height: 50px;
+    width: 100%;
+}
+.mb-student-communication .msg-send button {
+    background: #0875de none repeat scroll 0 0;
+    border-radius: 0;
+    height: 50px;
+    position: absolute;
+    right: 0;
+    width: 80px;
+	
+}
+
+/*page2-student-attendance*/
+.mb-standard-container {
+    background: #3a0e4e none repeat scroll 0 0;
+    width: 100%;
+	text-align:center;
+}
+.mb-standard-container .st-yearly-info {
+    border-top: 1px solid #1e0629;
+    height: 35px;
+    width: 100%;
+}
+
+span.student-monthly-info {
+    color: #806f8a;
+    font-size: 22px;
+    width: 100%;
+}
+.mb-std-header {
+    background: #3a0e4e none repeat scroll 0 0;
+    color: #fff;
+    height: auto;
+    padding: 5px 20px;
+    width: 100%;
+}
+
+.mb-std-header .dropdown button {
+    float:right;
+}
+.mb-std-header form select {
+    background: #3a0e4e url("../img/st_icons/img10.png") no-repeat scroll right center;
+    border: medium none;
+    color: #fff;
+    font-size: 40px;
+    width: 100%;
+}
+.st-weekly-atten-info {
+    border-bottom: 1px solid #c6c6c6;
+    padding: 10px 0;
+}
+.st-weekly-atten-info li a i {
+    bottom: 2px;
+    color: #50c3bd;
+    font-size:10px;
+    left: 10px;
+    position: absolute;
+}
+.st-weekly-atten-info .atten-pending i {
+    color: #00a2ff;
+}
+.st-weekly-atten-info li a {
+    border: 1px solid #d0d0d0;
+    border-radius: 50%;
+    color: #ddd0d0;
+    display: inline-block;
+    font-size: 15px;
+    height: 30px;
+    text-align: center;
+    vertical-align: top;
+    width: 30px;
+	outline: medium none;
+	position:relative;
+	line-height:30px;
+}
+.st-weekly-atten-info li .atten-completed,.st-weekly-atten-info li .atten-pending{
+	line-height:15px;
+}
+.st-weekly-atten-info ul {
+    display: table;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+.st-weekly-atten-info li{
+	display:table-cell;
+	text-align:center;
+}
+.st-weekly-atten-info li .holiday {
+    background-color: #f04444;
+    border-color: #f04444;
+}
+.st-weekly-atten-info li a.arrow {
+    background: rgba(0, 0, 0, 0) url("../img/st_icons/attendance-next-prev-arrow.png") no-repeat scroll 0 0;
+    border: 0 none;
+    border-radius: 0;
+}
+.st-weekly-atten-info li .arrow.arrow-left {
+    background-position: -30px center;
+}
+.mb-student-profile {
+    list-style: outside none none;
+    margin: 0;
+    padding: 0;
+}
+
+.mb-st-more-info img {
+    border-radius: 36px;
+    width: 50px;
+}
+.mb-st-more-info {
+    margin: 20px 25px;
+}
+.mb-st-more-info p {
+    color: #494949;
+    font-weight: 600;
+    margin: 5px 0;
+	font-size:12px;
+}
+.st-contact-no i {
+    color: #767676;
+    font-size: 25px;
+    padding-right: 7px;
+    vertical-align: sub;
+}
+
+.st-chat-info-close > img {
+    border: 1px solid #a0a0a0; 
+    padding: 5px;
+    width: 35px;
+}
+.st-profile-img {
+    float: left;
+}
+.mb-st-more-info {
+    float: left;
+    margin: 0;
+    padding: 20px 10px;
+    width: 100%;
+	
+}
+
+.st-profile-img {
+    float: left;
+  
+}
+
+.st-contact-info {
+    float: left;
+}
+.st-at i {
+    color: #c6c6c6;
+    font-size: 17px;
+    margin-left: 28px;
+}
+.st-atte-percent > img{
+    vertical-align: bottom;
+    width: 9px;
+	margin-right:5px;
+}
+.st-atte-approve {
+    border-right: 1px solid #eabc19;
+    float: left;
+    height: 70px;
+    padding: 3px 15px;
+    text-align: center;
+}
+.st-atte-detail-info  label {
+    color: #494949;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 10px;
+	display: block;
+}
+.st-atte-detail-info .atten-cust-checkbox {
+    background: #fff none repeat scroll 0 0;
+    border-radius: 5px;
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+	outline: 0 none;
+    text-align: center;
+    text-decoration: none;
+}
+.st-atte-detail-info .atten-cust-checkbox i {
+    color: #2bb7af;
+    display: none;
+    float: left;
+    height: 20px;
+    line-height: 20px;
+    margin: 0;
+    width: 20px;
+}
+.st-atte-detail-info .atten-cust-checkbox.active i{display:block; } 
+.st-atte-detail-info .atten-cust-checkbox.active i.fa-times{ color:#f04444}
+.st-period-info {
+    float: left;
+    line-height: 22px;
+    padding: 3px 15px;
+}
+.period-list {
+    margin: 0 ;
+    padding: 0;
+}
+.period-list > li {   
+    float: left;
+    list-style: outside none none;
+      padding-right: 10px;
+}
+
+.period-list .absent{
+	background:#f04444;
+	color:#fff;
+	height: 18px;
+    margin-left: 3px;
+    width: 18px;
+}
+
+.period-list .present {
+    background: #fff none repeat scroll 0 0;
+    height: 18px;
+    margin-left: 3px;
+    width: 18px;
+}
+
+.mb-student-attendance-list {
+    margin: 0;
+    padding: 0;
+}
+.mb-student-attendance-list > li {
+    list-style: outside none none;
+	padding:0px;
+	border-bottom: 1px solid #c6c6c6;
+	position: relative;
+	overflow: hidden;
+	transition: all 0.2s ;
+	width:100%;
+}
+.st-profile-img {
+    float: left;
+    position: relative;
+}
+.st-profile-img  span {
+    border-radius: 50%;
+    display: block;
+    height: 65px;
+    overflow: hidden;
+    width: 65px;
+}
+.st-profile-img > span  span{   box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.6) inset;    position: absolute;}
+.st-profile-img span img {
+    width: 100%;
+}
+.mb-st-content {
+    height: 70px;
+    padding: 0 85px 0 90px;
+    position: relative;
+}
+.st-prof-info > p {
+    font-size: 20px;
+	margin: 5px 0;
+	font-weight:600;
+}
+.st-prof-info span {
+	color: #767676;
+	float:left;
+	margin-right:15px;
+	padding-left:18px;
+	background:url(../img/st_icons/mb-student-atten-list-icons.png) no-repeat 0 0;
+	height:18px;
+}
+.st-prof-info span.st-atte-percent{background-position:0 -18px;}
+
+.mb-st-content .action-btn{
+    background: #fff url("../img/st_icons/mb-student-atten-list-cross.png") no-repeat scroll 0 0;
+    border: 1px solid #c6c6c6;
+    border-radius: 50%;
+    height: 64px;
+    position: absolute;
+    right: 25px;
+    top: 0;
+    width: 64px;
+    z-index: 10;
+}
+.mb-st-content .action-btn.absent{background-color:#f04444; border-color:#f04444; background-position:-64px 0}
+.mb-student-attendance-list .mb-student-container {
+    background: #fff none repeat scroll 0 0;
+    box-shadow: 0 7px 6px -5px rgba(0, 0, 0, 0.5);
+    padding: 10px 0 10px 10px;
+    position: relative;
+    z-index: 999;
+}
+.mb-student-attendance-list .attendance-form {
+    background: #ffd02b none repeat scroll 0 0;
+    height: 70px;
+    margin: 0;
+    position: absolute;
+    top: -85px;
+    width: 100%;
+    z-index: 99;
+}
+
+.st-period-info.period-result {
+    margin: 6px 0 0;
+    padding: 0;
+}
+.st-period-info.period-result .period-list > li {
+    padding-right: 5px;
+}
+.st-period-info.period-result .period-list a.atten-cust-checkbox.atten-cust-checkbox {
+    background: #ededed none repeat scroll 0 0;
+    border-radius: 2px;
+    float: left;
+    height: 15px;
+    width: 15px;
+	border:1px solid #dadada;
+}
+.st-period-info.period-result .period-list a.atten-cust-checkbox.atten-cust-checkbox i {
+    float: left;
+    font-size: 10px;
+    height: 15px;
+    line-height: 12px;
+    text-align: center;
+    width: 15px;
+}
+.st-period-info.period-result > label {
+    color: #969696;
+}
+.st-period-info.period-result .period-list a.atten-cust-checkbox.atten-cust-checkbox i.fa-times {color:#f04444;}
+.attendance-form .st-atte-detail-info {
+    float: left;
+}
+
+
+/*-----------mb-student-assignment-dashboard-------------*/
+.mb-student-assignment-dashboard {
+    background: #4c245e none repeat scroll 0 0;
+    display: table;
+    list-style: outside none none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.mb-student-assignment-dashboard > li {
+    border-right: 1px solid #3a0e4e;
+    display: table-cell;
+    padding: 0;
+    text-align: center;
+}
+.mb-student-assignment-dashboard .dashboard-content {
+/*     height: 70px; */
+    position: relative;
+    width: 100%;
+}
+.dashboard-content > a{text-decoration:none; outline:none;}
+.highlighte .dashboard-content > a {
+	height: 70px;
+    display: block;
+    margin: -20px 0 0;
+    position: relative;
+    z-index: 10;
+	text-decoration:none;
+	outline:none;
+}
+li.highlighte .dashboard-content > span {
+    background: #613773  none repeat scroll 0 0;
+    box-shadow:3px 0 11px -2px rgba(0, 0, 0, 0.5);
+    height: 100%;
+    left: 0;
+    position: absolute;
+	padding-top: 10px;
+    top: -10px;
+    width: 100%;
+	box-sizing: unset;
+}
+.mb-student-assignment-dashboard > li.highlighte {
+	background:#613773;
+}
+.mb-student-assignment-dashboard > li:last-child{border-right:0}
+.mb-student-assignment-dashboard li .st-assign-status {
+    color: #fff;
+    display: block;
+    font-size: 38px;
+    font-weight: 600;
+    line-height: 44px;
+    margin: 0;
+}
+.mb-student-assignment .mb-student-assignment-dashboard .assi-status {
+    background: rgba(0, 0, 0, 0) url("../img/st_icons/assignment-list.png") no-repeat scroll center bottom;
+    height: 80px;
+    left: 15px;
+    position: relative;
+    top: 10px;
+    width: 80px;
+}
+.mb-student-assignment .mb-student-assignment-dashboard p {
+    color: #b387c7;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 18px;
+    margin: 0;
+}
+.mb-student-assignment-dashboard span {
+    background-image: url("../img/st_icons/assignment-list.png") no-repeat;
+}
+
+
+
+/*--------------mb-st-assignment-list-----------------*/
+div.mb-st-assignment-list, div.mb-st-common-list  {
+    overflow: hidden;
+    padding: 20px;
+	background:#f3f3f3;
+}
+.mb-st-assignment-list .st-assigment, .mb-st-common-list .st-assigment{
+    float: left;
+    list-style: outside none none;
+    padding: 30px 0 0;
+    width: 100%;
+}
+.st-assigment > li {
+    border-left: 1px solid #dadada;
+    box-sizing: border-box;
+    float: left;
+    padding: 0 0 40px 30px;
+    position: relative;
+    width: 100%;
+}
+.mb-st-assignment-list .st-assigment .status-circle, .mb-st-common-list .st-assigment .status-circle {
+    background: #f3f3f3  none repeat scroll 0 0;
+    color: #ffd02b;
+    font-size: 25px;
+    left: -11px;
+    position: absolute;
+}
+.mb-st-assignment-list .st-assigment .status-circle.status-completed, .mb-st-common-list .st-assigment .status-circle.status-completed {
+    color: #5ccf17;
+}
+.mb-st-assignment-list .st-assigment .status-circle.status-pending, .mb-st-common-list .st-assigment .status-circle.status-pending {
+    color: #fb4729;
+}
+
+.mb-st-assignment-list .st-assigment .status-circle.status-common, .mb-st-common-list .st-assigment .status-circle.status-common {
+    color: #3a0e4e;
+}
+.mb-st-assignment-list .st-assign-detail, .mb-st-common-list .st-assign-detail {
+    border: 1px solid #dadada;
+    margin: -10px 0 0;
+    background: #fff none repeat scroll 0 0;
+	padding: 10px;
+	font-size:14px;
+}
+.mb-st-assignment-list .st-assign-detail .assign-header .sub-name, .mb-st-common-list .st-assign-detail .assign-header .sub-name {
+  
+
+}
+.mb-st-assignment-list .st-assign-detail .assign-header .assign-date, .mb-st-common-list .st-assign-detail .assign-header .assign-date
+{	
+	float:right;
+	color:#797979;
+}
+.mb-st-assignment-list .st-assigment .assign-title, .mb-st-common-list .st-assigment .assign-title {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 20px;
+    padding: 0 30px 0 0;
+}
+.mb-st-assignment-list .st-assigment .st-assign-more-info, .mb-st-common-list .st-assigment .st-assign-more-info {
+    color: #797979;
+	display:block;
+	width:100%
+}
+.mb-st-assignment-list .st-assigment .st-assign-more-info span, .mb-st-common-list .st-assigment .st-assign-more-info span {
+    display: block;
+}
+.assign-title .assign-attachment {
+    color: #b4b4b4;
+    font-size: 27px;
+    position: absolute;
+    right: 13px;
+    top: 21px;
+    transform: rotate(90deg);
+}
+.assign-header {
+    margin-bottom: 5px;
+}
+.mb-st-assignment-list .st-assigment .st-assign-detail .assign-arrow, .mb-st-common-list .st-assigment .st-assign-detail .assign-arrow {
+    background: rgba(0, 0, 0, 0) url("../img/st_icons/assignment-arrow.png") repeat scroll 0 0;
+    display: inline-block;
+    height: 14px;
+    left: 17px;
+    position: absolute;
+    top: 6px;
+    width: 19px;
+}
+ .mb-student-assignment .assign-search > textarea {
+    border: 1px solid #dadada;
+    height: 50px;
+    width: 100%;
+}
+ .mb-student-assignment .assign-search {
+    background: #fff none repeat scroll 0 0;
+    bottom: 0;
+    left: 0;
+    padding-right: 80px;
+    position: fixed;
+    width: 100%;
+}
+ .mb-student-assignment .assign-search button {
+    background: #0875de none repeat scroll 0 0;
+    border-radius: 0;
+    height: 50px;
+    position: absolute;
+    right: 0;
+    width: 80px;
+}
+ /*-------------mb-student-profile---------------*/
+ 
+ .mb-student-profile {
+    background: #f3f3f3 none repeat scroll 0 0;
+    overflow: hidden;
+    padding: 20px;
+	text-align:center;
+}
+.student-profile-title {
+     margin: 0 0 13px;
+    padding-bottom: 5px;
+}
+.student-profile-title .icon {
+    background: #fff url("../img/st_icons/student-profile-icons.png") no-repeat scroll 0 bottom;
+    border-radius: 50%;
+    box-shadow: 0 0 3px -1px;
+    display: block;
+    height: 50px;
+    margin: 0 auto;
+    width: 50px;
+	
+}
+
+.student-profile-title .icon.icon1 {
+    background-position: -50px bottom;
+}
+.student-profile-title .icon.icon2 {
+    background-position: -100px bottom;
+}
+.student-profile-title .icon.icon3 {
+    background-position: -150px bottom;
+}
+.student-profile-title.mini .icon {
+    background-position: 0 top;
+	background-color:#3a0e4e;
+}
+.student-profile-title.mini .icon.icon1 {
+    background-position: -50px top;
+	background-color:#3a0e4e;
+}
+.student-profile-title.mini .icon.icon2 {
+    background-position: -100px top;
+	background-color:#3a0e4e;
+}
+.student-profile-title.mini .icon.icon3 {
+    background-position: -150px top;
+	background-color:#3a0e4e;
+}
+.student-profile-title.mini .icon.icon3 {
+    background-position: -200px top;
+	background-color:#3a0e4e;
+}
+
+.mb-student-profile .student-profile-title > p {
+    color: #b2b2b2;
+    font-size: 16px;
+    font-weight: 600;
+}
+.student-profile-content {
+    background: #fff none repeat scroll 0 0;
+    border-radius: 8px;
+    box-shadow: 0 0 3px -1px;
+    font-size: 16px;
+    padding: 10px;
+	text-align:left;
+	margin-bottom:20px;
+}
+.mb-student-profile .student-profile-content .parent-deatail {
+    padding-bottom: 8px;
+}
+.student-profile-title.mini {
+    border-bottom: 1px solid #dadada;
+}
+.mb-student-profile .student-profile-title.mini .view-more-arrow {
+    background: #f3f3f3 url("../img/st_icons/profile-view-arrow.png") no-repeat scroll 0 0;
+    display: block;
+    height: 5px;
+    margin: 0 auto;
+    text-align: center;
+    width: 10px;
+}
+
+.parent-profile-title .prof-icon,.student-atten-mapping .prof-icon {
+    background: #fff url("../img/st_icons/st-profile-icon.png") no-repeat scroll center center;
+    border-radius: 50%;
+    box-shadow: 0 0 2px -1px;
+    display: block;
+    height: 50px;
+    margin: 0 auto;
+    width: 50px;
+}
+.student-profile-content .parent-deatail .msg-status {
+    background: rgba(0, 0, 0, 0) url("../img/st_icons/student-profile-chat-status-icon.png") no-repeat scroll center top;
+    height: 50px;
+    text-align: center;
+    width: 50px;
+}
+.mb-student-profile .parent-contact-info  {
+    display: block;
+    font-weight: 600;
+}
+.mb-student-profile .user-contact-info, .mb-student-profile .user-data-info   {
+    display: block;
+    font-weight: 600;
+}
+.pa-mobile-no .fa.fa-phone {
+    font-size: 22px;
+    padding-right: 10px;
+    transform: rotate(10deg);
+    vertical-align: middle;
+	color:#a7a7a7;
+}
+.pa-email-id .fa.fa-envelope-o {
+    font-size: 22px;
+    padding-right: 13px;
+    vertical-align: sub;
+	color:#a7a7a7;
+}
+
+.user-contact-info span .fa, .user-data-info span .fa{
+    font-size: 22px;
+    padding-right: 5px;
+    vertical-align: sub;
+	color:#a7a7a7;
+}
+
+.mb-student-profile .parent-contact-info span, .mb-student-profile .user-contact-info span.line-break-span, .mb-student-profile .user-data-info span.line-break-span  {
+    display: block;
+}
+.student-award {
+    border-bottom: 1px solid #d8d8d8;
+    margin-bottom: 20px;
+}
+.student-award .award-icon {
+    background: #3a0e4e url("../img/st_icons/student-award-icon.png") no-repeat scroll center center;
+    border-radius: 50%;
+    display: block;
+    height: 50px;
+    margin: 0 auto;
+    width: 50px;
+}
+.student-award > p {
+    color: #b2b2b2;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
+}
+.mb-student-profile .student-award .show-more-award {
+    color: #8e8e8e;
+    font-size: 20px;
+    line-height: 20px;
+}
+
+.mb-student-profile .student-profile-content > img {
+    width: 100%;
+}
+
+@media screen and (max-width: 1024px) and (min-width: 768px) {
+
+}
