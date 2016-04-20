@@ -372,6 +372,32 @@ var app = {
         
         //checkPreAuth();
 		$("#loginForm").on("submit",handleLogin);
+		
+		var push = PushNotification.init({
+			"android": {"senderID": "329763220550"},
+			"ios": {"alert": "true", "badge": "true", "sound": "true"},
+			"windows": {} 
+		});
+
+		push.on('registration', function(data) {
+			alert("registrationId-:"+data.registrationId);
+			console.log(data.registrationId);
+			//$("#gcm_id").html(data.registrationId);
+		});
+
+		push.on('notification', function(data) {
+			console.log(data.message);
+			alert(data.title+" Message: " +data.message);
+			// data.title,
+			// data.count,
+			// data.sound,
+			// data.image,
+			// data.additionalData
+		});
+
+		push.on('error', function(e) {
+			alert(e.message);
+		});
     },
 	// Update DOM on a Received Event
     /* receivedEvent: function(id) {}   */
