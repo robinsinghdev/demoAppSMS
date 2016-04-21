@@ -374,6 +374,7 @@ var app = {
         
         //checkPreAuth();
 		$("#loginForm").on("submit",handleLogin);
+		window.localStorage["gcmregistrationId"] = "";
 		
 		pushNotification = window.plugins.pushNotification;
 		try 
@@ -831,8 +832,6 @@ function handleLogin() {
 							$healthDetailsDivObj.find(".div-block-data").append('<p class="message">No health problems reported.</p>');
 						}
 						
-						alert(window.localStorage["gcmregistrationId"]);
-						
 					}
 					else if(loginDataResponse["userRoleId"]==2){ // Teacher Role
 						window.localStorage["staffDetailsId"] = loginDataResponse["staffDetailsId"];
@@ -1081,6 +1080,7 @@ function errorCB(err) {
 			var loginData={};
 			loginData.username=window.localStorage["username"];
 			loginData.password=window.localStorage["password"];
+			loginData.gcmregdid = window.localStorage["gcmregistrationId"];
 			
 			$.ajax({
 				//type : 'POST',
