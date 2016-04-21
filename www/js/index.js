@@ -389,19 +389,20 @@ var app = {
 			alert(txt); 
 		}
 		
+		/*
 		var push = PushNotification.init({
 			"android": {"senderID": "329763220550"},
 			"ios": {"alert": "true", "badge": "true", "sound": "true"},
 			"windows": {} 
 		});
-		/*
-		pushNotification.on('registration', function(data) {
+		
+		push.on('registration', function(data) {
 			window.localStorage["gcmregistrationId"] = data.registrationId;
 			alert("registrationId-:"+data.registrationId);
 			console.log(data.registrationId);
 			//$("#gcm_id").html(data.registrationId);
 		});
-		*/
+		
 		push.on('notification', function(data) {
 			console.log(data.message);
 			alert(data.title+" Message: " +data.message);
@@ -411,6 +412,7 @@ var app = {
 			// data.image,
 			// data.additionalData
 		});
+		*/
     },
 	// Update DOM on a Received Event
     /* receivedEvent: function(id) {}   */
@@ -439,7 +441,7 @@ function onNotification(e) {
       	// you might want to play a sound to get the user's attention, throw up a dialog, etc.
       	if (e.foreground)
       	{
-      		alert("INLINE NOTIFICATION");
+      		alert("INLINE NOTIFICATION--"+e.message);
 			      
 			        // on Android soundname is outside the payload. 
 		                // On Amazon FireOS all custom attributes are contained within payload
@@ -449,14 +451,14 @@ function onNotification(e) {
 		                //var my_media = new Media("/android_asset/www/"+ soundfile);
 
 		               // my_media.play();
-			}
+		}
+		else
+		{	// otherwise we were launched because the user touched a notification in the notification tray.
+			if (e.coldstart)
+				alert("COLDSTART NOTIFICATION");
 			else
-			{	// otherwise we were launched because the user touched a notification in the notification tray.
-				if (e.coldstart)
-					alert("COLDSTART NOTIFICATION");
-				else
-				alert("BACKGROUND NOTIFICATION");
-			}
+			alert("BACKGROUND NOTIFICATION");
+		}
 				
 			alert(e.payload.message+"---"+e.payload.msgcnt);
 			console.log(e.payload.message+"---"+e.payload.msgcnt);
