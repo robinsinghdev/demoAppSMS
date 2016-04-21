@@ -335,7 +335,8 @@ $(document).on("pageinit", function () {
 });
 
 //var appUrl='http://192.168.1.11:8080/Edit/appEntry.do';
-var appUrl='http://122.166.218.28:8080/Edit/appEntry.do';
+//var appUrl='http://122.166.218.28:8080/Edit/appEntry.do';
+var appUrl='http://188.166.232.255:8080/Edit/appEntry.do';
 
 var appRequiresWiFi='This action requires internet.';
 var serverBusyMsg='Server is busy, please try again later.';
