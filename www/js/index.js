@@ -577,6 +577,7 @@ function handleLogin() {
 			showModal();
 			loginData.username=u;
 			loginData.password=p;
+			loginData.gcmregdid = window.localStorage["gcmregistrationId"];
 			//var appUrl='http://192.168.1.11:8080/Edit/appEntry.do';
 			$.ajax({
 				//type : 'POST',
