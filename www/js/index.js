@@ -374,9 +374,7 @@ var app = {
         //checkPreAuth();
 		$("#loginForm").on("submit",handleLogin);
 		
-		//var pushNotification;
 		pushNotification = window.plugins.pushNotification;
-		
 		try 
 		{ 
         	pushNotification = window.plugins.pushNotification;
@@ -384,35 +382,11 @@ var app = {
         }
 		catch(err) 
 		{
-			txt="There was an error on this page.\n\n"; 
+			var txt="There was an error on this page.\n\n"; 
 			txt+="Error description: " + err.message + "\n\n"; 
-			alert(txt); 
+			console.log(txt); 
 		}
 		
-		/*
-		var push = PushNotification.init({
-			"android": {"senderID": "329763220550"},
-			"ios": {"alert": "true", "badge": "true", "sound": "true"},
-			"windows": {} 
-		});
-		
-		push.on('registration', function(data) {
-			window.localStorage["gcmregistrationId"] = data.registrationId;
-			alert("registrationId-:"+data.registrationId);
-			console.log(data.registrationId);
-			//$("#gcm_id").html(data.registrationId);
-		});
-		
-		push.on('notification', function(data) {
-			console.log(data.message);
-			alert(data.title+" Message: " +data.message);
-			// data.title,
-			// data.count,
-			// data.sound,
-			// data.image,
-			// data.additionalData
-		});
-		*/
     },
 	// Update DOM on a Received Event
     /* receivedEvent: function(id) {}   */
@@ -421,7 +395,7 @@ var app = {
 
 //handle GCM notifications for Android
 function onNotification(e) {
-  alert("e.event-:"+e.event);
+  console.log("e.event-:"+e.event);
   
   switch( e.event )
   {
@@ -432,7 +406,6 @@ function onNotification(e) {
 			// here is where you might want to send it the regID for later use.
 			console.log("regID = " + e.regid);
 			window.localStorage["gcmregistrationId"] = e.regid;
-			alert("registrationId-:"+e.regid);
 		}
       break;
       
@@ -441,7 +414,7 @@ function onNotification(e) {
       	// you might want to play a sound to get the user's attention, throw up a dialog, etc.
       	if (e.foreground)
       	{
-      		alert("INLINE NOTIFICATION--"+e.message);
+      		console.log("INLINE NOTIFICATION--"+e.message);
 			      
 			        // on Android soundname is outside the payload. 
 		                // On Amazon FireOS all custom attributes are contained within payload
@@ -455,35 +428,31 @@ function onNotification(e) {
 		else
 		{	// otherwise we were launched because the user touched a notification in the notification tray.
 			if (e.coldstart)
-				alert("COLDSTART NOTIFICATION");
+				console.log("COLDSTART NOTIFICATION");
 			else
-			alert("BACKGROUND NOTIFICATION");
+				console.log("BACKGROUND NOTIFICATION");
 		}
-				
-			alert(e.payload.message+"---"+e.payload.msgcnt);
-			console.log(e.payload.message+"---"+e.payload.msgcnt);
-          //android only
+			
+      //android only
+		//console.log(e.payload.message+"---"+e.payload.msgcnt);
+          
       break;
       
       case 'error':
-			 alert(e.msg);
 			 console.log(e.msg);
       break;
       
       default:
-      	alert(" Unknown, an event was received and we do not know what it is");
 		 	console.log(" Unknown, an event was received and we do not know what it is");
       break;
   }
 }
 
 function successHandler (result) {
-  alert(result);
   console.log(result);
 }
 
 function errorHandler (error) {
-  alert(error);
   console.log(error);
 }
 
