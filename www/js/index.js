@@ -341,6 +341,7 @@ var appRequiresWiFi='This action requires internet.';
 var serverBusyMsg='Server is busy, please try again later.';
 var mData={};
 var db;
+var pushNotification;
 
 var app = {
     SOME_CONSTANTS : false,  // some constant
@@ -373,35 +374,93 @@ var app = {
         //checkPreAuth();
 		$("#loginForm").on("submit",handleLogin);
 		
-		var push = PushNotification.init({
-			"android": {"senderID": "329763220550"},
-			"ios": {"alert": "true", "badge": "true", "sound": "true"},
-			"windows": {} 
-		});
-
-		push.on('registration', function(data) {
-			alert("registrationId-:"+data.registrationId);
-			console.log(data.registrationId);
-			//$("#gcm_id").html(data.registrationId);
-		});
-
-		push.on('notification', function(data) {
-			console.log(data.message);
-			alert(data.title+" Message: " +data.message);
-			// data.title,
-			// data.count,
-			// data.sound,
-			// data.image,
-			// data.additionalData
-		});
-
-		push.on('error', function(e) {
-			alert(e.message);
-		});
+		//var pushNotification;
+		pushNotification = window.plugins.pushNotification;
+		
+		try 
+		{ 
+        	pushNotification = window.plugins.pushNotification;
+        	pushNotification.register(successHandler, errorHandler, {"senderID":"329763220550","ecb":"onNotification"});		// required!
+        }
+		catch(err) 
+		{
+			txt="There was an error on this page.\n\n"; 
+			txt+="Error description: " + err.message + "\n\n"; 
+			alert(txt); 
+		}
     },
 	// Update DOM on a Received Event
     /* receivedEvent: function(id) {}   */
 };
+
+
+//handle GCM notifications for Android
+function onNotification(e) {
+  alert("e.event-:"+e.event);
+  
+  switch( e.event )
+  {
+      case 'registered':
+		if ( e.regid.length > 0 )
+		{
+			// Your GCM push server needs to know the regID before it can push to this device
+			// here is where you might want to send it the regID for later use.
+			console.log("regID = " + e.regid);
+			window.localStorage["gcmregistrationId"] = e.regid;
+			alert("registrationId-:"+e.regid);
+		}
+      break;
+      
+      case 'message':
+      	// if this flag is set, this notification happened while we were in the foreground.
+      	// you might want to play a sound to get the user's attention, throw up a dialog, etc.
+      	if (e.foreground)
+      	{
+      		alert("INLINE NOTIFICATION");
+			      
+			        // on Android soundname is outside the payload. 
+		                // On Amazon FireOS all custom attributes are contained within payload
+		               // var soundfile = e.soundname || e.payload.sound;
+		                // if the notification contains a soundname, play it.
+		                // playing a sound also requires the org.apache.cordova.media plugin
+		                //var my_media = new Media("/android_asset/www/"+ soundfile);
+
+		               // my_media.play();
+			}
+			else
+			{	// otherwise we were launched because the user touched a notification in the notification tray.
+				if (e.coldstart)
+					alert("COLDSTART NOTIFICATION");
+				else
+				alert("BACKGROUND NOTIFICATION");
+			}
+				
+			alert(e.payload.message+"---"+e.payload.msgcnt);
+			console.log(e.payload.message+"---"+e.payload.msgcnt);
+          //android only
+      break;
+      
+      case 'error':
+			 alert(e.msg);
+			 console.log(e.msg);
+      break;
+      
+      default:
+      	alert(" Unknown, an event was received and we do not know what it is");
+		 	console.log(" Unknown, an event was received and we do not know what it is");
+      break;
+  }
+}
+
+function successHandler (result) {
+  alert(result);
+  console.log(result);
+}
+
+function errorHandler (error) {
+  alert(error);
+  console.log(error);
+}
 
 function showModal(){
   $('body').append("<div class='ui-loader-background'> </div>");
@@ -775,6 +834,8 @@ function handleLogin() {
 						}else{
 							$healthDetailsDivObj.find(".div-block-data").append('<p class="message">No health problems reported.</p>');
 						}
+						
+						alert(window.localStorage["gcmregistrationId"]);
 						
 					}
 					else if(loginDataResponse["userRoleId"]==2){ // Teacher Role
@@ -1277,6 +1338,9 @@ function errorCB(err) {
 	function getHolidays(){
 		mData={};	
 		mData.p1="";
+		
+		pushNotification.unregister(successHandler, errorHandler);
+		
 		getDataByAction("getHolidays", JSON.stringify(mData), commonPageSuccessCallback, commonErrorCallback);
 	}
 	
