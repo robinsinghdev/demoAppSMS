@@ -1,5 +1,4 @@
  /*  @import url(https://fonts.googleapis.com/css?family=Titillium+Web:400,300,300italic,400italic,600,700,600italic); */
-
 /* latin-ext */
 @font-face {
   font-family: 'Titillium Web';
@@ -113,17 +112,14 @@
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
 }
 
-
 /* 
 body {
     margin: 0;
     padding: 0;
 	font-family: 'Titillium Web', sans-serif;
 	font-size:14px;
-	
 }
  */
- 
  .ui-content {
     padding: 0 !important;
 }
@@ -175,16 +171,18 @@ body {
     width: 80px;
 	text-align:center;
 	outline: 0 none;
+	border: 0;
 }
 .mb-student-links > li a span{background:url(../img/st_icons/mb-student-links-icon.png) no-repeat; height:53px; width:53px; display:inline-block; vertical-align: middle; opacity:.5;
 margin: 15px 0 0;
-
 }
 .mb-student-links > li a span.icon2{background-position:-53px 0}
 .mb-student-links > li a span.icon3{background-position:-106px 0}
+.mb-student-links > li a.current{border: 2px solid #ffd02b;}
 .mb-student-links > li a.current span{opacity:1}
 /*-------------mb-stuent-Communication---------------*/
-.mb-student-communication{padding:50px 20px; background:#f3f3f3;}
+.mb-student-communication{padding:20px 10px; background:#f3f3f3;}
+.mb-student-communication.all-chats{padding:20px 0;}
 .mb-student-communication ul.chat {
     list-style: outside none none;
     margin: 0;
@@ -198,7 +196,7 @@ margin: 15px 0 0;
     width: 50px;
 	position: relative;
 }
-.mb-student-communication .chat li{margin-bottom:60px;}
+.mb-student-communication .chat li{margin-bottom:20px;}
 .mb-student-communication .chat li .avatar span {
     box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.6) inset;
     position: absolute;
@@ -243,9 +241,7 @@ margin: 15px 0 0;
     background: #fff none repeat scroll 0 0;
     border: 1px solid #dcdcdc;
     box-shadow: 1px 1px 0 0 #dcdcdc;
-
 }
-
 .mb-student-communication .chat li.msg-out .message .msg-txt span {
     background: rgba(0, 0, 0, 0) url("../img/st_icons/msg-bg-arrow2.png") no-repeat scroll 0 0;
 	 margin-left: -1px;
@@ -271,9 +267,7 @@ margin: 15px 0 0;
     position: absolute;
     right: 0;
     width: 80px;
-	
 }
-
 /*page2-student-attendance*/
 .mb-standard-container {
     background: #3a0e4e none repeat scroll 0 0;
@@ -285,7 +279,6 @@ margin: 15px 0 0;
     height: 35px;
     width: 100%;
 }
-
 span.student-monthly-info {
     color: #806f8a;
     font-size: 22px;
@@ -298,7 +291,6 @@ span.student-monthly-info {
     padding: 5px 20px;
     width: 100%;
 }
-
 .mb-std-header .dropdown button {
     float:right;
 }
@@ -367,7 +359,6 @@ span.student-monthly-info {
     margin: 0;
     padding: 0;
 }
-
 .mb-st-more-info img {
     border-radius: 36px;
     width: 50px;
@@ -387,7 +378,6 @@ span.student-monthly-info {
     padding-right: 7px;
     vertical-align: sub;
 }
-
 .st-chat-info-close > img {
     border: 1px solid #a0a0a0; 
     padding: 5px;
@@ -401,14 +391,11 @@ span.student-monthly-info {
     margin: 0;
     padding: 20px 10px;
     width: 100%;
-	
 }
-
 .st-profile-img {
     float: left;
   
 }
-
 .st-contact-info {
     float: left;
 }
@@ -426,9 +413,12 @@ span.student-monthly-info {
     border-right: 1px solid #eabc19;
     float: left;
     height: 70px;
-    padding: 3px 15px;
+    padding: 3px 10px;
     text-align: center;
 }
+.st-atte-approve .ui-select, .st-atte-approve select {
+		display: none;
+}	
 .st-atte-detail-info  label {
     color: #494949;
     font-size: 16px;
@@ -445,7 +435,11 @@ span.student-monthly-info {
 	outline: 0 none;
     text-align: center;
     text-decoration: none;
+	line-height: 19px;
+	color: #000;
 }
+.st-atte-detail-info .atten-cust-checkbox.active{background: #f04444 none repeat scroll 0 0;}
+.st-atte-detail-info .atten-cust-checkbox.present{background: #39eb67  none repeat scroll 0 0;}
 .st-atte-detail-info .atten-cust-checkbox i {
     color: #2bb7af;
     display: none;
@@ -455,23 +449,28 @@ span.student-monthly-info {
     margin: 0;
     width: 20px;
 }
-.st-atte-detail-info .atten-cust-checkbox.active i{display:block; } 
+.st-atte-detail-info a i {
+    color: #fff;
+    font-size: 30px;
+}
+.st-atte-detail-info .atten-cust-checkbox.active i{display:block; }
+.st-atte-detail-info .atten-cust-checkbox.approved i{display:block; font-size: 20px;}
 .st-atte-detail-info .atten-cust-checkbox.active i.fa-times{ color:#f04444}
 .st-period-info {
-    float: left;
-    line-height: 22px;
-    padding: 3px 15px;
+    padding: 3px 10px 3px 90px;    
 }
 .period-list {
     margin: 0 ;
     padding: 0;
+    display: block;
+    float: none;
 }
 .period-list > li {   
-    float: left;
+    display: inline-block;
     list-style: outside none none;
-      padding-right: 10px;
+    padding-right: 10px;
+    margin: 0 0 5px;
 }
-
 .period-list .absent{
 	background:#f04444;
 	color:#fff;
@@ -479,14 +478,12 @@ span.student-monthly-info {
     margin-left: 3px;
     width: 18px;
 }
-
 .period-list .present {
     background: #fff none repeat scroll 0 0;
     height: 18px;
     margin-left: 3px;
     width: 18px;
 }
-
 .mb-student-attendance-list {
     margin: 0;
     padding: 0;
@@ -503,6 +500,7 @@ span.student-monthly-info {
 .st-profile-img {
     float: left;
     position: relative;
+    text-align: center;
 }
 .st-profile-img  span {
     border-radius: 50%;
@@ -516,12 +514,16 @@ span.student-monthly-info {
     width: 100%;
 }
 .mb-st-content {
-    height: 70px;
+    height: auto;
     padding: 0 85px 0 90px;
     position: relative;
 }
+.st-prof-info {
+    float: left;
+    width: 100%;
+}
 .st-prof-info > p {
-    font-size: 20px;
+    font-size: 16px;
 	margin: 5px 0;
 	font-weight:600;
 }
@@ -534,7 +536,6 @@ span.student-monthly-info {
 	height:18px;
 }
 .st-prof-info span.st-atte-percent{background-position:0 -18px;}
-
 .mb-st-content .action-btn{
     background: #fff url("../img/st_icons/mb-student-atten-list-cross.png") no-repeat scroll 0 0;
     border: 1px solid #c6c6c6;
@@ -547,26 +548,56 @@ span.student-monthly-info {
     z-index: 10;
 }
 .mb-st-content .action-btn.absent{background-color:#f04444; border-color:#f04444; background-position:-64px 0}
+.mb-st-content .action-btn.presentok {
+	background: #39eb67 url("../img/st_icons/mb-student-atten-present.png") no-repeat scroll -64px center;
+	background-color:#fff;
+}
+.mb-st-content .action-btn.present {
+    background: #39eb67 url("../img/st_icons/mb-student-atten-present.png") no-repeat scroll 0 center;
+    border-color: #39eb67;
+}
+.mb-st-content .action-btn.add {
+    background-attachment: scroll;
+    background-clip: border-box;
+    background-color: gray;
+    background-origin: padding-box;
+    background-position: -64px 0;
+    background-repeat: repeat;
+    background-size: auto auto;
+    border-color: gray;
+    transform: rotate(45deg);
+}
+.mb-st-content .action-btn.ok{background-color:grey; border-color:grey; background-position:-64px 0}
 .mb-student-attendance-list .mb-student-container {
     background: #fff none repeat scroll 0 0;
     box-shadow: 0 7px 6px -5px rgba(0, 0, 0, 0.5);
+    float: left;
     padding: 10px 0 10px 10px;
     position: relative;
+    width: 100%;
     z-index: 999;
 }
 .mb-student-attendance-list .attendance-form {
     background: #ffd02b none repeat scroll 0 0;
-    height: 70px;
+    box-sizing: border-box;
+    float: left;
+    height: auto;
     margin: 0;
     position: absolute;
     top: -85px;
     width: 100%;
     z-index: 99;
 }
-
+.mb-student-container .st-profile-img .fa.fa-user {
+    color: #290450;
+    font-size: 50px;
+    line-height: 65px;
+}
 .st-period-info.period-result {
+    float: left;
     margin: 6px 0 0;
     padding: 0;
+    width: 100%;
 }
 .st-period-info.period-result .period-list > li {
     padding-right: 5px;
@@ -578,6 +609,12 @@ span.student-monthly-info {
     height: 15px;
     width: 15px;
 	border:1px solid #dadada;
+	text-align: center;
+	line-height: 14px;
+	color: #454545;
+}
+.st-period-info.period-result .period-list a.atten-cust-checkbox.atten-cust-checkbox.absent {
+    background: #f56363 none repeat scroll 0 0;
 }
 .st-period-info.period-result .period-list a.atten-cust-checkbox.atten-cust-checkbox i {
     float: left;
@@ -595,7 +632,6 @@ span.student-monthly-info {
     float: left;
 }
 
-
 /*-----------mb-student-assignment-dashboard-------------*/
 .mb-student-assignment-dashboard {
     background: #4c245e none repeat scroll 0 0;
@@ -605,7 +641,6 @@ span.student-monthly-info {
     padding: 0;
     width: 100%;
 }
-
 .mb-student-assignment-dashboard > li {
     border-right: 1px solid #3a0e4e;
     display: table-cell;
@@ -669,8 +704,6 @@ li.highlighte .dashboard-content > span {
     background-image: url("../img/st_icons/assignment-list.png") no-repeat;
 }
 
-
-
 /*--------------mb-st-assignment-list-----------------*/
 div.mb-st-assignment-list, div.mb-st-common-list  {
     overflow: hidden;
@@ -715,10 +748,7 @@ div.mb-st-assignment-list, div.mb-st-common-list  {
 	padding: 10px;
 	font-size:14px;
 }
-.mb-st-assignment-list .st-assign-detail .assign-header .sub-name, .mb-st-common-list .st-assign-detail .assign-header .sub-name {
-  
-
-}
+.mb-st-assignment-list .st-assign-detail .assign-header .sub-name, .mb-st-common-list .st-assign-detail .assign-header .sub-name {}
 .mb-st-assignment-list .st-assign-detail .assign-header .assign-date, .mb-st-common-list .st-assign-detail .assign-header .assign-date
 {	
 	float:right;
@@ -780,7 +810,6 @@ div.mb-st-assignment-list, div.mb-st-common-list  {
     width: 80px;
 }
  /*-------------mb-student-profile---------------*/
- 
  .mb-student-profile {
     background: #f3f3f3 none repeat scroll 0 0;
     overflow: hidden;
@@ -801,7 +830,6 @@ div.mb-st-assignment-list, div.mb-st-common-list  {
     width: 50px;
 	
 }
-
 .student-profile-title .icon.icon1 {
     background-position: -50px bottom;
 }
@@ -831,7 +859,6 @@ div.mb-st-assignment-list, div.mb-st-common-list  {
     background-position: -200px top;
 	background-color:#3a0e4e;
 }
-
 .mb-student-profile .student-profile-title > p {
     color: #b2b2b2;
     font-size: 16px;
@@ -860,7 +887,6 @@ div.mb-st-assignment-list, div.mb-st-common-list  {
     text-align: center;
     width: 10px;
 }
-
 .parent-profile-title .prof-icon,.student-atten-mapping .prof-icon {
     background: #fff url("../img/st_icons/st-profile-icon.png") no-repeat scroll center center;
     border-radius: 50%;
@@ -897,14 +923,12 @@ div.mb-st-assignment-list, div.mb-st-common-list  {
     vertical-align: sub;
 	color:#a7a7a7;
 }
-
 .user-contact-info span .fa, .user-data-info span .fa{
     font-size: 22px;
     padding-right: 5px;
     vertical-align: sub;
 	color:#a7a7a7;
 }
-
 .mb-student-profile .parent-contact-info span, .mb-student-profile .user-contact-info span.line-break-span, .mb-student-profile .user-data-info span.line-break-span  {
     display: block;
 }
@@ -932,11 +956,6 @@ div.mb-st-assignment-list, div.mb-st-common-list  {
     font-size: 20px;
     line-height: 20px;
 }
-
 .mb-student-profile .student-profile-content > img {
     width: 100%;
-}
-
-@media screen and (max-width: 1024px) and (min-width: 768px) {
-
 }
