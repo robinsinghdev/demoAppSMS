@@ -560,10 +560,10 @@ function handleLogin() {
 	var u = $("#username", form).val();
 	var p = $("#password", form).val();
 	//u='hcsvenkatesh@g.com'; //parent username
-	u='mahantesh@g.com'; //parent username
+	//u='mahantesh@g.com'; //parent username
 	//u='sanjithhcs@g.com'; //student username sanjithhcs@g.com
 	//u='jat@g.com'; //staff username jat@g.com
-	p='admin';
+	//p='admin';
 	
 	if(u != '' && p!= '') {
 		
