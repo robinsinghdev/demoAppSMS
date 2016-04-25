@@ -1365,6 +1365,7 @@ function errorCB(err) {
 		var responseJson=jQuery.parseJSON(data);
 		
 		if(responseJson.statusCode == "0" ){
+			$("#chat-page .commentBox").val('');
 			var $parentEleObj=$('#oneToOneChatSection ul.chat');
 			var jsonData=responseJson["data"];
 			
