@@ -251,7 +251,7 @@ $(document).one('pagebeforecreate', function () {
     }
    */
     
-	panelsInitialization(true, true, 0);
+	panelsInitialization(true, true, 0);	
 });
 
 function panelsInitialization(initLeftPanelFlag, initRightPanelFlag, roleId){
@@ -288,7 +288,9 @@ function panelsInitialization(initLeftPanelFlag, initRightPanelFlag, roleId){
 						'<img src="img/edit-sm-logo.png" alt="logo" /></a>';
         
         var rightPanelDynBtn='<div class="ui-btn-right right-space">'+
-								'<a href="#rightPanel' + (dynPanelBtnCount+1) + '" class="ui-btn ui-corner-all ui-icon-gear ui-btn-icon-notext st-rightPanel-btn"  title="Setting"> </a>'+
+        						'<a href="#notification-page" class="ui-btn ui-shadow ui-corner-all st-rightPanel-btn no-border margin-right notification-count-link"  title="Notification"><span class="">0</span></a>'+
+        
+								'<a href="#rightPanel' + (dynPanelBtnCount+1) + '" class="ui-btn ui-corner-all ui-icon-gear ui-btn-icon-notext st-rightPanel-btn no-border"  title="Setting"> </a>'+
 							'</div>';
         
         $(this).append(leftPanelDynBtn);
@@ -300,7 +302,7 @@ function panelsInitialization(initLeftPanelFlag, initRightPanelFlag, roleId){
 
 $(document).on("pageinit", function () {
     if($(this).attr("href") == "#"+$.mobile.pageContainer.pagecontainer("getActivePage")[0].id) {
-    	alert($.mobile.pageContainer.pagecontainer("getActivePage")[0].id);
+    	//alert($.mobile.pageContainer.pagecontainer("getActivePage")[0].id);
     	//$("[data-role=panel]").panel("close");
     }
     
@@ -317,9 +319,8 @@ $(document).on("pageinit", function () {
 			getAssignmentForStudTabs();
 		}
 		else if(currentDivName == "mb-student-communication"){
-			
+			getNewsEventAndCommListForParent();
 		}
-		
 		return false;
 	});
 	
@@ -332,11 +333,29 @@ $(document).on("pageinit", function () {
 		return false;
 	});
 	/* New Design for Edit CSS Ends */	
+	/*
+	$(".approveReasonsSelectsfsdf").change(function() {
+		console.log("sdid-----"+$(this).data("sdid") );
+		
+		console.log("sdid-----"+ $(this).parents('.st-atte-approve').find('.approveReasonsSelectLabel').data("sdid") );
+		
+		
+		$(this).parents('.st-atte-approve').find('.attendanceApproveCheckbox').data("approvereasonid", $(this).val());
+		$(this).parents('.st-atte-approve').find('.approveReasonsSelectLabel').text($(this).find(":selected").text());
+		
+		console.log("data approvereasonid -----"+ $(this).parents('.st-atte-approve').find('.attendanceApproveCheckbox').data("approvereasonid") );
+		
+		$( this ).close();
+		$( this ).parents('.st-atte-approve').find('#approveReasonsSelect').selectmenu('close');
+	});
+	*/
+	
+	
 });
 
 //var appUrl='http://192.168.1.11:8080/Edit/appEntry.do';
 //var appUrl='http://122.166.218.28:8080/Edit/appEntry.do';
-var appUrl='http://188.166.232.255:8080/Edit/appEntry.do';
+var appUrl = '';
 
 var appRequiresWiFi='This action requires internet.';
 var serverBusyMsg='Server is busy, please try again later.';
@@ -368,94 +387,89 @@ var app = {
     // Phonegap is now ready...
     onDeviceReady: function() {
         document.addEventListener("backbutton", onBackKeyDown, false);
-        // Start adding your code here....
-		//db = window.sqlitePlugin.openDatabase({name: "stims.db", location: 2});
-		//db.transaction(initializeDB, errorCB, successCB);
-        
-        //checkPreAuth();
-		$("#loginForm").on("submit",handleLogin);
-		window.localStorage["gcmregistrationId"] = "";
+        if(window.localStorage["gcmregistrationId"] === undefined ) {
+			window.localStorage["gcmregistrationId"] = "";
+		}
 		
 		pushNotification = window.plugins.pushNotification;
-		try 
-		{ 
+		try{
         	pushNotification = window.plugins.pushNotification;
         	pushNotification.register(successHandler, errorHandler, {"senderID":"329763220550","ecb":"onNotification"});		// required!
         }
-		catch(err) 
-		{
+		catch(err){
 			var txt="There was an error on this page.\n\n"; 
 			txt+="Error description: " + err.message + "\n\n"; 
 			console.log(txt); 
 		}
 		
+        if(window.localStorage["appUrl"] === undefined ) {
+        	window.localStorage["appUrl"] = '';
+        	window.localStorage["schoolCode"] = '';
+        	$(".schoolCodeContainer").show();
+			$(".loginFormContainer").hide();
+        }else{
+    		//db = window.sqlitePlugin.openDatabase({name: "stims.db", location: 2});
+    		//db.transaction(initializeDB, errorCB, successCB);
+        	$(".schoolCodeContainer").hide();
+			$(".loginFormContainer").show();
+			$(".schoolCodeLabel").html(window.localStorage["schoolCode"]);
+        	//checkPreAuth();
+        }	
+		$("#loginForm").on("submit",handleLogin);
     },
-	// Update DOM on a Received Event
-    /* receivedEvent: function(id) {}   */
 };
-
 
 //handle GCM notifications for Android
 function onNotification(e) {
-  console.log("e.event-:"+e.event);
-  
-  switch( e.event )
-  {
-      case 'registered':
-		if ( e.regid.length > 0 )
-		{
-			// Your GCM push server needs to know the regID before it can push to this device
-			// here is where you might want to send it the regID for later use.
-			console.log("regID = " + e.regid);
-			window.localStorage["gcmregistrationId"] = e.regid;
-		}
-      break;
-      
-      case 'message':
-      	// if this flag is set, this notification happened while we were in the foreground.
-      	// you might want to play a sound to get the user's attention, throw up a dialog, etc.
-      	if (e.foreground)
-      	{
-      		console.log("INLINE NOTIFICATION--"+e.message);
-			      
+    switch( e.event ){
+        case 'registered':
+			if ( e.regid.length > 0 ){
+				// Your GCM push server needs to know the regID before it can push to this device
+				// here is where you might want to send it the regID for later use.
+				console.log("regID = " + e.regid);
+				window.localStorage["gcmregistrationId"] = e.regid;
+			}
+        break;
+        
+        case 'message':
+        	// if this flag is set, this notification happened while we were in the foreground.
+        	// you might want to play a sound to get the user's attention, throw up a dialog, etc.
+        	if (e.foreground){
+        		console.log("INLINE NOTIFICATION");
 			        // on Android soundname is outside the payload. 
 		                // On Amazon FireOS all custom attributes are contained within payload
 		               // var soundfile = e.soundname || e.payload.sound;
 		                // if the notification contains a soundname, play it.
 		                // playing a sound also requires the org.apache.cordova.media plugin
 		                //var my_media = new Media("/android_asset/www/"+ soundfile);
-
 		               // my_media.play();
-		}
-		else
-		{	// otherwise we were launched because the user touched a notification in the notification tray.
-			if (e.coldstart)
-				console.log("COLDSTART NOTIFICATION");
-			else
-				console.log("BACKGROUND NOTIFICATION");
-		}
-			
-      //android only
-		//console.log(e.payload.message+"---"+e.payload.msgcnt);
-          
-      break;
-      
-      case 'error':
+			}
+			else{	// otherwise we were launched because the user touched a notification in the notification tray.
+				if (e.coldstart){}
+					//console.log("COLDSTART NOTIFICATION");
+				else{}
+					//console.log("BACKGROUND NOTIFICATION");
+			}
+			//console.log(e.payload.message+"---"+e.payload.msgcnt);
+            //android only
+        break;
+        
+        case 'error':
 			 console.log(e.msg);
-      break;
-      
-      default:
+        break;
+        
+        default:
 		 	console.log(" Unknown, an event was received and we do not know what it is");
-      break;
-  }
+        break;
+    }
 }
 
 function successHandler (result) {
-  console.log(result);
+    console.log(result);
 }
 
 function errorHandler (error) {
-  console.log(error);
+    console.log(error);
 }
 
 function showModal(){
@@ -514,17 +528,16 @@ function checkPreAuth() {
 }
 
 function logout() {
-	
 	window.localStorage["password"] = '';
 	window.localStorage["user_logged_in"] = 0;
-	
 	window.localStorage["ID"] = '';
 	window.localStorage["permissions"] = '';
-	
 	window.localStorage["email"] = '';
-	
 	var form = $("#loginForm");
 	$("#username", form).val(window.localStorage["username"]);
+	$("#password", form).val('');
+	$(".schoolCodeContainer").hide();
+	$(".loginFormContainer").show();
 	$.mobile.changePage('#login-page','slide');
 }
 
@@ -536,20 +549,21 @@ function gotoHome(){
 		$("#staff_homepage").show();
 		$("#student_homepage").hide();
 	}
-	
 	$.mobile.changePage('#home-page','slide');
 }
 
 function handleLogin() {
+	console.log(appUrl);
 	var form = $("#loginForm");
 	//disable the button so we can't resubmit while we wait
 	$("#submitButton",form).attr("disabled","disabled");
 	var u = $("#username", form).val();
 	var p = $("#password", form).val();
 	//u='hcsvenkatesh@g.com'; //parent username
+	u='mahantesh@g.com'; //parent username
 	//u='sanjithhcs@g.com'; //student username sanjithhcs@g.com
 	//u='jat@g.com'; //staff username jat@g.com
-	//p='admin';
+	p='admin';
 	
 	if(u != '' && p!= '') {
 		
@@ -574,71 +588,13 @@ function handleLogin() {
 			loginData.username=u;
 			loginData.password=p;
 			loginData.gcmregdid = window.localStorage["gcmregistrationId"];
-			//var appUrl='http://192.168.1.11:8080/Edit/appEntry.do';
+			//loginData.gcmregdid = "reg";//For Testing
 			$.ajax({
 				//type : 'POST',
 				url:appUrl,
 				data : {"action":"login","loginData":JSON.stringify(loginData), "mData":JSON.stringify(mData) },
 				success:function(data){
-					//alert('handle login called ajax auccess----'+JSON.stringify(data));
-				/*	
-				var datass={
-						   "msg":"Success",
-						   "allData":{
-						      "jsonObjAssignment":{
-						         "assignmentSubmissionDate":"NA",
-						         "studAssignmentName":"No Assignments"
-						      },
-						      "jsonObjAcheivements":{
-						         "jsonArrAcheivements":[
-						
-						         ]
-						      },
-						      "jsonObjFees":{
-						         "paymentPendingAmount":0,
-						         "lastPaymentDate":"",
-						         "paymentAmountPaid":0,
-						         "paymentMsg":"Payment is completed"
-						      },
-						      "jsonObjStudData":{
-						         "stdHome":"",
-						         "image":"IMS/images/students/lg/stu_male_avtar.png",
-						         "transportStudentsMapId":null,
-						         "eventList":"",
-						         "gender":"true",
-						         "data":"",
-						         "mobileNumber":"NA",
-						         "destination":null,
-						         "stdOffice":"",
-						         "studContactNo":"NA",
-						         "studentEmail":"sanjithhcs@g.com",
-						         "admissionNo":"15CFA0001",
-						         "addressTwo":"Bangalore",
-						         "studentStandardDivisionId":"1",
-						         "name":"SANJITH RAAJU H.V",
-						         "rollNumber":"15CFA0001",
-						         "transportRouteName":null,
-						         "studentDetailsId":"1",
-						         "comment":[
-						
-						         ],
-						         "addressOne":"Basavanagudi ",
-						         "age":"19",
-						         "email":"hcsvenkatesh@gmail.com",
-						         "parentsName":"VENKATESH H.S"
-						      },
-						      "jsonObjHealth":{
-						         "healthDetails":"No Details"
-						      }
-						   },
-						   "loginDataResponse":{
-						      "name":"VENKATESH",
-						      "userRoleId":4,
-						      "userRoleName":"ROLE_PARENT"
-						   },
-						   "statusCode":0
-						}
-				*/
+					
 				var responseJson=jQuery.parseJSON(data);
 				var responseMessage=responseJson["msg"];
 				
@@ -855,13 +811,8 @@ function handleLogin() {
 					$("#username", form).val(window.localStorage["username"]);
 					$.mobile.changePage('#login-page','slide');
 					
-					navigator.notification.alert(
-						responseMessage,
-						//'Invalid Credentials, please try again.',
-					    alertConfirm,
-					    'EDIT',            // title
-					    'Ok'                  // buttonName
-					);
+					navigator.notification.alert(responseMessage,		//'Invalid Credentials, please try again.',
+					    alertConfirm, 'EDIT', 'Ok');
 				}
 				hideModal();
 			   },
@@ -1081,6 +1032,7 @@ function errorCB(err) {
 			loginData.username=window.localStorage["username"];
 			loginData.password=window.localStorage["password"];
 			loginData.gcmregdid = window.localStorage["gcmregistrationId"];
+			//loginData.gcmregdid = "reg";//For Testing
 			
 			$.ajax({
 				//type : 'POST',
@@ -1283,6 +1235,162 @@ function errorCB(err) {
 		$parentEleObj.append(dataEleObj);
 	}
 	
+	function getNewsEventAndCommListForParent(){
+		mData={};
+		mData.p1=window.localStorage["studDetailsId"];
+		mData.p2=window.localStorage["studStandardDivisionId"];
+		getDataByAction("getNewsEventAndCommListForParent", JSON.stringify(mData), getNewsEventAndCommListForParentSuccessCB, commonErrorCallback);
+	}
+	
+	function getNewsEventAndCommListForParentSuccessCB(data){
+		var responseJson=jQuery.parseJSON(data);
+		
+		if(responseJson.statusCode == "0" ){
+			var $parentEleObj=$('#allChatsDiv ul.all-chats-ul');
+			$parentEleObj.html("");
+			//var actionHeading=responseJson["actionHeading"];
+			//$('.common-user-list-details .page-tab-heading').html(actionHeading);
+			var action=responseJson["action"];
+			var jsonData=responseJson["data"];
+		
+			if(jsonData.length > 0){
+				jQuery.each(jsonData, function(index, item) {
+					var onclickFn = "return false;";
+					if(item["participation_required"]){
+						onclickFn = "loadChat(this);return false;";
+					}
+					var dataEleObj = '<li onclick=" '+onclickFn+' " data-id="'+ item["id"] +'" data-name="'+ item["name"] +'" data-participationFlag="'+ item["participation_required"] +'" '+
+											' >'+
+										'<div>'+
+											'<div class="feat_small_icon">'+
+												'<i class="fa fa-comment-o"></i>'+
+											'</div>'+
+											'<div class="feat_small_details">'+
+												'<h5> '+ item["name"] +' </h5>'+
+												'<a href="#" class="ui-link"> '+ item["message"] +' '+
+													'<br/>Contact Person: '+ item["contact_person_name"] 
+												+'</a>'+
+											'</div>'+
+										
+											'<div class="view_more">'+
+												'<a href="#" class="ui-link-more">'+
+													'<i class="fa fa-angle-double-right right-link"></i>'+
+												'</a>'+
+											'</div>'+
+										'</div>'+	
+										'<div class="time_detail">'+
+											'<span class="time_sub">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
+												' Date: '+ item["start_date"] +' '+ item["start_time"] +' </span>'+
+											'<span class="sub_person"> </span>'+
+										'</div>'+
+									'</li>';
+					$parentEleObj.append(dataEleObj);
+				});
+			}else{
+				var dataEleObj="<li>No Data</li>";
+				$parentEleObj.append(userListsLiNoData);
+			}
+		}
+		else{
+			navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');					
+		}
+		hideModal();
+	}
+	
+	function loadChat(thiss){
+		mData={};
+		mData.p1=window.localStorage["studDetailsId"];
+		mData.p2=window.localStorage["studStandardDivisionId"];
+		mData.p3= $(thiss).data("id");
+		getDataByAction("getNewsEventAndCommCommentsListForParent", JSON.stringify(mData), getNewsEventAndCommCommentsListForParentSuccessCB, commonErrorCallback);
+		$.mobile.changePage('#chat-page','slide');
+	}
+	
+	function getNewsEventAndCommCommentsListForParentSuccessCB(data){
+		var responseJson=jQuery.parseJSON(data);
+		
+		if(responseJson.statusCode == "0" ){
+			var $parentEleObj=$('#oneToOneChatSection ul.chat');
+			$parentEleObj.html("");
+			var jsonData=responseJson["data"];
+			$("#chat-page .eventId").val(jsonData["id"]);			
+			
+			var commentsArr = jsonData["commentsArr"];
+			if(commentsArr.length > 0){
+				jQuery.each(commentsArr, function(index, item) {
+					var msgInOutClass="";
+					if(item["userRole"] == "Me"){
+						msgInOutClass ="msg-in";
+					}else{
+						msgInOutClass ="msg-out";
+					}
+					
+					var dataEleObj = '<li class="'+ msgInOutClass +'">'+
+										'<span class="avatar"><span></span><img src="img/avatars/avatar-male.png" alt=""></span>'+
+										'<div class="message">'+
+											'<div class="msg-txt">'+
+												'<span class="arrow"></span>'+
+												'<p class="msg-body">'+ item["comment"] +'</p>'+
+											'</div>'+
+											'<div class="msg-detail">'+
+												'<span class="st-sender name">'+ item["userRole"] +'</span>'+
+												'<span class="st-sender msg-date pull-right"><i class="fa fa-clock-o"></i>'+ item["datetime"] +'</span>'+
+											'</div>'+
+										'</div>'+							
+									'</li>';
+					$parentEleObj.append(dataEleObj);
+				});
+			}else{
+				var dataEleObj="<li>No Data</li>";
+				$parentEleObj.append(userListsLiNoData);
+			}
+		}
+		else{
+			navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');					
+		}
+		hideModal();
+	}
+	
+	function addCommentDetails(thiss){
+		mData={};
+		mData.p1=window.localStorage["studDetailsId"];
+		mData.p2=window.localStorage["studStandardDivisionId"];
+		mData.p3= $("#chat-page .eventId").val();
+		mData.p4= $("#chat-page .commentBox").val();
+		console.log($("#chat-page .commentBox").val());
+		getDataByAction("addCommentDetails", JSON.stringify(mData), addCommentDetailsSuccessCB, commonErrorCallback);
+	}
+	
+	function addCommentDetailsSuccessCB(data){
+		var responseJson=jQuery.parseJSON(data);
+		
+		if(responseJson.statusCode == "0" ){
+			var $parentEleObj=$('#oneToOneChatSection ul.chat');
+			var jsonData=responseJson["data"];
+			
+			var msgInOutClass ="msg-in";
+			var dataEleObj = '<li class="'+ msgInOutClass +'">'+
+								'<span class="avatar"><span></span><img src="img/avatars/avatar-male.png" alt=""></span>'+
+								'<div class="message">'+
+									'<div class="msg-txt">'+
+										'<span class="arrow"></span>'+
+										'<p class="msg-body">'+ jsonData["comment"] +'</p>'+
+									'</div>'+
+									'<div class="msg-detail">'+
+										'<span class="st-sender name">Me</span>'+
+										'<span class="st-sender msg-date pull-right"><i class="fa fa-clock-o"></i>Now</span>'+
+									'</div>'+
+								'</div>'+							
+							'</li>';
+			$parentEleObj.append(dataEleObj);
+				
+		}
+		else{
+			navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');					
+		}
+		hideModal();
+	}
+	
 	function getLibraryBooksAllocated(){
 		mData={};
 		mData.p1=window.localStorage["studDetailsId"];
@@ -1334,8 +1442,6 @@ function errorCB(err) {
 	function getHolidays(){
 		mData={};	
 		mData.p1="";
-		
-		pushNotification.unregister(successHandler, errorHandler);
 		
 		getDataByAction("getHolidays", JSON.stringify(mData), commonPageSuccessCallback, commonErrorCallback);
 	}
@@ -1817,19 +1923,50 @@ function errorCB(err) {
 		$parentEleObj.html("");
 		if(jsonData.length > 0){
 			jQuery.each(jsonData, function(index, item) {
-				var dataEleObj=userListsLi;
-				var jsonObj=item;
-				
-				dataEleObj=dataEleObj.replace(/replaceName/g, jsonObj["stanDivName"]);
-				dataEleObj=dataEleObj.replace(/replaceUserId/g, jsonObj["ssdmid"]);
-				dataEleObj=dataEleObj.replace(/replaceUserData1/g, jsonObj["stanName"]);
-				
 				var yearString=0;
-				var onClickMethod='getSSDListByStanDivIdYear( '+ jsonObj["sdid"] +' , '+ yearString +' )';
-				dataEleObj=dataEleObj.replace(/replaceOnClickMethod/g, onClickMethod);
+				var dataEleObj='<li onclick="staffStanDivMapActionBtn(this);" >'+
+									'<div class="mb-student-container" data-ssdmid="' + item["ssdmid"] + '" data-sdid="' + item["sdid"] + '" >'+
+										'<div class="st-profile-img">'+
+											'<span><span></span><i class="fa fa-user" aria-hidden="true"></i>'+
+										'</div>'+
+										
+										'<div class="mb-st-content">'+											
+											'<div class="st-prof-info">'+								
+												'<p>' + item["stanDivName"] + '</p>'+
+												'<span class="st-contact-no">' + item["stanName"] + '</span>'+
+												//'<span class="st-atte-percent">99%</span>'+
+												
+											'</div>'+							
+										'</div>'+
+									'</div>'+
+									
+									'<div class="attendance-form animate bounceInRight display-none" style="position: relative; top: 0px;">'+
+										'<div class="st-atte-detail-info">'+
+											'<div class="st-atte-approve" onclick="getSSDListByStanDivIdYear(' + item["sdid"] + ',' + yearString + ');">'+
+												'<label>Attendance</label>'+
+												'<a class="" href="#"> <i class="fa fa-calendar-check-o"></i></a>'+
+											'</div>'+
+											
+											'<div class="st-atte-approve">'+
+												'<label>Details</label>'+
+												'<a class="" href="#"> <i class="fa fa-check"></i></a>'+
+											'</div>'+
+											
+										'</div>'+	
+									'</div>'+
+									
+								'</li>';
+				//var jsonObj=item;				
+				//dataEleObj=dataEleObj.replace(/replaceName/g, item["stanDivName"]);
+				//dataEleObj=dataEleObj.replace(/replaceUserId/g, item["ssdmid"]);
+				//dataEleObj=dataEleObj.replace(/replaceUserData1/g, item["stanName"]);
+				
+				//var yearString=0;
+				//var onClickMethod='getSSDListByStanDivIdYear( '+ item["sdid"] +' , '+ yearString +' )';
+				//dataEleObj=dataEleObj.replace(/replaceOnClickMethod/g, onClickMethod);
 				var hiddenData="";
 				hiddenData+="";
-				dataEleObj=dataEleObj.replace(/replaceHiddenFields/g, hiddenData);
+				//dataEleObj=dataEleObj.replace(/replaceHiddenFields/g, hiddenData);
 				// replaceHiddenFields
 				
 				$parentEleObj.append(dataEleObj);
@@ -1878,19 +2015,80 @@ function errorCB(err) {
 		$parentEleObj.html("");
 		if(jsonData.length > 0){
 			jQuery.each(jsonData, function(index, item) {
-				var dataEleObj=userListsLi;
-				var jsonObj=item;
 				
-				dataEleObj=dataEleObj.replace(/replaceName/g, jsonObj["name"]);
-				dataEleObj=dataEleObj.replace(/replaceUserId/g, jsonObj["ssdid"]);
-				dataEleObj=dataEleObj.replace(/replaceUserData1/g, jsonObj["roll_no"]);
+				var dataEleObj='<li data-sdid=" ' + item["studid"] + ' "  data-ssdid=" ' + item["ssdid"] + ' "  data-rollno=" ' + item["roll_no"] + ' " >'+
+									'<div class="mb-student-container" data-ssdid="' + item["ssdid"] + '" >'+
+										'<div class="st-profile-img">'+
+											'<span><span></span><img alt="" src="img/avatars/avatar-male.png"></span>'+
+										'</div>'+
+										
+										'<div class="mb-st-content">'+											
+											'<div class="st-prof-info">'+								
+												'<p>' + item["name"] + '</p>'+
+												'<span class="st-contact-no">' + item["roll_no"] + '</span>'+
+												//'<span class="st-atte-percent">99%</span>'+
+												
+												'<div class="st-period-info period-result">'+
+													'<ul class="period-list">'+
+														'<li><a class="atten-cust-checkbox" href="#">1</a></li>'+
+														'<li><a class="atten-cust-checkbox" href="#">2</a></li>'+
+														'<li><a class="atten-cust-checkbox" href="#">3</a></li>'+
+														'<li><a class="atten-cust-checkbox" href="#">4</a></li>'+
+														'<li><a class="atten-cust-checkbox" href="#">5</a></li>'+
+														'<li><a class="atten-cust-checkbox" href="#">6</a></li>'+
+														'<li><a class="atten-cust-checkbox" href="#">7</a></li>'+
+													'</ul>'+
+												'</div>'+
+											'</div>'+							
+											'<a class="action-btn default" data-state="" onclick="attendanceActionBtn(this);" ></a>'+
+										'</div>'+
+									'</div>'+
+									
+									'<div class="attendance-form animate bounceInRight display-none" style="position: relative; top: 0px;">'+
+										'<div class="st-atte-detail-info">'+
+											'<div class="st-atte-approve" data-sdid="' + item["studid"] + '" >'+
+												'<label>Approve</label>'+
+												'<a class="atten-cust-checkbox attendanceApproveCheckbox" href="#" id="attendanceApproveCheckbox" name="attendanceApproveCheckbox" data-approvereasonid="" onclick="attendanceApproveCheckboxFn(this);"> <i class="fa fa-check"></i></a>'+
+												'<label data-sdid="' + item["studid"] + '" name="approveReasonsSelectLabel" id="approveReasonsSelectLabel" for="approveReasonsSelect" class="select approveReasonsSelectLabel" onclick="openapproveReasonsSelect(this);"></label>'+
+												
+												'<select name="approveReasonsSelect'+item["studid"]+'" id="approveReasonsSelect'+item["studid"]+'" data-native-menu="false" class="approveReasonsSelect approveReasonsSelect'+item["studid"]+' display-none" data-sdid="' + item["studid"] + '" onchange="approveReasonsSelectChangeFn(this);" > cur'+
+													'<option value="0">-- Select Reason  --</option>'+
+													'<option value="1">No Reason</option>'+
+													'<option value="2">Sick Leave</option>'+
+													'<option value="3">Approved By Parent</option>'+
+												'</select>'+
+												
+											'</div>'+
+											'<div class="st-period-info">'+
+												'<label>Periods</label>'+
+												'<ul class="period-list">'+
+													'<li class="select-all"><a class="atten-cust-checkbox" href="#" onclick="attendanceCheckboxAll(this);">All</i></a></li>'+
+												
+													'<li class="single"><a class="atten-cust-checkbox" href="#" onclick="attendanceCheckbox(this);">1</a></li>'+
+													'<li class="single"><a class="atten-cust-checkbox" href="#" onclick="attendanceCheckbox(this);">2</a></li>'+
+													'<li class="single"><a class="atten-cust-checkbox" href="#" onclick="attendanceCheckbox(this);">3</a></li>'+
+													'<li class="single"><a class="atten-cust-checkbox" href="#" onclick="attendanceCheckbox(this);">4</a></li>'+
+													'<li class="single"><a class="atten-cust-checkbox" href="#" onclick="attendanceCheckbox(this);">5</a></li>'+
+													'<li class="single"><a class="atten-cust-checkbox" href="#" onclick="attendanceCheckbox(this);">6</a></li>'+
+													'<li class="single"><a class="atten-cust-checkbox" href="#" onclick="attendanceCheckbox(this);">7</a></li>'+
+												'</ul>'+
+											'</div>'+
+										'</div>'+	
+									'</div>'+
+									
+								'</li>';
 				
-				var onClickMethod='';
-				dataEleObj=dataEleObj.replace(/replaceOnClickMethod/g, onClickMethod);
-				var hiddenData='';
-				hiddenData+='<input type="hidden" id="ssdid" value="'+ jsonObj["ssdid"] +'">';
-				hiddenData+='<input type="hidden" id="studid" value="'+ jsonObj["sid"] +'">';
-				dataEleObj=dataEleObj.replace(/replaceHiddenFields/g, hiddenData);
+				//var jsonObj=item;
+				//dataEleObj=dataEleObj.replace(/replaceName/g, jsonObj["name"]);
+				//dataEleObj=dataEleObj.replace(/replaceUserId/g, jsonObj["ssdid"]);
+				//dataEleObj=dataEleObj.replace(/replaceUserData1/g, jsonObj["roll_no"]);
+				
+				//var onClickMethod='';
+				//dataEleObj=dataEleObj.replace(/replaceOnClickMethod/g, onClickMethod);
+				//var hiddenData='';
+				//hiddenData+='<input type="hidden" id="ssdid" value="'+ jsonObj["ssdid"] +'">';
+				//hiddenData+='<input type="hidden" id="studid" value="'+ jsonObj["sid"] +'">';
+				//dataEleObj=dataEleObj.replace(/replaceHiddenFields/g, hiddenData);
 				
 				$parentEleObj.append(dataEleObj);
 			});
@@ -1914,10 +2112,8 @@ function errorCB(err) {
 		mData.p2=window.localStorage["studStandardDivisionId"];
 		getDataByAction("getTimetable", JSON.stringify(mData), commonPageSuccessCallback, commonErrorCallback);
 	}
-	
 
 /*  ------------------- Function/Module Wise Code(For Parents/Student) Ends -------------------------  */
-
 	function moreDetails(currObj){
 		var $parentDiv = $(currObj).parents(".more-details-main");
 		var $moreDetails = $parentDiv.find('.more-details');
@@ -1931,7 +2127,6 @@ function errorCB(err) {
 		}
 	}
 	
-	
 	function openAttendanceDetails(obj){
 		$("ul#markAttendanceUl li .period-list-attendance-div").hide();
 		$(obj).find(".period-list-attendance-div").show();
@@ -1943,7 +2138,109 @@ function errorCB(err) {
 		}else{
 			$(obj).addClass("selected");
 		}
+	}
+	
+	//$('.action-btn').click(
+	function attendanceActionBtn(thiss){			
+		$(thiss).parents('li').find('.attendance-form').toggle().css({'position':'relative'}).animate({'top':0});
+		var btnState = $(thiss).data("state");
+		if(btnState == ""){
+			$(thiss).data("state","ok");
+			$(thiss).removeClass('absent present presentok').addClass('presentok');							
+		}
+		else if(btnState == "present" || btnState == "absent" ){
+			$(thiss).removeClass('absent present presentok').addClass('presentok');
+			$(thiss).data("state","ok");
+		}
+		else if(btnState == "ok"){
+			calcAttendanceOnActionBtn(thiss);
+		}
+		//$(thiss).toggleClass('absent');							
+		return false;
+	}
+	
+	function calcAttendanceOnActionBtn(thiss){
+		var $studLi = $( thiss ).parents( "li" );
+		var $periodAbsentyResultUlObj = $studLi.find( ".st-period-info.period-result ul.period-list" );
+		var absentyFoundFlag = false;
 		
+		$($studLi).find(".period-list li.single").each(function(index, value) {
+			if($(this).find("a").hasClass("active")){
+				var periodNo = $(this).text();
+				absentyFoundFlag = true;
+				
+				$periodAbsentyResultUlObj.find("li").each(function(index, value) {
+					if( $(this).find("a").text() ==  periodNo){
+						$(this).find("a").removeClass("present").addClass("absent");
+					}
+				});
+			}	
+		});
+		
+		if(absentyFoundFlag){
+			$(thiss).removeClass('absent present presentok').addClass('absent');
+			$(thiss).data("state","absent");
+		}else{
+			$(thiss).removeClass('absent present presentok').addClass('present');
+			$(thiss).data("state","present");
+		}
+	}
+	
+	function staffStanDivMapActionBtn(thiss){			
+		$(thiss).find('.attendance-form').toggle().css({'position':'relative'}).animate({'top':0});
+		return false;
+	}
+	
+	function attendanceApproveCheckboxFn(thiss){
+		if($( thiss ).hasClass("approved") ){
+			$(thiss).closest('.st-atte-approve').find('.approveReasonsSelectLabel').html('');
+			$( thiss ).data("approvereasonid","");			
+		}else{
+			openapproveReasonsSelect(thiss);			
+		}		
+		$(thiss).toggleClass('approved');
+	}
+	
+	function openapproveReasonsSelect(thiss){
+		var sdid = $( thiss ).parents('.st-atte-approve').data("sdid");
+		$( thiss ).parents('.st-atte-approve').find('#approveReasonsSelect'+sdid).selectmenu('open');
+	}
+	
+	function approveReasonsSelectChangeFn(thiss){
+		$(thiss).parents('.st-atte-approve').find('.attendanceApproveCheckbox').data("approvereasonid", $(thiss).val());
+		$(thiss).parents('.st-atte-approve').find('.approveReasonsSelectLabel').text($(thiss).find(":selected").text());
+	}		
+	
+	//$('.st-atte-detail-info .atten-cust-checkbox').click(
+	function attendanceCheckbox(thiss){
+		var $periodListUl = $( thiss ).closest( "ul.period-list");
+		var totalPeriods = $periodListUl.find("li.single a" ).length;
+		var selectedPeriods = $periodListUl.find("li.single a.active" ).length;
+		if($( thiss ).hasClass("active") ){
+			if( (selectedPeriods -1) == 0){
+				$( thiss ).closest( ".attendance-form" ).removeClass( "absent" );
+			}
+			$periodListUl.find("li.select-all a" ).removeClass('active');
+		}else{			
+			if(totalPeriods == (selectedPeriods + 1)){
+				$periodListUl.find("li.select-all a" ).addClass('active');
+			}
+			$( thiss ).closest( ".attendance-form" ).addClass( "absent" );
+		}	
+		$(thiss).toggleClass('active');
+		return false;
+	}
+	
+	function attendanceCheckboxAll(thiss){							
+		if($( thiss ).hasClass("active") ){
+			$( thiss ).closest( "ul.period-list").find("li.single a" ).removeClass( "active" );
+			$( thiss ).closest( ".attendance-form" ).removeClass( "absent" );
+		}else{
+			$( thiss ).closest( "ul.period-list").find("li.single a" ).addClass( "active" );
+			$( thiss ).closest( ".attendance-form" ).addClass( "absent" );
+		}
+		$(thiss).toggleClass('active');
+		return false;
 	}
 	
 	/* New Design for Edit CSS Starts */
@@ -1952,3 +2249,146 @@ function errorCB(err) {
 		return false;
 	}
 	/* New Design for Edit CSS Ends */		
+	
+	function saveUpdateStudAttendance(){
+		//if( $(".attendance-book ul.attendance-dates li a").hasClass('selected-date')){
+		var absentyTakenFlag= $("ul#markAttendanceUl li").find(".attendance-form").hasClass("absent");
+		//console.log("absentyTakenFlag---"+absentyTakenFlag)
+			if(absentyTakenFlag){
+				//var absenteeDate = $(".attendance-book ul.attendance-dates li a.selected-date").attr("rel");
+				var mainJsonObj=[];
+				mainJsonObj["absentOnDate"] = ""; //absenteeDate;
+				mainJsonObj["periodsForDay"] = 1; //$(".selected-date").attr("noOfPeriods");
+				mainJsonObj["year"] = "2015-16"; //$("#currentSelectedYear :selected").text();
+				
+				var mainArr=[];
+				$("ul#markAttendanceUl li").each(function(index, value) {
+					var studAbsentyObj = {};
+					var studAbsentyArr = [];
+					
+					$(this).find(".period-list li.single").each(function(index, value) {
+						if($(this).find("a").hasClass("active")){
+							studAbsentyArr.push($(this).text());
+						}	
+					});		
+					studAbsentyObj["studAbsentyArr"] = studAbsentyArr;
+					
+					if(studAbsentyArr.length > 0){
+						studAbsentyObj["rollno"] = $(this).data("rollno");
+						studAbsentyObj["sdid"] = $(this).data("sdid");
+						studAbsentyObj["ssdid"] = $(this).data("ssdid");
+						
+						if ( $(this).find('.attendanceApproveCheckbox').hasClass('approved') ){
+							studAbsentyObj["approveStatus"]=1;
+							
+							studAbsentyObj["reasonType"] = $(this).find('.attendanceApproveCheckbox').data('approvereasonid');
+						}else{
+							studAbsentyObj["approveStatus"]=0;
+						}
+						mainArr.push(studAbsentyObj);
+					}
+				});
+				//console.log("main arr..."+JSON.stringify(mainArr));
+				
+				var studentAttDet = JSON.stringify(mainArr);
+				if(mainArr.length > 0){
+					//$("#please-wait-modal").modal({
+					/*	
+					$.ajax({
+						type:"POST",
+						url: appContextName + "/saveAjaxStudentAbsenty.do",
+						data: "studentAttDet=" + studentAttDet,
+						success: function(response){
+							 var responseData = $.parseJSON(response);
+							 var statusCode = responseData["statusCode"];
+							 var message = responseData["message"];
+							 $("#successStudentAbsenty").html(response);
+								if (statusCode==0){
+									//$("#ajaxSuccess #displayMsg").html("Attendance saved successfully");
+								}
+								else if(statusCode==1){
+									//$("#ajaxFailure #displayErrorMsg").html("There is problem while saving attendance.");
+								}
+						},
+						failure:function(e){
+							alert(e);
+						}
+					});
+					*/
+				}else{
+					//$("#ajaxFailure #displayErrorMsg").html("Please select period number.");
+				}
+			}else{
+				//$("#ajaxFailure #displayErrorMsg").html("Please select roll no.");
+			}
+	}
+	
+	function getSchoolInfo() {
+		var form = $("#schoolCodeForm");
+		$("#getSchoolInfoSubmitBtn", form).attr("disabled","disabled");
+		var schoolCode = $("#schoolCode", form).val();
+		schoolCode ='editlocal'; //schoolCode
+		
+		if(schoolCode != '') {
+			var connectionType=checkConnection();
+			//var connectionType="WiFi connection";//For Testing
+			
+			var mData={};			
+			if(connectionType=="Unknown connection" || connectionType=="No network connection"){
+				navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');
+			}
+			else if(connectionType=="WiFi connection" || connectionType=="Cell 4G connection" 
+				|| connectionType=="Cell 3G connection" || connectionType=="Cell 2G connection")
+			{
+				showModal();
+				mData.schoolCode = schoolCode;
+				var schoolInfoAppUrl ='http://editapi.edit-ims.com/editimsapi.php';
+				$.ajax({
+					type : 'POST',
+					url : schoolInfoAppUrl,
+					data : {"action":"instcode","instcode": schoolCode, "mData":JSON.stringify(mData) },
+					success:function(data){
+						var responseJson = jQuery.parseJSON(data);
+						var jsonArrInstitutes = responseJson["jsonArrInstitutes"];
+						var status = jsonArrInstitutes["status"];
+						if(status == 1){
+							window.localStorage["schoolCode"] = schoolCode;
+							var server_ip = jsonArrInstitutes["server_ip"];
+							appUrl='http://' + server_ip + ':8080/Edit/appEntry.do';
+							$(".schoolCodeContainer").hide();
+							$(".loginFormContainer").show();
+							$(".schoolCodeLabel").html(schoolCode);
+						}else if(status == 0){
+							navigator.notification.alert('Please input correct institute code', alertConfirm, 'EDIT','Ok');
+						}
+						hideModal();
+				   },
+				   error:function(data,t,f){
+					   hideModal();
+					   navigator.notification.alert("Connection Problem" ,alertConfirm,'EDIT','Ok');
+					   var responseJson = $.parseJSON(data);
+					   if(responseJson.status==404){
+						   navigator.notification.alert("Connection Problem" ,alertConfirm,'EDIT','Ok');
+					   }
+				   }
+				});
+			}
+			else{
+				navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');
+			}
+			$("#getSchoolInfoSubmitBtn").removeAttr("disabled");
+		}
+		else{
+			navigator.notification.alert('You must enter school code.',	alertConfirm,'EDIT','Ok');
+			$("#getSchoolInfoSubmitBtn").removeAttr("disabled");
+		}
+		return false;
+	}
+	
+	function changeSchoolCode(){
+		var form = $("#schoolCodeForm");
+		$("#schoolCode", form).val(window.localStorage["schoolCode"]);
+		$(".schoolCodeContainer").show();
+		$(".loginFormContainer").hide();
+	}
+	
