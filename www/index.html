@@ -12,7 +12,7 @@
         <link rel="stylesheet"  href="libs/jQueryMobile/jquery.mobile-1.4.5.min.css">
         <link rel="stylesheet" type="text/css" href="css/index.css" />
         <link rel="stylesheet" type="text/css" href="css/style.css" />
-        <link rel="stylesheet" href="libs/jqm-datebox-1.4.5.css" />
+<!--         <link rel="stylesheet" href="libs/jqm-datebox-1.4.5.css" /> -->
         
         <link rel="stylesheet" href="css/fontawesome/css/font-awesome.min.css" />
 <!--         <link rel="stylesheet" href="css/animate.css" /> -->
@@ -51,8 +51,23 @@
 							<img src="img/logo.png" id="logo"  />
 								 <br/> <br/>
 						</div>
-						<div class="form-container">
+						
+						<div class="form-container schoolCodeContainer" id="schoolCodeContainer">
+							<form  id="schoolCodeForm" action="">
+								<div class="input-field">
+									<label for="schoolCode">Institute Code</label>
+									<input type="text" name="schoolCode" id="schoolCode" placeholder="Institute Code Code"/>
+								</div>
+								
+								<input type="button" class="submit" value="Submit" id="getSchoolInfoSubmitBtn" data-theme="a" onclick="getSchoolInfo();" />
+							</form>
+						</div>						
+						
+						<div class="form-container loginFormContainer" style="display: none;">
 							<form  id="loginForm" action="">
+								<div class="input-field">
+									<label for="username">Institute Code - <a href="#" onclick="changeSchoolCode();"><span class="schoolCodeLabel"></span> <i class="fa fa-pencil fw"> </i></a></label>
+								</div>
 								<div class="input-field">
 									<label for="username">Username</label>
 									<input type="email" name="username" id="username" placeholder="Username"/>
@@ -66,6 +81,7 @@
 								<input type="button" value="Login" id="submitButton" data-theme="a" onclick="handleLogin();" />
 							</form>
 						</div>	
+						
 					</div>
                 </div>
             </div>
@@ -395,59 +411,57 @@
 								
 							</section>
 							
-							<section id="#" class="mb-student-communication mb-student-tab-content" style="display:none;">
-								<ul class="chat">
-									<li class="msg-in">
-										<span class="avatar"><span></span><img src="img/avatars/avatar-male.png" alt=""></span>
-										<div class="message">
-											<div class="msg-txt">
-												<span class="arrow"></span>
-												<p class="msg-body">
-													True, but it is meant for designing on their platform, which has these types:
-													Floating action button, a circular button made of paper that lifts and emits ink reactions on press. 
-												</p>
+							<section id="#" class="mb-student-communication all-chats mb-student-tab-content" style="display:none;">
+								<div class="page_content" id="allChatsDiv" > 
+    
+									<ul class="features_list_detailed all-chats-ul" >
+								  
+										<li onclick="loadChat();">
+											<div>
+												<div class="feat_small_icon">
+													<i class="fa fa-bell-o"></i>
+												</div>
+												<div class="feat_small_details">
+													<h5>Profile Photo Updated</h5>
+													<a href="#" class="ui-link">Update your pic instantly.</a>
+												</div>
+											
+												<div class="view_more">
+													<a href="#" class="ui-link-more">
+														<i class="fa fa-angle-double-right right-link"></i>
+													</a>
+												</div>
+											</div>	
+											<div class="time_detail">
+												<span class="time_sub">Time:00:00</span>
+												<span class="sub_person">By:Person Name</span>
 											</div>
-											<div class="msg-detail">
-												<span class="st-sender name">Student Name</span>
-												<span class="st-sender msg-date pull-right"><i class="fa fa-clock-o"></i>12/04/2015</span>
+										</li> 
+										
+										<li>
+											<div class="feat_small_icon">
+												<i class="fa fa-bell-o"></i>
 											</div>
-										</div>							
-									</li>
-									<li class="msg-out">
-										<span class="avatar"><img src="img/avatars/avatar-male.png" alt=""></span>
-										<div class="message">
-											<div class="msg-txt">
-												<span class="arrow"></span>
-												<p class="msg-body">
-													True, but it is meant for designing on their platform, which has these types:
-													Floating action button, a circular button made of paper that lifts and emits ink reactions on press. 
-												</p>
+											<div class="feat_small_details">
+												<h5>Profile Photo Updated</h5>
+												<a href="#" class="ui-link">Update your pic instantly.</a>
 											</div>
-											<div class="msg-detail">
-												<span class="st-sender name">me</span>
-												<span class="st-sender msg-date pull-right"><i class="fa fa-clock-o"></i>12/04/2015</span>
+										
+											<div class="view_more">
+												<a href="#" class="ui-link-more">
+													<i class="fa fa-angle-double-right right-link"></i>
+												</a>
 											</div>
-										</div>							
-									</li>
-									<li class="msg-in">
-										<span class="avatar"><span></span><img src="img/avatars/avatar-male.png" alt=""></span>
-										<div class="message">
-											<div class="msg-txt">
-												<span class="arrow"></span>
-												<p class="msg-body">
-													Ok Done:)
-												</p>
+											<div class="time_detail">
+												<span class="time_sub">Time:00:00</span>
+												<span class="sub_person">By:Person Name</span>
 											</div>
-											<div class="msg-detail">
-												<span class="st-sender name">Student Name</span>
-												<span class="st-sender msg-date pull-right"><i class="fa fa-clock-o"></i>12/04/2015</span>
-											</div>
-										</div>							
-									</li>
-								</ul>
-								<div class="msg-send display-none">
-									<textarea></textarea><button type="button" class="btn btn-primary">SEND</button>
+										</li> 
+										 
+									</ul>
 								</div>
+								
+								
 							</section>
 						
 							<!-- 
@@ -643,16 +657,65 @@
 					</div>
 				</div>
 			</div>
+			
+			
+			<div id="chat-page" data-role="page">
+                <div data-role="header" data-id="header" id="header" data-position="fixed" class="ui-header app-header-section">
+                	<h1>Notifications</h1>
+                </div>
+                
+                <div data-role="content" class="more_content" >   
+					<section id="oneToOneChatSection" class="mb-student-communication mb-student-tab-content"  style="display:none;">
+						<input type="hidden" class="eventId" />
+						<ul class="chat">
+							
+							<li class="msg-in">
+								<span class="avatar"><span></span><img src="img/avatars/avatar-male.png" alt=""></span>
+								<div class="message">
+									<div class="msg-txt">
+										<span class="arrow"></span>
+										<p class="msg-body">
+											No data
+										</p>
+									</div>
+									<div class="msg-detail">
+										<span class="st-sender name"></span>
+										<span class="st-sender msg-date pull-right"><i class="fa fa-clock-o"></i></span>
+									</div>
+								</div>							
+							</li>
+						</ul>
+					</section>
+				</div>
+				
+				<div data-role="footer" data-position="fixed" class="msg-send-conatiner">
+					<div id="navbar" data-role="navbar">
+                        <ul>
+                            <li>
+                            	<div class="msg-send">
+									<textarea class="commentBox"></textarea>
+									<button type="button" class="btn btn-primary" onclick="addCommentDetails();">SEND</button>
+<!-- 									<a id="saveUpdateStudAttendanceBtn" href="#" onclick="saveUpdateStudAttendance();" data-icon="" data-theme="b" class="app-link active">Done</a> -->
+									
+								</div>
+                            </li>
+                        </ul>
+                    </div>
+				</div>
+			
+			</div>
             
             <div id="notification-page" data-role="page">
                 <div data-role="header" data-id="header" id="header" data-position="fixed" class="ui-header app-header-section">
-                	
+                
+                	<h1>Notifications</h1>
+                	<!-- 
 					<div class="ui-btn-left">
-						<!-- Back Button -->
+						Back Button
 						<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-icon-back ui-btn-icon-notext">Back</a>
 						&nbsp;
-						<!-- Menu Button -->
-						<!-- <a href="#leftPanel" class="ui-btn ui-corner-all ui-icon-bars ui-btn-icon-notext" title="Menu"></a> -->
+						Menu Button
+						<a href="#leftPanel" class="ui-btn ui-corner-all ui-icon-bars ui-btn-icon-notext" title="Menu"></a>
 						
 						<a href="#leftPanel" data-theme="none" data-inline="true" class="ui-btn edit-logo" title="Menu">
 							<img src="img/edit-sm-logo.png" alt="logo" />
@@ -660,37 +723,32 @@
 						
 					</div>
 					
-                    <h1>Notifications</h1>
-					
 					<a href="#rightPanel" class="ui-btn ui-corner-all ui-icon-gear ui-btn-icon-notext ui-btn-right"  title="Setting"> </a>
-					
+					 -->
                 </div>
                 
                 <div data-role="content" class="more_content" >                	
-					<!-- <div class="" >
-                		<ul class="" data-role="listview"  data-divider-theme="a">
-						    <li data-icon="info"><a href="#" >Notification 1</a></li>
-						    <li data-icon="info"><a href="#" >Notification 2</a></li>
-						    <li data-icon="info"><a href="#" >Notification 3</a></li>
-						</ul>
-					</div> -->
 					
 					<div class="page_content"> 
     
 						<ul class="features_list_detailed">
 					  
 							<li>
-								<div class="feat_small_icon"><img title="" alt="" src="img/icons/camera90.png"></div>
-								<div class="feat_small_details">
-									<h5>Profile Photo Updated</h5>
-									<a href="#" class="ui-link">Update your pic instantly.</a>
-								</div>
-							
-								<div class="view_more">
-									<a href="#" class="ui-link-more">
-										<img title="" alt="" src="img/icons/notification5.png">
-									</a>
-								</div>
+								<div>
+									<div class="feat_small_icon">
+										<i class="fa fa-bell-o"></i>
+									</div>
+									<div class="feat_small_details">
+										<h5>Profile Photo Updated</h5>
+										<a href="#" class="ui-link">Update your pic instantly.</a>
+									</div>
+								
+									<div class="view_more">
+										<a href="#" class="ui-link-more">
+											<i class="fa fa-bell-o right-link"></i>
+										</a>
+									</div>
+								</div>	
 								<div class="time_detail">
 									<span class="time_sub">Time:00:00</span>
 									<span class="sub_person">By:Person Name</span>
@@ -698,7 +756,9 @@
 							</li> 
 							
 							<li>
-								<div class="feat_small_icon"><img title="" alt="" src="img/icons/camera90.png"></div>
+								<div class="feat_small_icon">
+									<i class="fa fa-bell-o"></i>
+								</div>
 								<div class="feat_small_details">
 									<h5>Profile Photo Updated</h5>
 									<a href="#" class="ui-link">Update your pic instantly.</a>
@@ -706,7 +766,7 @@
 							
 								<div class="view_more">
 									<a href="#" class="ui-link-more">
-										<img title="" alt="" src="img/icons/notification5.png">
+										<i class="fa fa-bell-o right-link"></i>
 									</a>
 								</div>
 								<div class="time_detail">
@@ -714,28 +774,12 @@
 									<span class="sub_person">By:Person Name</span>
 								</div>
 							</li> 
-							<li>
-								<div class="feat_small_icon"><img title="" alt="" src="img/icons/book1.png"></div>
-								<div class="feat_small_details">
-									<h5>Profile Photo Updated</h5>
-									<a href="#" class="ui-link">Update your pic instantly.</a>
-								</div>
-							
-								<div class="view_more">
-									<a href="#" class="ui-link-more">
-										<img title="" alt="" src="img/icons/notification5.png">
-									</a>
-								</div>
-								<div class="time_detail">
-									<span class="time_sub">Time:00:00</span>
-									<span class="sub_person">By:Person Name</span>
-								</div>
-							</li> 
+							 
 						</ul>
 					</div>
-	                </div>
-					     
-              </div>
+					
+	          	</div>					     
+            </div>
           
             <div id="user-profile-page" data-role="page">
                 <div data-role="header" data-id="header" id="header" data-position="fixed" class="ui-header app-header-section">
@@ -773,7 +817,7 @@
     					<div class="page-tab-heading common-page-tab-heading bottom-border"></div>
     					
     					<div>
-							<ul class="user_list_detailed" id="markAttendanceUl" data-filter="true" data-filter-placeholder="Search..">
+							<ul class="user_list_detailed mb-student-attendance-list" id="markAttendanceUl" data-filter="true" data-filter-placeholder="Search..">
 								
 							</ul>
 						</div>	
@@ -781,6 +825,13 @@
                 	             	
                 </div>
                 
+                <div data-role="footer" data-position="fixed">
+					<div id="navbar" data-role="navbar">
+                        <ul>
+                            <li><a id="saveUpdateStudAttendanceBtn" href="#" onclick="saveUpdateStudAttendance();" data-icon="" data-theme="b" class="app-link active">Done</a></li>
+                        </ul>
+                    </div>
+				</div>
             </div>
             
             <div id="common-user-list-page" data-role="page">
@@ -794,9 +845,12 @@
     					<div class="page-tab-heading common-page-tab-heading bottom-border"></div>
     					
     					<div>
-							<ul class="user_list_detailed" id="markAttendanceUl" data-filter="true" data-filter-placeholder="Search..">
+							<ul class="user_list_detailed mb-student-attendance-list" id="" data-filter="true" data-filter-placeholder="Search..">
 								
 							</ul>
+							
+							
+							
 						</div>	
 					</div>
                 	             	
@@ -813,7 +867,7 @@
                 	
                 	<div class=""> 
     
-						<ul class="user_list_detailed" id="markAttendanceUl" data-filter="true" data-filter-placeholder="Search..">
+						<ul class="user_list_detailed mb-student-attendance-list" id="" data-filter="true" data-filter-placeholder="Search..">
 					  
 							<li class="user_list_li" onclick="openAttendanceDetails(this);" >
 								<div class="user-details">
