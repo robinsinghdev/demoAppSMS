@@ -2328,7 +2328,7 @@ function errorCB(err) {
 		var form = $("#schoolCodeForm");
 		$("#getSchoolInfoSubmitBtn", form).attr("disabled","disabled");
 		var schoolCode = $("#schoolCode", form).val();
-		schoolCode ='editlocal'; //schoolCode
+		//schoolCode ='editlocal'; //schoolCode
 		
 		if(schoolCode != '') {
 			var connectionType=checkConnection();
