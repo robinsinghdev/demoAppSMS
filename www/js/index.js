@@ -1301,7 +1301,7 @@ function errorCB(err) {
 				});
 			}else{
 				var dataEleObj="<li>No Data</li>";
-				$parentEleObj.append(userListsLiNoData);
+				$parentEleObj.append(dataEleObj);
 			}
 		}
 		else{
@@ -1355,7 +1355,7 @@ function errorCB(err) {
 				});
 			}else{
 				var dataEleObj="<li>No Data</li>";
-				$parentEleObj.append(userListsLiNoData);
+				$parentEleObj.append(dataEleObj);
 			}
 		}
 		else{
