@@ -1330,6 +1330,7 @@ function errorCB(err) {
 			
 			var commentsArr = jsonData["commentsArr"];
 			if(commentsArr.length > 0){
+				$(".msg-send-conatiner").show();	
 				jQuery.each(commentsArr, function(index, item) {
 					var msgInOutClass="";
 					if(item["userRole"] == "Me"){
@@ -1356,6 +1357,7 @@ function errorCB(err) {
 			}else{
 				var dataEleObj="<li>No Data</li>";
 				$parentEleObj.append(dataEleObj);
+				$(".msg-send-conatiner").hide();
 			}
 		}
 		else{
