@@ -408,6 +408,7 @@ var app = {
         	$(".schoolCodeContainer").show();
 			$(".loginFormContainer").hide();
         }else{
+        	appUrl = window.localStorage["appUrl"] ;
     		//db = window.sqlitePlugin.openDatabase({name: "stims.db", location: 2});
     		//db.transaction(initializeDB, errorCB, successCB);
         	$(".schoolCodeContainer").hide();
@@ -2368,6 +2369,7 @@ function errorCB(err) {
 							window.localStorage["schoolCode"] = schoolCode;
 							var server_ip = jsonArrInstitutes["server_ip"];
 							appUrl='http://' + server_ip + ':8080/Edit/appEntry.do';
+							window.localStorage["appUrl"] = appUrl;
 							$(".schoolCodeContainer").hide();
 							$(".loginFormContainer").show();
 							$(".schoolCodeLabel").html(schoolCode);
