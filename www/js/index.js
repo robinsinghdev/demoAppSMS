@@ -288,7 +288,7 @@ function panelsInitialization(initLeftPanelFlag, initRightPanelFlag, roleId){
 						'<img src="img/edit-sm-logo.png" alt="logo" /></a>';
         
         var rightPanelDynBtn='<div class="ui-btn-right right-space">'+
-        						'<a href="#notification-page" class="ui-btn ui-shadow ui-corner-all st-rightPanel-btn no-border margin-right notification-count-link"  title="Notification"><span class="">0</span></a>'+
+        						//'<a href="#notification-page" class="ui-btn ui-shadow ui-corner-all st-rightPanel-btn no-border margin-right notification-count-link"  title="Notification"><span class="">0</span></a>'+
         
 								'<a href="#rightPanel' + (dynPanelBtnCount+1) + '" class="ui-btn ui-corner-all ui-icon-gear ui-btn-icon-notext st-rightPanel-btn no-border"  title="Setting"> </a>'+
 							'</div>';
@@ -519,11 +519,17 @@ function checkConnection() {
 }
 
 function checkPreAuth() {
-	var form = $("#loginForm");
-	if(window.localStorage["username"] != undefined && window.localStorage["password"] != undefined && window.localStorage.getItem("user_logged_in")==1) {
-		$("#username", form).val(window.localStorage["username"]);
-		$("#password", form).val(window.localStorage["password"]);
-		handleLogin();
+	var connectionType=checkConnection();
+	if(connectionType=="WiFi connection" || connectionType=="Cell 4G connection" || connectionType=="Cell 3G connection" || connectionType=="Cell 2G connection"){
+		var form = $("#loginForm");
+		if(window.localStorage["username"] != undefined && window.localStorage["password"] != undefined && window.localStorage.getItem("user_logged_in")==1) {
+			$("#username", form).val(window.localStorage["username"]);
+			$("#password", form).val(window.localStorage["password"]);
+			handleLogin();
+		}
+	}
+	else{
+		navigator.notification.alert(appRequiresWiFi, exitAppForcefully, 'EDIT','Ok');
 	}
 }
 
@@ -553,7 +559,6 @@ function gotoHome(){
 }
 
 function handleLogin() {
-	console.log(appUrl);
 	var form = $("#loginForm");
 	//disable the button so we can't resubmit while we wait
 	$("#submitButton",form).attr("disabled","disabled");
@@ -881,6 +886,13 @@ function doLogout() {
 
 function alertConfirm(buttonIndex){
 	// function for alert having no actions
+}
+
+function exitAppForcefully(buttonIndex){
+	//Call exit function
+    if(button=="1" || button==1){
+        navigator.app.exitApp();
+    }
 }
 
 function showLogoutDialog() {
