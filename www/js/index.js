@@ -413,7 +413,7 @@ var app = {
         	$(".schoolCodeContainer").hide();
 			$(".loginFormContainer").show();
 			$(".schoolCodeLabel").html(window.localStorage["schoolCode"]);
-        	//checkPreAuth();
+        	checkPreAuth();
         }	
 		$("#loginForm").on("submit",handleLogin);
     },
