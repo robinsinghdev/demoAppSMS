@@ -30,7 +30,7 @@ var rightPanelObj = //'<div id="rightPanel" class="panel right" data-role="panel
 									'<div class="person_details">'+
 										'<div class="circular">'+'</div>'+
 										'<span class="details-data name">'+window.localStorage["name"]+'</span>'+
-										'<a class="edit-link display-none" href="#" onclick="editProfile();"><img src="img/icons/edit.png" class="img-circle" alt="">'+'</a>'+
+										//'<a class="edit-link display-none" href="#"><img src="img/icons/edit.png" class="img-circle" alt="">'+'</a>'+
 									'</div>'+
 									/*
 									'<div class="sub_info">'+
@@ -451,6 +451,26 @@ function onNotification(e) {
 				else{}
 					//console.log("BACKGROUND NOTIFICATION");
 			}
+        	
+        	var currentNotificationCount = $(".notification-count-link span").html();
+        	currentNotificationCount = parseInt(currentNotificationCount) + 1;
+        	$(".notification-count-link span").html(currentNotificationCount);
+        	$(".notification-count-link").show();
+        	
+        	var dataNotifyObj = '<li>'+
+									'<div class="main-content">'+
+										'<div class="feat_small_icon">'+
+											'<i class="fa fa-calendar"></i>'+
+										'</div>'+
+										'<div class="feat_small_details">'+
+											'<h5> '+ e.payload.message +' </h5>'+
+											'<a href="#" class="ui-link"> '+getTodayDate();+' </a>'+
+										'</div>'+
+									'</div>'+	
+								'</li>';
+			var $notificationUlObj = $("#notification-page").find("ul.features_list_detailed");
+        	$notificationUlObj.append(dataNotifyObj);
+        	
 			//console.log(e.payload.message+"---"+e.payload.msgcnt);
             //android only
         break;
@@ -957,7 +977,8 @@ function getTodayDate(){
 	var yyyy = today.getFullYear();
 	if(dd<10){dd='0'+dd}
 	if(mm<10){mm='0'+mm}
-	var todayString = yyyy+'-'+mm+'-'+dd;
+	//var todayString = yyyy+'-'+mm+'-'+dd;
+	var todayString = dd + '/' +mm + '/' + yyyy;
 	return todayString;
 }
 
@@ -1268,34 +1289,38 @@ function errorCB(err) {
 		
 			if(jsonData.length > 0){
 				jQuery.each(jsonData, function(index, item) {
-					var onclickFn = "return false;";
+					var onclickFn = "eventNoReply();return false;";
 					if(item["participation_required"]){
 						onclickFn = "loadChat(this);return false;";
 					}
 					var dataEleObj = '<li onclick=" '+onclickFn+' " data-id="'+ item["id"] +'" data-name="'+ item["name"] +'" data-participationFlag="'+ item["participation_required"] +'" '+
 											' >'+
-										'<div>'+
-											'<div class="feat_small_icon">'+
-												'<i class="fa fa-comment-o"></i>'+
+											'<div class="main-content">'+
+												'<div class="feat_small_icon">'+
+													'<i class="fa fa-comment-o"></i>'+
+												'</div>'+
+												'<div class="feat_small_details">'+
+													'<h5> '+ item["name"] +' </h5>'+
+													'<a href="#" class="ui-link"> '+ item["message"] + '</a>'+
+												'</div>'+
+											'</div>'+	
+											'<div class="time_detail">'+
+												'<span class="time_sub">'+
+													' Contact Person: '+ item["contact_person_name"] +'</span>'+
 											'</div>'+
-											'<div class="feat_small_details">'+
-												'<h5> '+ item["name"] +' </h5>'+
-												'<a href="#" class="ui-link"> '+ item["message"] +' '+
-													'<br/>Contact Person: '+ item["contact_person_name"] 
-												+'</a>'+
+											'<div class="time_detail">'+
+												'<span class="time_sub">'+
+													'Start Date: '+ item["start_date"] +' '+ item["start_time"] +' </span>'+
+												'<span class="sub_person"> </span>'+
 											'</div>'+
-										
-											'<div class="view_more">'+
-												'<a href="#" class="ui-link-more">'+
-													'<i class="fa fa-angle-double-right right-link"></i>'+
-												'</a>'+
+											'<div class="time_detail">'+
+												'<span class="time_sub">'+
+													'End Date: '+ item["end_date"] +' '+ item["end_time"] +' </span>'+
 											'</div>'+
-										'</div>'+	
-										'<div class="time_detail">'+
-											'<span class="time_sub">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
-												' Date: '+ item["start_date"] +' '+ item["start_time"] +' </span>'+
-											'<span class="sub_person"> </span>'+
-										'</div>'+
+											'<div class="time_detail">'+
+												'<span class="time_sub">'+
+													'Evevt Type: '+ item["evevt_type"] +' </span>'+
+											'</div>'+
 									'</li>';
 					$parentEleObj.append(dataEleObj);
 				});
@@ -1319,6 +1344,10 @@ function errorCB(err) {
 		$.mobile.changePage('#chat-page','slide');
 	}
 	
+	function eventNoReply(){
+		navigator.notification.alert("No reply option availabe for this event.", alertConfirm, 'EDIT', 'Ok');	
+	}
+	
 	function getNewsEventAndCommCommentsListForParentSuccessCB(data){
 		var responseJson=jQuery.parseJSON(data);
 		
@@ -1326,11 +1355,16 @@ function errorCB(err) {
 			var $parentEleObj=$('#oneToOneChatSection ul.chat');
 			$parentEleObj.html("");
 			var jsonData=responseJson["data"];
-			$("#chat-page .eventId").val(jsonData["id"]);			
+			$("#chat-page .eventId").val(jsonData["id"]);	
+			
+			if( jsonData["participation_required"] ){
+				$(".msg-send-conatiner").show();	
+			}else{
+				$(".msg-send-conatiner").hide();	
+			}
 			
 			var commentsArr = jsonData["commentsArr"];
 			if(commentsArr.length > 0){
-				$(".msg-send-conatiner").show();	
 				jQuery.each(commentsArr, function(index, item) {
 					var msgInOutClass="";
 					if(item["userRole"] == "Me"){
@@ -1357,7 +1391,6 @@ function errorCB(err) {
 			}else{
 				var dataEleObj="<li>No Data</li>";
 				$parentEleObj.append(dataEleObj);
-				$(".msg-send-conatiner").hide();
 			}
 		}
 		else{
@@ -1990,7 +2023,7 @@ function errorCB(err) {
 		
 		}else{
 			var dataEleObj=tableDivObj;
-			$parentEleObj.append(userListsLiNoData);
+			$parentEleObj.append(dataEleObj);
 		}
 	}
 	
@@ -2111,7 +2144,7 @@ function errorCB(err) {
 		
 		}else{
 			var dataEleObj=tableDivObj;
-			$parentEleObj.append(userListsLiNoData);
+			$parentEleObj.append(dataEleObj);
 		}
 	}
 	
