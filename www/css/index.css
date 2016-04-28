@@ -456,9 +456,10 @@ ul.features_list_detailed li {
     margin: 0;
     padding: 5px;
 }
+ul.features_list_detailed li div.main-content{min-height: 55px;}
 ul.features_list_detailed li .feat_small_icon {
     float: left;
-    width: 15%;
+/*     width: 15%; */
 }
 ul.features_list_detailed li .feat_small_icon img {
     display: inline-block;
@@ -478,9 +479,9 @@ ul.features_list_detailed li .feat_small_icon img {
     margin: 0 5px 15px;
 }
 ul.features_list_detailed li .feat_small_details {
-    float: left;
-    padding: 0 0 0 3%;
-    width: 65%;
+/*     float: left; */
+    padding: 0 0 5px 50px;
+/*     width: 65%; */
 }
 ul.features_list_detailed li .feat_small_details h5 {
     color: #535353;
@@ -629,16 +630,16 @@ ul.features_list_detailed li .view_more a.ui-link-more {
     border-radius: 75px;
     height: 50px;
     margin-bottom: 10px;
-    margin-left: 108px;
+    margin-left: 10px;
     width: 50px;
 }
 .menu .person_details .name {
     color: #fff;
-    float: left;
+/*     float: left; */
     font-size: 13px;
     font-weight: bold;
-    margin-left: 72px;
-    margin-right: 30px;
+    margin-left: 10px;
+/*     margin-right: 30px; */
 }
 .menu .person_details a.edit-link {
     height: auto;
@@ -1126,6 +1127,9 @@ ul.user_list_detailed li.user_list_li .action_icon {
 }
 .no-border{border: 0;}
 .ui-btn.margin-right{margin-right: 10px;}
+.notification-count-link{
+	display: none !important;
+}
 .notification-count-link span{
 	background-color: #ffd02b;
     border-radius: 50%;
@@ -1137,7 +1141,8 @@ ul.user_list_detailed li.user_list_li .action_icon {
     line-height: 20px;
     text-align: center;
     width: 20px;
-    display: none;
 }
+
+
 
 /* period-list-attendance-div CSS Starts */
