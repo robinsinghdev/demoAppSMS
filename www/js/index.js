@@ -436,6 +436,7 @@ function onNotification(e) {
         	// if this flag is set, this notification happened while we were in the foreground.
         	// you might want to play a sound to get the user's attention, throw up a dialog, etc.
         	if (e.foreground){
+        		alert(e.payload.message);
         		console.log("INLINE NOTIFICATION");
 			        // on Android soundname is outside the payload. 
 		                // On Amazon FireOS all custom attributes are contained within payload
@@ -446,15 +447,15 @@ function onNotification(e) {
 		               // my_media.play();
 			}
 			else{	// otherwise we were launched because the user touched a notification in the notification tray.
-				if (e.coldstart){}
+				if (e.coldstart){alert(e.payload.message); }
 					//console.log("COLDSTART NOTIFICATION");
-				else{}
+				else{alert(e.payload.message);}
 					//console.log("BACKGROUND NOTIFICATION");
 			}
-        	
-        	var currentNotificationCount = $(".notification-count-link span").html();
-        	currentNotificationCount = parseInt(currentNotificationCount) + 1;
-        	$(".notification-count-link span").html(currentNotificationCount);
+        	alert(e.payload.message +"out");
+//        	var currentNotificationCount = $(".notification-count-link span").html();
+//        	currentNotificationCount = parseInt(currentNotificationCount) + 1;
+        	$(".notification-count-link span").html("1");
         	$(".notification-count-link").show();
         	
         	var dataNotifyObj = '<li>'+
@@ -468,7 +469,7 @@ function onNotification(e) {
 										'</div>'+
 									'</div>'+	
 								'</li>';
-			var $notificationUlObj = $("#notification-page").find("ul.features_list_detailed");
+			var $notificationUlObj = $("#notification-page").find("ul");
         	$notificationUlObj.append(dataNotifyObj);
         	
 			//console.log(e.payload.message+"---"+e.payload.msgcnt);
@@ -476,10 +477,12 @@ function onNotification(e) {
         break;
         
         case 'error':
+        	alert(e.msg);
 			 console.log(e.msg);
         break;
         
         default:
+        	alert("Error");
 		 	console.log(" Unknown, an event was received and we do not know what it is");
         break;
     }
@@ -1289,7 +1292,7 @@ function errorCB(err) {
 		
 			if(jsonData.length > 0){
 				jQuery.each(jsonData, function(index, item) {
-					var onclickFn = "eventNoReply();return false;";
+					var onclickFn = 'alertCustomMsg("No reply option availabe for this event.");();return false;';
 					if(item["participation_required"]){
 						onclickFn = "loadChat(this);return false;";
 					}
@@ -1344,10 +1347,6 @@ function errorCB(err) {
 		$.mobile.changePage('#chat-page','slide');
 	}
 	
-	function eventNoReply(){
-		navigator.notification.alert("No reply option availabe for this event.", alertConfirm, 'EDIT', 'Ok');	
-	}
-	
 	function getNewsEventAndCommCommentsListForParentSuccessCB(data){
 		var responseJson=jQuery.parseJSON(data);
 		
@@ -1400,13 +1399,17 @@ function errorCB(err) {
 	}
 	
 	function addCommentDetails(thiss){
-		mData={};
-		mData.p1=window.localStorage["studDetailsId"];
-		mData.p2=window.localStorage["studStandardDivisionId"];
-		mData.p3= $("#chat-page .eventId").val();
-		mData.p4= $("#chat-page .commentBox").val();
-		console.log($("#chat-page .commentBox").val());
-		getDataByAction("addCommentDetails", JSON.stringify(mData), addCommentDetailsSuccessCB, commonErrorCallback);
+		var $commentData = $("#chat-page .commentBox").val();
+		if($commentData == ""){
+			alertCustomMsg("Please input some text.");
+		}else{
+			mData={};
+			mData.p1=window.localStorage["studDetailsId"];
+			mData.p2=window.localStorage["studStandardDivisionId"];
+			mData.p3= $("#chat-page .eventId").val();
+			mData.p4= $commentData;
+			getDataByAction("addCommentDetails", JSON.stringify(mData), addCommentDetailsSuccessCB, commonErrorCallback);
+		}	
 	}
 	
 	function addCommentDetailsSuccessCB(data){
@@ -2440,5 +2443,9 @@ function errorCB(err) {
 		$("#schoolCode", form).val(window.localStorage["schoolCode"]);
 		$(".schoolCodeContainer").show();
 		$(".loginFormContainer").hide();
+	}
+	
+	function alertCustomMsg(msg){
+		navigator.notification.alert(msg, alertConfirm, 'EDIT', 'Ok');	
 	}
 	
