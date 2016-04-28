@@ -293,7 +293,7 @@ function panelsInitialization(initLeftPanelFlag, initRightPanelFlag, roleId){
 						'<img src="img/edit-sm-logo.png" alt="logo" /></a>';
         
         var rightPanelDynBtn='<div class="ui-btn-right right-space">'+
-        						//'<a href="#notification-page" class="ui-btn ui-shadow ui-corner-all st-rightPanel-btn no-border margin-right notification-count-link"  title="Notification"><span class="">0</span></a>'+
+        						'<a href="#notification-page" class="ui-btn ui-shadow ui-corner-all st-rightPanel-btn no-border margin-right notification-count-link"  title="Notification"><span class="">0</span></a>'+
         
 								'<a href="#rightPanel' + (dynPanelBtnCount+1) + '" class="ui-btn ui-corner-all ui-icon-gear ui-btn-icon-notext st-rightPanel-btn no-border"  title="Setting"> </a>'+
 							'</div>';
@@ -441,24 +441,21 @@ function onNotification(e) {
         	// if this flag is set, this notification happened while we were in the foreground.
         	// you might want to play a sound to get the user's attention, throw up a dialog, etc.
         	if (e.foreground){
-        		alert(e.payload.message);
         		console.log("INLINE NOTIFICATION");
 			        // on Android soundname is outside the payload. 
-		                // On Amazon FireOS all custom attributes are contained within payload
 		               // var soundfile = e.soundname || e.payload.sound;
 		                // if the notification contains a soundname, play it.
 		                // playing a sound also requires the org.apache.cordova.media plugin
 		                //var my_media = new Media("/android_asset/www/"+ soundfile);
 		               // my_media.play();
 			}
-			else{	// otherwise we were launched because the user touched a notification in the notification tray.
-				if (e.coldstart){alert(e.payload.message); }
+			else{	
+				// otherwise we were launched because the user touched a notification in the notification tray.
+				if (e.coldstart){}
 					//console.log("COLDSTART NOTIFICATION");
-				else{alert(e.payload.message);}
+				else{}
 					//console.log("BACKGROUND NOTIFICATION");
 			}
-        	alert(e.payload.message +"out");
-        	
         	var dataNotifyObj = '<li>'+
 									'<div class="main-content">'+
 										'<div class="feat_small_icon">'+
@@ -470,15 +467,13 @@ function onNotification(e) {
 										'</div>'+
 									'</div>'+	
 								'</li>';
-			var $notificationUlObj = $("#notification-page").find("ul");
+			var $notificationUlObj = $("#notification-page").find("ul.features_list_detailed");
         	$notificationUlObj.append(dataNotifyObj);
         	
-//        	var currentNotificationCount = $(".notification-count-link span").html();
-//        	currentNotificationCount = parseInt(currentNotificationCount) + 1;
-        	$(".notification-count-link span").html("1");
+        	var currentNotificationCount = $(".notification-count-link span").html();
+        	currentNotificationCount = parseInt(currentNotificationCount) + 1;
+        	$(".notification-count-link span").html(currentNotificationCount);
         	$(".notification-count-link").show();
-
-        	
 			//console.log(e.payload.message+"---"+e.payload.msgcnt);
             //android only
         break;
@@ -1299,7 +1294,7 @@ function errorCB(err) {
 		
 			if(jsonData.length > 0){
 				jQuery.each(jsonData, function(index, item) {
-					var onclickFn = 'alertCustomMsg("No reply option availabe for this event.");();return false;';
+					var onclickFn = "alertCustomMsg('No reply option availabe for this event.');();return false;";
 					if(item["participation_required"]){
 						onclickFn = "loadChat(this);return false;";
 					}

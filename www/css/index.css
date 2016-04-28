@@ -1128,7 +1128,7 @@ ul.user_list_detailed li.user_list_li .action_icon {
 .no-border{border: 0;}
 .ui-btn.margin-right{margin-right: 10px;}
 .notification-count-link{
-/* 	display: none !important; */
+	display: none !important;
 }
 .notification-count-link span{
 	background-color: #ffd02b;
