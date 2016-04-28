@@ -48,7 +48,7 @@ var rightPanelObj = //'<div id="rightPanel" class="panel right" data-role="panel
 									'</div>'+
 								'</li>'+
 								
-								'<li class="icon holiday">'+
+								'<li class="icon notification">'+
 									'<a href="#notification-page" data-rel="close" >'+
 										'<span class="menu-li-title">Notifications</span>'+
 									'</a>'+
@@ -459,7 +459,7 @@ function onNotification(e) {
         	var dataNotifyObj = '<li>'+
 									'<div class="main-content">'+
 										'<div class="feat_small_icon">'+
-											'<i class="fa fa-calendar"></i>'+
+											'<i class="fa fa-bell-o"></i>'+
 										'</div>'+
 										'<div class="feat_small_details">'+
 											'<h5> '+ e.payload.message +' </h5>'+
@@ -471,8 +471,9 @@ function onNotification(e) {
         	$notificationUlObj.append(dataNotifyObj);
         	
         	var currentNotificationCount = $(".notification-count-link span").html();
-        	currentNotificationCount = parseInt(currentNotificationCount) + 1;
-        	$(".notification-count-link span").html(currentNotificationCount);
+        	alert(currentNotificationCount);
+        	var currentNotificationCountNew = parseInt(currentNotificationCount) + 1;
+        	$(".notification-count-link span").html(currentNotificationCountNew);
         	$(".notification-count-link").show();
 			//console.log(e.payload.message+"---"+e.payload.msgcnt);
             //android only
@@ -1294,7 +1295,7 @@ function errorCB(err) {
 		
 			if(jsonData.length > 0){
 				jQuery.each(jsonData, function(index, item) {
-					var onclickFn = "alertCustomMsg('No reply option availabe for this event.');();return false;";
+					var onclickFn = "alertCustomMsg('No reply option availabe for this event.');return false;";
 					if(item["participation_required"]){
 						onclickFn = "loadChat(this);return false;";
 					}
@@ -1302,7 +1303,7 @@ function errorCB(err) {
 											' >'+
 											'<div class="main-content">'+
 												'<div class="feat_small_icon">'+
-													'<i class="fa fa-comment-o"></i>'+
+													'<i class="fa fa-calendar"></i>'+
 												'</div>'+
 												'<div class="feat_small_details">'+
 													'<h5> '+ item["name"] +' </h5>'+
@@ -1338,6 +1339,10 @@ function errorCB(err) {
 			navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');					
 		}
 		hideModal();
+	}
+	
+	function noReplyOptionForChat(){
+		alertCustomMsg('No reply option availabe for this event.');();
 	}
 	
 	function loadChat(thiss){
