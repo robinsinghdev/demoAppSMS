@@ -49,6 +49,11 @@ var rightPanelObj = //'<div id="rightPanel" class="panel right" data-role="panel
 								'</li>'+
 								
 								'<li class="icon holiday">'+
+									'<a href="#notification-page" data-rel="close" >'+
+										'<span class="menu-li-title">Notifications</span>'+
+									'</a>'+
+								'</li>'+								
+								'<li class="icon holiday">'+
 									'<a href="#" onclick="getHolidays();" data-rel="close" >'+
 										'<span class="menu-li-title">Holidays List</span>'+
 									'</a>'+
@@ -453,10 +458,6 @@ function onNotification(e) {
 					//console.log("BACKGROUND NOTIFICATION");
 			}
         	alert(e.payload.message +"out");
-//        	var currentNotificationCount = $(".notification-count-link span").html();
-//        	currentNotificationCount = parseInt(currentNotificationCount) + 1;
-        	$(".notification-count-link span").html("1");
-        	$(".notification-count-link").show();
         	
         	var dataNotifyObj = '<li>'+
 									'<div class="main-content">'+
@@ -471,6 +472,12 @@ function onNotification(e) {
 								'</li>';
 			var $notificationUlObj = $("#notification-page").find("ul");
         	$notificationUlObj.append(dataNotifyObj);
+        	
+//        	var currentNotificationCount = $(".notification-count-link span").html();
+//        	currentNotificationCount = parseInt(currentNotificationCount) + 1;
+        	$(".notification-count-link span").html("1");
+        	$(".notification-count-link").show();
+
         	
 			//console.log(e.payload.message+"---"+e.payload.msgcnt);
             //android only
