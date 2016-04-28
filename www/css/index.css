@@ -365,6 +365,9 @@ hr.style {
 .menu > li.profile2:before {
 	content: "\f02d";
 }
+.menu > li.notification:before {
+	content: "\f0a2";
+}
 .menu > li.holiday:before {
 	content: "\f004";
 }
@@ -1128,7 +1131,7 @@ ul.user_list_detailed li.user_list_li .action_icon {
 .no-border{border: 0;}
 .ui-btn.margin-right{margin-right: 10px;}
 .notification-count-link{
-	display: none !important;
+/* 	display: none !important; */
 }
 .notification-count-link span{
 	background-color: #ffd02b;
