@@ -471,7 +471,6 @@ function onNotification(e) {
         	$notificationUlObj.append(dataNotifyObj);
         	
         	var currentNotificationCount = $(".notification-count-link span").html();
-        	alert(currentNotificationCount);
         	var currentNotificationCountNew = parseInt(currentNotificationCount) + 1;
         	$(".notification-count-link span").html(currentNotificationCountNew);
         	$(".notification-count-link").show();
@@ -1339,10 +1338,6 @@ function errorCB(err) {
 			navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');					
 		}
 		hideModal();
-	}
-	
-	function noReplyOptionForChat(){
-		alertCustomMsg('No reply option availabe for this event.');
 	}
 	
 	function loadChat(thiss){
