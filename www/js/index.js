@@ -1342,7 +1342,7 @@ function errorCB(err) {
 	}
 	
 	function noReplyOptionForChat(){
-		alertCustomMsg('No reply option availabe for this event.');();
+		alertCustomMsg('No reply option availabe for this event.');
 	}
 	
 	function loadChat(thiss){
