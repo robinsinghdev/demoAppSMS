@@ -2408,7 +2408,8 @@ function errorCB(err) {
 						if(status == 1){
 							window.localStorage["schoolCode"] = schoolCode;
 							var server_ip = jsonArrInstitutes["server_ip"];
-							appUrl='http://' + server_ip + ':8080/Edit/appEntry.do';
+							//appUrl='http://' + server_ip + ':8080/Edit/appEntry.do';
+							appUrl='http://' + server_ip + '/appEntry.do';
 							window.localStorage["appUrl"] = appUrl;
 							$(".schoolCodeContainer").hide();
 							$(".loginFormContainer").show();
