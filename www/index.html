@@ -9,35 +9,26 @@
         
         <meta http-equiv="Content-Security-Policy" content="default-src *; script-src * 'unsafe-eval' 'unsafe-inline'; connect-src *; img-src *; style-src * 'unsafe-inline' ; media-src *;">
 
+		<title>EDIT</title>
         <link rel="stylesheet"  href="libs/jQueryMobile/jquery.mobile-1.4.5.min.css">
         <link rel="stylesheet" type="text/css" href="css/index.css" />
         <link rel="stylesheet" type="text/css" href="css/style.css" />
 <!--         <link rel="stylesheet" href="libs/jqm-datebox-1.4.5.css" /> -->
-        
         <link rel="stylesheet" href="css/fontawesome/css/font-awesome.min.css" />
-<!--         <link rel="stylesheet" href="css/animate.css" /> -->
-        
         <script type="text/javascript" src="libs/fastclick.min.js"></script>
         <script type="text/javascript" src="phonegap.js"></script>
-        <!-- <script type="text/javascript" src="libs/jquery-2.0.3.min.js"></script> -->
         <script type="text/javascript" src="libs/jquery.min.js"></script>
         <script type="text/javascript" src="libs/PushNotification.js"></script>
-        
         <script type="text/javascript" src="libs/jQueryMobile/jquery.mobile-1.4.5.min.js"></script>
 		<script src="libs/jqm-datebox-1.4.5.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
-        
          <!-- jquery.ajax-cross-origin.min.js  -->
         <script type="text/javascript" src="libs/jquery.ajax-cross-origin.min.js"></script>
-        
         <!-- Sparkline  -->
 	    <script type="text/javascript" src="libs/sparkline/jquery.sparkline.min.js" ></script>
-		
         <script type="text/javascript">
             app.initialize();
         </script>
-        
-        <title>EDIT</title>
     </head>
 	<body>
 		
@@ -45,13 +36,11 @@
         	
         	<div  id="login-page" data-role="page" class="login-page">
                 <div data-role="content">
-					
 					<div  class="login-box">
 						<div id="logoContainer" class="centerText">
 							<img src="img/logo.png" id="logo"  />
 								 <br/> <br/>
 						</div>
-						
 						<div class="form-container schoolCodeContainer" id="schoolCodeContainer">
 							<form  id="schoolCodeForm" action="">
 								<div class="input-field">
@@ -62,11 +51,14 @@
 								<input type="button" class="submit" value="Submit" id="getSchoolInfoSubmitBtn" data-theme="a" onclick="getSchoolInfo();" />
 							</form>
 						</div>						
-						
 						<div class="form-container loginFormContainer" style="display: none;">
 							<form  id="loginForm" action="">
 								<div class="input-field">
-									<label for="username">Institute Code - <a href="#" onclick="changeSchoolCode();"><span class="schoolCodeLabel"></span> <i class="fa fa-pencil fw"> </i></a></label>
+									<label for="username">Institute Code - 
+										<a href="#" class="schoolCodeLabelLink" onclick="changeSchoolCode();">
+											<span class="schoolCodeLabel"></span> <i class="fa fa-pencil fw"> </i>
+										</a>
+									</label>
 								</div>
 								<div class="input-field">
 									<label for="username">Username</label>
@@ -76,36 +68,17 @@
 									<label for="password">Password </label>
 									<input type="password" name="password" id="password" placeholder="Password" autocomplete="off"/>
 								</div>
-								
 								<!-- <input type="submit" value="Login" id="submitButton" data-theme="a" /> -->
 								<input type="button" value="Login" id="submitButton" data-theme="a" onclick="handleLogin();" />
 							</form>
 						</div>	
-						
 					</div>
                 </div>
             </div>
             
 			<div id="home-page" data-role="page">
-			
 				<div data-role="header" data-id="header" id="header" data-position="fixed" class="ui-header app-header-section">
-					<!-- 
-					<a href="#leftPanel" data-theme="none" data-inline="true" class="ui-btn ui-btn-icon-notext edit-logo" title="Menu">
-						<img src="img/edit-sm-logo.png" alt="logo" />
-					</a>
-					 -->
-<!--                     <a data-role="button" data-theme="none" data-corners="false" data-shadow="false" data-inline="true" href="/path/to/link"><img src="path_to_img" alt="Picture" /></a>   -->
                     <h1>Home</h1>
-                    
-					<!-- 
-					<div class="ui-btn-right right-space">
-						Notification Button
-						<a href="#notification-page" class="ui-btn ui-corner-all ui-icon-info ui-btn-icon-notext"  title="Notification"> </a>
-						&nbsp;
-						Setting Button
-						<a href="#rightPanel" class="ui-btn ui-corner-all ui-icon-gear ui-btn-icon-notext"  title="Setting"> </a>
-					</div>
-					 -->
                 </div>
                 
 				<div class="st-background">
@@ -199,7 +172,6 @@
 					                		 -->
 										</tbody>
 									</table>
-									
 <!-- 									<img src="img/st_icons/student-behaviour.png"/> -->
 								</div>
 								
@@ -414,7 +386,6 @@
 							
 							<section id="#" class="mb-student-communication all-chats mb-student-tab-content" style="display:none;">
 								<div class="page_content" id="allChatsDiv" > 
-    
 									<ul class="features_list_detailed all-chats-ul" >
 								  
 										<li onclick="loadChat();">
@@ -438,222 +409,13 @@
 												<span class="sub_person">By:Person Name</span>
 											</div>
 										</li> 
-										
-										<li>
-											<div class="feat_small_icon">
-												<i class="fa fa-bell-o"></i>
-											</div>
-											<div class="feat_small_details">
-												<h5>Profile Photo Updated</h5>
-												<a href="#" class="ui-link">Update your pic instantly.</a>
-											</div>
-										
-											<div class="view_more">
-												<a href="#" class="ui-link-more">
-													<i class="fa fa-angle-double-right right-link"></i>
-												</a>
-											</div>
-											<div class="time_detail">
-												<span class="time_sub">Time:00:00</span>
-												<span class="sub_person">By:Person Name</span>
-											</div>
-										</li> 
-										 
 									</ul>
 								</div>
-								
-								
 							</section>
-						
-							<!-- 
-							<div class="div-block">
-								
-								<div class="div-block-container" >
-									<div class="div-block-header">
-										<img class="heading-icon" src="img/icons/attendance1.png">
-										<h5 class="heading">Attendance: <span id="monthWithYear">2016</span> </h5>
-									</div>
-									<div class="div-block-data">
-										
-										<p>
-											<span class="dynamicSparkbar"></span>
-										</p>
-										 
-										 <table class="leave-description-table table table-hover table-striped table-bordered" id="leaveDescription">
-											<tbody>
-											
-					                     		<tr>
-							                 		<td class="date">
-							                 			06-Jan
-							                 		</td>
-							                 		<td class="reason">	
-							                 			&nbsp; <strong>NO REASONS</strong>
-							                 		</td>
-					                 				<td class="approve-type red">
-							                 			&nbsp; Not Approved
-							                 		</td>
-						                		</tr>
-						                		
-											</tbody>
-										</table>
-										
-									</div>
-									
-								</div>
-								 
-							</div>
-							<div class="div-block stud-profile-container">
-							
-							     <div class="profile-details">
-									<div class="profile-photo" data-toggle="modal" >
-										<img class="image" src="img/avatars/avatar-male.png">
-									</div>
-									<table class="user-profile-info">
-										<tbody>
-											<tr>
-												<td colspan="2"><p class="name">Name</p></td>
-											</tr>
-											<tr>
-												<td colspan="2" class="admission-number"><strong>Adm No: </strong> <span>Adm No:</span></td>
-											</tr>
-											<tr>
-												<td class="gender"><strong>M/F: </strong><span>male</span>&nbsp;&nbsp;</td>
-												<td class="age"><strong>Age: </strong> <span>Age</span></td>
-											</tr>
-											<tr>
-												<td class="email" colspan="2"><strong>Email: </strong><span>Email</span></td>
-											</tr>
-											<tr>
-												<td class="address-label" colspan="2"><strong>Contact Address: </strong></td>
-											</tr>
-											<tr>
-												<td class="address-data" colspan="2"><span>Address</span></td>
-											</tr>
-											<tr>
-												<td class="contact" colspan="2"><strong>Contact: </strong> <span></span></td>
-											</tr>
-										</tbody>
-									</table>
-							
-								 </div>
-						
-								 <div class="profile-rel-info parent-info">
-									<span class="rel-info-thumb"><span></span>Parents</span>
-									<ul class="rel-info-list parent-info-ul">
-										<li><p class="parent-name">Parent Name</p></li>
-										<li>
-										    <p class="call-icon parent-mobile" ></p>
-										</li>
-										<li>
-											<p class="email-icon parent-email"></p>
-										</li>
-									</ul>
-								 </div>
-		
-								 <div class="profile-rel-info awards-info">
-									<span class="rel-info-thumb"><span></span>Awards</span>
-											
-									<ul id="achievementDetailsUl" class="rel-info-list">
-									</ul>
-								 </div>
-							</div>
-							
-							<div class="div-block assignment">
-								<div class="div-block-container" >
-									<div class="div-block-header">
-										<img class="heading-icon" src="img/icons/assignment1.png">
-										<h5 class="heading">Assignment</h5>
-									</div>
-									<div class="div-block-data bottom-border">
-										<p class="message"></p>
-									</div>
-									<div class="div-block-footer">
-										<a href="#" class="link right" onclick="getAssignments();" >View All</a>
-									</div>
-								</div>
-							</div>
-							
-							<div class="div-block account-details">
-								<div class="div-block-container" >
-									<div class="div-block-header">
-										<img class="heading-icon" src="img/icons/account.png">
-										<h5 class="heading">Account Details</h5>
-									</div>
-									<div class="div-block-data">
-										<p class="message"></p>
-									</div>
-									<div class="div-block-footer">
-										<a href="#" class="link right">View All</a>
-									</div>
-								</div>
-							</div>
-							
-							<div class="div-block health-details">
-								<div class="div-block-container" >
-									<div class="div-block-header">
-										<img class="heading-icon" src="img/icons/health.png">
-										<h5 class="heading">Health Details</h5>
-									</div>
-									<div class="div-block-data">
-										<p class="message"></p>
-									</div>
-								</div>
-							</div>
-							-->
-							<!-- 
-							<div class="div-block latest-updates">
-								<div class="div-block-container" >
-									<div class="div-block-header">
-										<img class="heading-icon" src="img/icons/update.png">
-										<h5 class="heading">Latest Updates</h5>
-									</div>
-									<div class="div-block-data bottom-border">
-										<p class="message"></p>
-									</div>
-									<div class="div-block-footer">
-										<a href="#" class="link right">View All</a>
-									</div>
-								</div>
-							</div>
-							
-							<div class="div-block guildlines">
-								<div class="div-block-container" >
-									<div class="div-block-header">
-										<img class="heading-icon" src="img/icons/guides.png">
-										<h5 class="heading">Guildlines</h5>
-									</div>
-									<div class="div-block-data bottom-border">
-										<p class="message"></p>
-									</div>
-									<div class="div-block-footer">
-										<a href="#" class="link right">View All</a>
-									</div>
-								</div>
-							</div>
-							 -->
-							<!-- 
-							<div class="div-block">
-								<div class="div-block-container" >
-									<div class="div-block-header">
-										<img class="heading-icon" src="img/icons/attendance1.png">
-										<h5 class="heading">Attendance</h5>
-									</div>
-									<div class="div-block-data bottom-border">
-										<p class="message">The word-wrap property allows long words to be able to be broken and wrap onto the next line.</p>
-									</div>
-									<div class="div-block-footer">
-										<a href="#" class="link left">LINK Left</a>
-										<a href="#notification-page" class="link right">LINK RIGHT</a>
-									</div>
-								</div>
-							</div>
-							 -->
-							
 						</div>
 						
 						<div id="staff_homepage" class="home-dashboard display-none">
 							Staff homepage
-						
 						</div>
 					</div>
 				</div>
@@ -664,7 +426,6 @@
                 <div data-role="header" data-id="header" id="header" data-position="fixed" class="ui-header app-header-section">
                 	<h1>Chat</h1>
                 </div>
-                
                 <div data-role="content" class="more_content" >   
 					<section id="oneToOneChatSection" class="mb-student-communication mb-student-tab-content"  style="display:none;">
 						<input type="hidden" class="eventId" />
@@ -675,9 +436,7 @@
 								<div class="message">
 									<div class="msg-txt">
 										<span class="arrow"></span>
-										<p class="msg-body">
-											No data
-										</p>
+										<p class="msg-body">No data</p>
 									</div>
 									<div class="msg-detail">
 										<span class="st-sender name"></span>
@@ -697,13 +456,11 @@
 									<textarea class="commentBox"></textarea>
 									<button type="button" class="btn btn-primary" onclick="addCommentDetails();">SEND</button>
 <!-- 									<a id="saveUpdateStudAttendanceBtn" href="#" onclick="saveUpdateStudAttendance();" data-icon="" data-theme="b" class="app-link active">Done</a> -->
-									
 								</div>
                             </li>
                         </ul>
                     </div>
 				</div>
-			
 			</div>
             
             <div id="notification-page" data-role="page">
@@ -719,36 +476,49 @@
           
             <div id="user-profile-page" data-role="page">
                 <div data-role="header" data-id="header" id="header" data-position="fixed" class="ui-header app-header-section">
+					<div class="ui-btn-left">
+						<!-- Back Button -->
+						<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-icon-back ui-btn-icon-notext">Back</a>
+						&nbsp;
+						<!-- Menu Button -->
+						<a href="#leftPanel" class="ui-btn ui-corner-all ui-icon-bars ui-btn-icon-notext" title="Menu"></a>
+					</div>
                     <h1>Profile</h1>
+					<a href="#rightPanel" class="ui-btn ui-corner-all ui-icon-gear ui-btn-icon-notext ui-btn-right"  title="Setting"> </a>
                 </div>
-                
                 <div data-role="content" >                	
 					<div class="" >
                 		
 					</div>
                 </div>
-                
             </div>
             
-            <div id="stan-div-students-page" data-role="page">
+            <div id="stan-students-list-page" data-role="page">
                 <div data-role="header" data-id="header" id="header" data-position="fixed" class="ui-header app-header-section">
                     <h1></h1>
                 </div>
-                
                 <div data-role="content" >   
-                	
                 	<div class="stan-div-students-details"> 
     					<div class="page-tab-heading common-page-tab-heading bottom-border"></div>
-    					
     					<div>
-							<ul class="user_list_detailed mb-student-attendance-list" id="markAttendanceUl" data-filter="true" data-filter-placeholder="Search..">
-								
-							</ul>
+							<ul class="user_list_detailed mb-student-attendance-list" id="markAttendanceUl" data-filter="true" data-filter-placeholder="Search.."></ul>
 						</div>	
 					</div>
-                	             	
                 </div>
-                
+            </div>
+            
+            <div id="take-attendance-page" data-role="page">
+                <div data-role="header" data-id="header" id="header" data-position="fixed" class="ui-header app-header-section">
+                    <h1></h1>
+                </div>
+                <div data-role="content" >   
+                	<div class="stan-div-students-details"> 
+    					<div class="page-tab-heading common-page-tab-heading bottom-border"></div>
+    					<div>
+							<ul class="user_list_detailed mb-student-attendance-list" id="markAttendanceUl" data-filter="true" data-filter-placeholder="Search.."></ul>
+						</div>	
+					</div>
+                </div>
                 <div data-role="footer" data-position="fixed">
 					<div id="navbar" data-role="navbar">
                         <ul>
@@ -762,156 +532,38 @@
                 <div data-role="header" data-id="header" id="header" data-position="fixed" class="ui-header app-header-section">
                     <h1></h1>
                 </div>
-                
                 <div data-role="content" >   
-                	
                 	<div class="common-user-list-details"> 
     					<div class="page-tab-heading common-page-tab-heading bottom-border"></div>
-    					
     					<div>
-							<ul class="user_list_detailed mb-student-attendance-list" id="" data-filter="true" data-filter-placeholder="Search..">
-								
-							</ul>
-							
-							
-							
+							<ul class="user_list_detailed mb-student-attendance-list" id="" data-filter="true" data-filter-placeholder="Search.."></ul>
 						</div>	
 					</div>
-                	             	
                 </div>
-                
-            </div>
-            
-            <div id="mark-attendance-page" data-role="page">
-                <div data-role="header" data-id="header" id="header" data-position="fixed" class="ui-header app-header-section">
-                    <h1>Mark Attendance</h1>
-                </div>
-                
-                <div data-role="content" >   
-                	
-                	<div class=""> 
-    
-						<ul class="user_list_detailed mb-student-attendance-list" id="" data-filter="true" data-filter-placeholder="Search..">
-					  
-							<li class="user_list_li" onclick="openAttendanceDetails(this);" >
-								<div class="user-details">
-									<div class="user-img"><img title="" alt="" src="img/avatars/avatar-male.png"></div>
-									
-									<div class="small_details">
-										<h5>Anamika Apte</h5>
-										<a href="#" class="ui-link">Roll 15213</a>
-									</div>
-									
-									<div class="action_icon">
-										<a href="#" class="ui-link"><img title="" alt="" src=""></a>
-									</div>
-								</div>
-								
-								<div class="period-list-attendance-div" style="display: none;">
-								    	<ul class="period-list-attendance" id="period-list-attendance">
-										  <li class="select-all selected">All</li>
-										  <li onclick="selectPeriodLi(this);">1</li>
-										  <li onclick="selectPeriodLi(this);">2</li>
-										  <li onclick="selectPeriodLi(this);">3</li>
-										  <li onclick="selectPeriodLi(this);">4</li>
-										  <li onclick="selectPeriodLi(this);">5</li>
-										  <li onclick="selectPeriodLi(this);">6</li>
-										  <li onclick="selectPeriodLi(this);">7</li>
-										  <li onclick="selectPeriodLi(this);">8</li>
-									   </ul>
-								</div>	
-							
-							</li> 
-							
-							<li class="user_list_li" onclick="openAttendanceDetails(this);" >
-								<div class="user-details">
-									<div class="user-img"><img title="" alt="" src="img/avatars/avatar-male.png"></div>
-									
-									<div class="small_details">
-										<h5>Urvi darji</h5>
-										<a href="#" class="ui-link">Roll 15213</a>
-									</div>
-									
-									<div class="action_icon">
-										<a href="#" class="ui-link"><img title="" alt="" src=""></a>
-									</div>
-								</div>
-								
-								<div class="period-list-attendance-div" style="display: none;">
-								    	<ul class="period-list-attendance" id="period-list-attendance">
-										  <li class="select-all selected">All</li>
-										  <li onclick="selectPeriodLi(this);">1</li>
-										  <li onclick="selectPeriodLi(this);">2</li>
-										  <li onclick="selectPeriodLi(this);">3</li>
-										  <li onclick="selectPeriodLi(this);">4</li>
-										  <li onclick="selectPeriodLi(this);">5</li>
-										  <li onclick="selectPeriodLi(this);">6</li>
-										  <li onclick="selectPeriodLi(this);">7</li>
-										  <li onclick="selectPeriodLi(this);">8</li>
-									   </ul>
-								</div>	
-							
-							</li> 
-							
-						</ul>
-					</div>
-                	             	
-                </div>
-                
             </div>
             
             <div id="change-password-page" data-role="page">
                 <div data-role="header" data-id="header" id="header" data-position="fixed" class="ui-header app-header-section">
-                	
-					<div class="ui-btn-left">
-						<!-- Back Button -->
-						<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-icon-back ui-btn-icon-notext">Back</a>
-						&nbsp;
-						<!-- Menu Button -->
-						<a href="#leftPanel" class="ui-btn ui-corner-all ui-icon-bars ui-btn-icon-notext" title="Menu"></a>
-					</div>
-					
                     <h1>Change Password</h1>
-					
-					<a href="#rightPanel" class="ui-btn ui-corner-all ui-icon-gear ui-btn-icon-notext ui-btn-right"  title="Setting"> </a>
-					
                 </div>
-                
                 <div data-role="content" >                	
 					<div class="" >
                 		Change Password
 					</div>
                 </div>
-                
             </div>
 			
 			<div id="common-page" data-role="page">
                 <div data-role="header" data-id="header" id="header" data-position="fixed" class="ui-header app-header-section">
-					<!-- 
-					<div class="ui-btn-left">
-						Back Button
-						<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-icon-back ui-btn-icon-notext">Back</a>
-						&nbsp;
-						Menu Button
-						<a href="#leftPanel" data-theme="none" data-inline="true" class="ui-btn edit-logo" title="Menu">
-							<img src="img/edit-sm-logo.png" alt="logo" />
-						</a>
-					</div>
-					 -->
                     <h1 class="common-page-heading"></h1>
-<!-- 					<a href="#rightPanel" class="ui-btn ui-corner-all ui-icon-gear ui-btn-icon-notext ui-btn-right"  title="Setting"> </a> -->
                 </div>
                 
                 <div data-role="content" >
                 	<div id="commonTab1" class="common-page-tab1" >
-                			<div class="common-page-tab-heading bottom-border">
-  									
-							</div>
+                			<div class="common-page-tab-heading bottom-border"></div>
 							
 							<div class="mb-st-assignment-list mb-assignment-tab-content" id="">
-								<ul class="st-assigment">
-								
-								</ul>
+								<ul class="st-assigment"></ul>
 							</div>	
 							
 						    <div class="table-main-div">
@@ -945,29 +597,16 @@
 								  </div>         
 								      -->        
  							</div>
-						    
 					</div>
                 </div>
-                
             </div>
 			
             <div id="data-entry" data-role="page">
                 <div data-role="header" data-id="header" id="header" data-position="fixed" class="ui-header app-header-section">
-                	<div class="ui-btn-left">
-						<!-- Back Button -->
-						<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-icon-back ui-btn-icon-notext">Back</a>
-						<!-- Menu Button -->
-						<a href="#leftPanel" class="ui-btn ui-corner-all ui-icon-bars ui-btn-icon-notext" title="Menu"></a>
-					</div>
-					
                     <h1>Data Entry</h1>
-					
-					<a href="#rightPanel" class="ui-btn ui-corner-all ui-icon-gear ui-btn-icon-notext ui-btn-right"  title="Setting"> </a>
-					
                 </div>
                 
                 <div data-role="content" id="addLogTimeContent">
-                    	
                     <div>
                     	<form id="dataEntryForm">
 		                    <div class="ui-field-contain">
