@@ -1,5 +1,4 @@
 
-var noDataFoundMsg = "No data found.";
 $( document ).on( "mobileinit", function() {
     // Make your jQuery Mobile framework configuration changes here!
 	 $.support.cors = true;
@@ -52,25 +51,13 @@ var rightPanelObj = //'<div id="rightPanel" class="panel right" data-role="panel
 									'<a href="#notification-page" data-rel="close" >'+
 										'<span class="menu-li-title">Notifications</span>'+
 									'</a>'+
-								'</li>'+								
+								'</li>'+
 								'<li class="icon holiday">'+
 									'<a href="#" onclick="getHolidays();" data-rel="close" >'+
 										'<span class="menu-li-title">Holidays List</span>'+
 									'</a>'+
 								'</li>'+
-								
 								/*
-								'<li class="icon profile2">'+
-									'<a href="#user-profile-page" data-rel="close">'+
-										'<span class="menu-li-title">Profile</span>'+
-									'</a>'+
-								'</li>'+
-								
-								'<li class="icon master_document">'+
-									'<a href="#" data-rel="close" >'+
-										'<span class="menu-li-title">Master Documents</span>'+
-									'</a>'+
-								'</li>'+
 								'<li class="icon password">'+
 									'<a href="#" data-rel="close">'+
 										'<span class="menu-li-title">Change Paswword</span>'+
@@ -83,23 +70,22 @@ var rightPanelObj = //'<div id="rightPanel" class="panel right" data-role="panel
 									'</a>'+
 								'</li>'+
 							'</ul>'+
-						'</div>'+
-					'</div>';
+						'</div>';
 
-//getAssignments
-//getAcademicAcheivements
-//getSeminars
-//getExternalActivies
-//getDisciplines
-//getScholoarships
-//getPreviousInstitutes
-//getTimetable
-var leftPanelObjForStudent= //'<div id="leftPanel" class="panel left" data-role="panel" data-position="left" data-display="push" >'+
-					'<div id="menu-wrapper">'+			
+var leftPanelObjEmpty = //'<div id="leftPanel" class="panel left" data-role="panel" data-position="left" data-display="push" >'+
+							'<div id="menu-wrapper">'+			
+								'<div class="menu-title">'+
+							    	'<span>MENU</span>'+
+							    '</div>'+
+								'<ul class="menu">'+	
+								'</ul>'+
+							'</div>';
+var leftPanelObj = '<div id="menu-wrapper">'+			
 						'<div class="menu-title">'+
 					    	'<span>MENU</span>'+
 					    '</div>'+
-						'<ul class="menu">'+					
+						'<ul class="menu">';	
+var leftPanelObjForStudent= 					
 							'<li class="icon home">'+
 								'<a href="#" onclick="gotoHome();" data-rel="close" >'+
 									'<span class="menu-li-title">Home</span>'+
@@ -147,7 +133,7 @@ var leftPanelObjForStudent= //'<div id="leftPanel" class="panel left" data-role=
 									'<span class="menu-li-title">Disciplines</span>'+
 									'<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">'+
 								'</a>'+
-							'</li>'+		
+							'</li>';
 							/*
 							'<li class="icon timetable">'+
 								'<a href="#" onclick="getTimetable(); " data-rel="close">'+
@@ -160,155 +146,147 @@ var leftPanelObjForStudent= //'<div id="leftPanel" class="panel left" data-role=
 								'<span class="menu-li-title">Previous Institutes</span>'+
 								'<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">'+
 							'</a>'+
-							*/
+							'</li>';	
+						*/					
+var leftPanelObjForStaff= 		
+						'<li class="icon home">'+
+							'<a href="#" onclick="gotoHome();" data-rel="close" >'+
+								'<span class="menu-li-title">Home</span>'+
+								'<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">'+
+							'</a>'+
 						'</li>'+
-						'</ul>'+
-					'</div>'+
-				'</div>';
-
-var leftPanelObjForStaff= //'<div id="leftPanel" class="panel left" data-role="panel" data-position="left" data-display="push" >'+
-					'<div id="menu-wrapper">'+			
-						'<div class="menu-title">'+
-					    	'<span>MENU</span>'+
-					    '</div>'+
-						'<ul class="menu">'+		
-							'<li class="icon home">'+
-								'<a href="#" onclick="gotoHome();" data-rel="close" >'+
-									'<span class="menu-li-title">Home</span>'+
-									'<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">'+
-								'</a>'+
-							'</li>'+
-							
-							'<li class="icon">'+
-								'<a href="#" onclick="getStanDivisionMapForStaff();" data-rel="close">'+
-									'<span class="menu-li-title">My Classes</span>'+
-									'<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">'+
-								'</a>'+
-							'</li>'+							
-							'<li class="icon">'+
-								'<a href="#" onclick="getSubjectAllocationForStaff();" data-rel="close">'+
-									'<span class="menu-li-title">My Subjects</span>'+
-									'<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">'+
-								'</a>'+
-							'</li>'+		
-							'<li class="icon">'+
-								'<a href="#" onclick="getStaffAttendanceForStaff();" data-rel="close">'+
-									'<span class="menu-li-title">My Attendance</span>'+
-									'<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">'+
-								'</a>'+
-							'</li>'+
-							
-							/*
-							'<li class="icon timetable">'+
-								'<a href="#" onclick="getTimetable(); " data-rel="close">'+
-									'<span class="menu-li-title">Holidays</span>'+
-									'<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">'+
-								'</a>'+
-							'</li>'+
-							
-							'<li class="icon assignment">'+
-								'<a href="#" onclick="getStaffDetails();" data-rel="close" >'+
-									'<span class="menu-li-title">My Details</span>'+
-									'<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">'+
-								'</a>'+
-							'</li>'+	
-							'<li class="icon book">'+
-								'<a href="#" onclick="getEducationalQualificationForStaff();" data-rel="close">'+
-									'<span class="menu-li-title">Educational Qualification</span>'+
-									'<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">'+
-								'</a>'+
-							'</li>'+					
-							'<li class="icon scholarship">'+
-								'<a href="#" onclick="getLeaveDetailsForStaff();" data-rel="close">'+
-									'<span class="menu-li-title">Leave Details</span>'+
-									'<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">'+
-								'</a>'+
-							'</li>'+
-							'<li class="icon seminar">'+
-								'<a href="#" onclick="getSeminars();" data-rel="close">'+
-									'<span class="menu-li-title">Seminars</span>'+
-									'<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">'+
-								'</a>'+
-							'</li>'+
-							*/
-							
-						'</ul>'+					
-					'</div>'+					 
-				'</div>';
-
-
+						
+						'<li class="icon mapping">'+
+							'<a href="#" onclick="getStanDivisionMapForStaff();" data-rel="close">'+
+								'<span class="menu-li-title">My Classes</span>'+
+								'<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">'+
+							'</a>'+
+						'</li>'+							
+						'<li class="icon bookmark">'+
+							'<a href="#" onclick="getSubjectAllocationForStaff();" data-rel="close">'+
+								'<span class="menu-li-title">My Subjects</span>'+
+								'<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">'+
+							'</a>'+
+						'</li>'+		
+						'<li class="icon attendance">'+
+							'<a href="#" onclick="getStaffAttendanceForStaff();" data-rel="close">'+
+								'<span class="menu-li-title">My Attendance</span>'+
+								'<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">'+
+							'</a>'+
+						'</li>'+
+						'<li class="icon assignment">'+
+							'<a href="#" onclick="getStaffDetails();" data-rel="close" >'+
+								'<span class="menu-li-title">Assignments</span>'+
+								'<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">'+
+							'</a>'+
+						'</li>'+
+						'<li class="icon seminar">'+
+							'<a href="#" onclick="getSeminars();" data-rel="close">'+
+								'<span class="menu-li-title">Seminars</span>'+
+								'<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">'+
+							'</a>'+
+						'</li>';
+						/*
+						'<li class="icon timetable">'+
+							'<a href="#" onclick="getTimetable(); " data-rel="close">'+
+								'<span class="menu-li-title">Holidays</span>'+
+								'<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">'+
+							'</a>'+
+						'</li>'+
+						'<li class="icon book">'+
+							'<a href="#" onclick="getEducationalQualificationForStaff();" data-rel="close">'+
+								'<span class="menu-li-title">Educational Qualification</span>'+
+								'<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">'+
+							'</a>'+
+						'</li>'+					
+						'<li class="icon scholarship">'+
+							'<a href="#" onclick="getLeaveDetailsForStaff();" data-rel="close">'+
+								'<span class="menu-li-title">Leave Details</span>'+
+								'<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">'+
+							'</a>'+
+						'</li>'+
+						*/
+var ajaxCallGet = "GET";
+var ajaxCallPost = "POST";
+var ajaxCallUnset = "GET";
 var dynPanelCount = 1,
 dynPanelBtnCount = 1;
-$(document).one('pagebeforecreate', function () {
-	/*
-	var panelDOM = $("[data-role=panel]").length;
-    if (panelDOM === 0) {
-         //add panel 
-    	$.mobile.pageContainer.prepend(rightPanelObj);
-    	$.mobile.pageContainer.prepend(leftPanelObj);
-    	$("#rightPanel").panel().enhanceWithin();
-    	$("#leftPanel").panel().enhanceWithin();
-    	 alert("pagebeforecreate");
-    	//
-    	setTimeout(function(){
-    	   
-    	 }, 300);
-    }
-   */
-    
-	panelsInitialization(true, true, 0);	
-});
+var noDataFoundMsg = "No data found.";
+//$(document).one('pagebeforecreate', function () {});
 
 function panelsInitialization(initLeftPanelFlag, initRightPanelFlag, roleId){
 	dynPanelCount = 1;
 	dynPanelBtnCount = 1;
-	
-	$(".st-leftPanel").remove();
-    $(".st-rightPanel").remove();
-    $(".st-leftPanel-btn").remove();
-    $(".st-rightPanel-btn").remove();
     
-	
-	 $.mobile.pageContainer.find("[data-role=page]").each(function () {
-	        var leftPanelDynObj="";
-	        leftPanelDynObj += '<div id="leftPanel' + dynPanelCount + '" class="panel left st-leftPanel" data-role="panel" data-position="left" data-display="push" >';
-	        
-	        if(roleId==0 || roleId==4 || roleId==9){
-	        	leftPanelDynObj += leftPanelObjForStudent;
-	        }
-	        else if(roleId==2){
-	        	leftPanelDynObj += leftPanelObjForStaff;
-	        }
-	        
-	        var rightPanelDynObj = '<div id="rightPanel' + dynPanelCount + '"  class="panel right st-rightPanel" data-role="panel" data-position="right" data-display="push" >'+
-	        						rightPanelObj;
-	        
-	        $(this).prepend(leftPanelDynObj);
-	        $(this).prepend(rightPanelDynObj);
+	$.mobile.pageContainer.find("[data-role=page]").each(function () {
+		var currPanelObj = $(this).find(".st-leftPanel");
+		var panelFoundFlag = currPanelObj.length;
+		
+		if($(this).attr("id") == "login-page"){
+			if(panelFoundFlag == 0){
+				var leftPanelDynObj='<div id="leftPanel' + dynPanelCount + '" class="panel left st-leftPanel" data-role="panel" data-position="left" data-display="push"></div>';
+		        var rightPanelDynObj = '<div id="rightPanel' + dynPanelCount + '"  class="panel right st-rightPanel" data-role="panel" data-position="right" data-display="push"></div>';
+		        $(this).prepend(leftPanelDynObj);
+		        $(this).prepend(rightPanelDynObj);
+			}    
+		}
+		else{
+			if(panelFoundFlag == 0){
+				var leftPanelDynObj="";
+		        leftPanelDynObj += '<div id="leftPanel' + dynPanelCount + '" class="panel left st-leftPanel" data-role="panel" data-position="left" data-position-fixed="true" data-display="push" >';
+		        
+		        if(roleId==0 || roleId==4 || roleId==9){
+		        	leftPanelDynObj += leftPanelObj + leftPanelObjForStudent;
+		        	leftPanelDynObj += '</ul>'+'</div>'+'</div>';
+		        }
+		        else if(roleId==2){
+		        	leftPanelDynObj += leftPanelObj + leftPanelObjForStaff;
+		        	leftPanelDynObj += '</ul>'+'</div>'+'</div>';
+		        }
+		        
+		        var rightPanelDynObj = '<div id="rightPanel' + dynPanelCount + '"  class="panel right st-rightPanel" data-role="panel" data-position="right" data-position-fixed="true" data-display="overlay" >'+
+		        						rightPanelObj + '</div>';
+		        
+		        $(this).prepend(leftPanelDynObj);
+		        $(this).prepend(rightPanelDynObj);
+			}
+			else{
+				console.log("panel--"+$(this).attr("id")+"---"+currPanelObj.find(".ui-panel-inner").length);
+				if(roleId==0 || roleId==4 || roleId==9){
+					currPanelObj.find("#menu-wrapper .menu").html(leftPanelObjForStudent);
+					if(currPanelObj.find(".ui-panel-inner").length == 0){
+						currPanelObj.find(".ui-panel-inner ul.menu").html(leftPanelObjForStudent);
+					}
+		        }
+		        else if(roleId==2){
+		        	currPanelObj.find("#menu-wrapper .menu").html(leftPanelObjForStaff);
+		        	if(currPanelObj.find(".ui-panel-inner").length == 0){
+		        		currPanelObj.find(".ui-panel-inner ul.menu").html(leftPanelObjForStaff);
+					}
+		        }
+			}
 	        dynPanelCount++;
-    });
-	 
-    $.mobile.pageContainer.find("[data-role=header]").each(function () {
-        var leftPanelDynBtn='<a href="#leftPanel' + (dynPanelBtnCount+1) + '" data-theme="none" data-inline="true" class="ui-btn ui-btn-icon-notext st-leftPanel-btn edit-logo" title="Menu">'+
-						'<img src="img/edit-sm-logo.png" alt="logo" /></a>';
-        
-        var rightPanelDynBtn='<div class="ui-btn-right right-space">'+
-        						'<a href="#notification-page" class="ui-btn ui-shadow ui-corner-all st-rightPanel-btn no-border margin-right notification-count-link"  title="Notification"><span class="">0</span></a>'+
-        
-								'<a href="#rightPanel' + (dynPanelBtnCount+1) + '" class="ui-btn ui-corner-all ui-icon-gear ui-btn-icon-notext st-rightPanel-btn no-border"  title="Setting"> </a>'+
-							'</div>';
-        
-        $(this).append(leftPanelDynBtn);
-        $(this).append(rightPanelDynBtn);
-        dynPanelBtnCount++;
-    });
-    
+	        
+	        var btnFoundFlag = $(this).find("[data-role=header] .st-leftPanel-btn").length;
+	        if(btnFoundFlag == 0){
+	        	var leftPanelDynBtn='<a href="#leftPanel' + (dynPanelBtnCount) + '" data-theme="none" data-inline="true" class="ui-btn ui-btn-left st-leftPanel-btn edit-logo" title="Menu">'+
+	    		'<img src="img/edit-sm-logo.png" alt="logo" /></a>';
+	
+	    		var rightPanelDynBtn='<div class="ui-btn-right right-space">'+
+			    							'<a href="#notification-page" class="ui-btn ui-shadow ui-corner-all st-rightPanel-btn no-border margin-right notification-count-link"  title="Notification"><span class="">0</span></a>'+
+			    							'<a href="#rightPanel' + (dynPanelBtnCount) + '" class="ui-btn ui-corner-all ui-icon-gear ui-btn-icon-notext st-rightPanel-btn no-border"  title="Setting"> </a>'+
+			    						'</div>';
+	    		$(this).find("[data-role=header]").append(leftPanelDynBtn);
+	    		$(this).find("[data-role=header]").append(rightPanelDynBtn);
+	        }
+			dynPanelBtnCount++;	
+		}	
+    }); 
 }
 
 $(document).on("pageinit", function () {
     if($(this).attr("href") == "#"+$.mobile.pageContainer.pagecontainer("getActivePage")[0].id) {
     	//alert($.mobile.pageContainer.pagecontainer("getActivePage")[0].id);
-    	//$("[data-role=panel]").panel("close");
     }
     
     /* New Design for Edit CSS Starts */
@@ -338,30 +316,11 @@ $(document).on("pageinit", function () {
 		return false;
 	});
 	/* New Design for Edit CSS Ends */	
-	/*
-	$(".approveReasonsSelectsfsdf").change(function() {
-		console.log("sdid-----"+$(this).data("sdid") );
-		
-		console.log("sdid-----"+ $(this).parents('.st-atte-approve').find('.approveReasonsSelectLabel').data("sdid") );
-		
-		
-		$(this).parents('.st-atte-approve').find('.attendanceApproveCheckbox').data("approvereasonid", $(this).val());
-		$(this).parents('.st-atte-approve').find('.approveReasonsSelectLabel').text($(this).find(":selected").text());
-		
-		console.log("data approvereasonid -----"+ $(this).parents('.st-atte-approve').find('.attendanceApproveCheckbox').data("approvereasonid") );
-		
-		$( this ).close();
-		$( this ).parents('.st-atte-approve').find('#approveReasonsSelect').selectmenu('close');
-	});
-	*/
-	
-	
 });
 
 //var appUrl='http://192.168.1.11:8080/Edit/appEntry.do';
 //var appUrl='http://122.166.218.28:8080/Edit/appEntry.do';
 var appUrl = '';
-
 var appRequiresWiFi='This action requires internet.';
 var serverBusyMsg='Server is busy, please try again later.';
 var mData={};
@@ -370,16 +329,12 @@ var pushNotification;
 
 var app = {
     SOME_CONSTANTS : false,  // some constant
-
     // Application Constructor
     initialize: function() {
-        //console.log("console log init");
         this.bindEvents();
         this.initFastClick();
     },
-    // Bind Event Listeners
-    //
-    // Bind any events that are required on startup. Common events are:
+    // Bind Event Listeners Bind any events that are required on startup. Common events are:
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
@@ -395,7 +350,6 @@ var app = {
         if(window.localStorage["gcmregistrationId"] === undefined ) {
 			window.localStorage["gcmregistrationId"] = "";
 		}
-		
 		pushNotification = window.plugins.pushNotification;
 		try{
         	pushNotification = window.plugins.pushNotification;
@@ -413,7 +367,6 @@ var app = {
         	$(".schoolCodeContainer").show();
 			$(".loginFormContainer").hide();
         }else{
-        	appUrl = window.localStorage["appUrl"] ;
     		//db = window.sqlitePlugin.openDatabase({name: "stims.db", location: 2});
     		//db.transaction(initializeDB, errorCB, successCB);
         	$(".schoolCodeContainer").hide();
@@ -441,13 +394,8 @@ function onNotification(e) {
         	// if this flag is set, this notification happened while we were in the foreground.
         	// you might want to play a sound to get the user's attention, throw up a dialog, etc.
         	if (e.foreground){
-        		console.log("INLINE NOTIFICATION");
-			        // on Android soundname is outside the payload. 
-		               // var soundfile = e.soundname || e.payload.sound;
-		                // if the notification contains a soundname, play it.
-		                // playing a sound also requires the org.apache.cordova.media plugin
-		                //var my_media = new Media("/android_asset/www/"+ soundfile);
-		               // my_media.play();
+        		//console.log("INLINE NOTIFICATION");
+			    // on Android soundname is outside the payload. 
 			}
 			else{	
 				// otherwise we were launched because the user touched a notification in the notification tray.
@@ -473,20 +421,18 @@ function onNotification(e) {
         	var currentNotificationCount = $(".notification-count-link span").html();
         	var currentNotificationCountNew = parseInt(currentNotificationCount) + 1;
         	$(".notification-count-link span").html(currentNotificationCountNew);
-        	$(".notification-count-link").show();
+        	$(".notification-count-link").show();        	
 			//console.log(e.payload.message+"---"+e.payload.msgcnt);
             //android only
-        break;
+        	break;
         
         case 'error':
-        	alert(e.msg);
 			 console.log(e.msg);
-        break;
+			 break;
         
         default:
-        	alert("Error");
 		 	console.log(" Unknown, an event was received and we do not know what it is");
-        break;
+        	break;
     }
 }
 
@@ -507,7 +453,6 @@ function hideModal(){
 	 $(".ui-loader-background").remove();
 	 $.mobile.loading( "hide" );
 }
-
 
 function onBackKeyDown() {
 	if($.mobile.activePage.is('#login-page')){
@@ -577,7 +522,7 @@ function gotoHome(){
 	if(window.localStorage["userRoleId"] ==4 || window.localStorage["userRoleId"]==9){
 		$("#staff_homepage").hide();
 		$("#student_homepage").show();
-	}else if(loginDataResponse["userRoleId"]==2){ // Teacher Role
+	}else if(window.localStorage["userRoleId"]==2){ // Teacher Role
 		$("#staff_homepage").show();
 		$("#student_homepage").hide();
 	}
@@ -590,22 +535,23 @@ function handleLogin() {
 	$("#submitButton",form).attr("disabled","disabled");
 	var u = $("#username", form).val();
 	var p = $("#password", form).val();
-	//u='hcsvenkatesh@g.com'; //parent username
-	//u='mahantesh@g.com'; //parent username
-	//u='sanjithhcs@g.com'; //student username sanjithhcs@g.com
-	//u='jat@g.com'; //staff username jat@g.com
-	//p='admin';
+	//u='hcsvenkatesh@g.com'; //parent 
+	//u='sanjithhcs@g.com'; //student 
+	//u='jat@g.com'; //staff username
+	
+	//u='mahantesh@g.com'; //parent 
+	u = 'ambika_jbr@g.com'; //staff
+	p='admin'; // parent
+	//p = 'staff' ;//staff 
 	
 	if(u != '' && p!= '') {
-		
-		var connectionType=checkConnection();
-		//var connectionType="WiFi connection";//For Testing
+		//var connectionType=checkConnection();
+		var connectionType="WiFi connection";//For Testing
 		
 		var loginData={};
-		
 		if(connectionType=="Unknown connection" || connectionType=="No network connection"){
-			
 			if(window.localStorage["user_logged_in"] ==1) {
+				navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');
 				//checkingUserAssignedRoles();
 				//$.mobile.changePage('#home-page',{ transition: "slideup"});
 			}
@@ -614,237 +560,227 @@ function handleLogin() {
 			}	
 		}
 		else if(connectionType=="WiFi connection" || connectionType=="Cell 4G connection" || connectionType=="Cell 3G connection" || connectionType=="Cell 2G connection"){
-			
 			showModal();
 			loginData.username=u;
 			loginData.password=p;
-			loginData.gcmregdid = window.localStorage["gcmregistrationId"];
-			//loginData.gcmregdid = "reg";//For Testing
+			//loginData.gcmregdid = window.localStorage["gcmregistrationId"];
+			loginData.gcmregdid = "reg";//For Testing
 			$.ajax({
 				//type : 'POST',
 				url:appUrl,
 				data : {"action":"login","loginData":JSON.stringify(loginData), "mData":JSON.stringify(mData) },
 				success:function(data){
-					
-				var responseJson=jQuery.parseJSON(data);
-				var responseMessage=responseJson["msg"];
-				
-				if(responseJson.statusCode == "0" ){
-					//var appUserData=responseJson.appUserData;
-					window.localStorage["username"] = u;
-					window.localStorage["password"] = p;
-					window.localStorage["user_logged_in"] = 1;
-										
-					if (window.localStorage.getItem("permissions") === null ) {
-						window.localStorage["permissions"] = '';
-					}
-					
-					var loginDataResponse=responseJson["loginDataResponse"];
-					window.localStorage["name"] = loginDataResponse["name"];
-					window.localStorage["userRoleId"] = loginDataResponse["userRoleId"];
-					window.localStorage["userRoleName"] = loginDataResponse["userRoleName"];
-					
-					//checkingUserAssignedRoles(); 
-					$person_details_right_panel=$(".person_details_right_panel");
-					$person_details_right_panel.find(".name").html(window.localStorage["name"]);
-					$person_details_right_panel.find(".email").html(window.localStorage["username"]);
-					
-					var allData=responseJson["allData"];
-					
-					if(loginDataResponse["userRoleId"]==4 || loginDataResponse["userRoleId"]==9){ // 4= Parent Role, 9= Student Role
-						
-						$("#staff_homepage").hide();
-						$("#student_homepage").show();
-						
-						// Student & Parent Related data
-						var studData= allData["jsonObjStudData"];
-						
-						var studName=studData["name"];
-						var studMobileNo=studData["mobileNumber"];
-						var studentEmail=studData["studentEmail"];
-						var admissionNo=studData["admissionNo"];
-						var rollNumber=studData["rollNumber"];
-						var studentDetailsId=studData["studentDetailsId"];
-						var studentStandardDivisionId=studData["studentStandardDivisionId"];
-						var age=studData["age"];
-						var gender=studData["gender"];
-						
-						var userImgSrc = "img/avatars/avatar-male.png";
-						var studImage = studData["image"];
-						if(gender){
-							gender='Male';
-							userImgSrc = "img/avatars/avatar-male.png";
-						}else{
-							gender='Female';
-							userImgSrc = "img/avatars/avatar-female.png";
+					var responseJson=jQuery.parseJSON(data);
+					var responseMessage=responseJson["msg"];
+					if(responseJson.statusCode == "0" ){
+						//var appUserData=responseJson.appUserData;
+						window.localStorage["username"] = u;
+						window.localStorage["password"] = p;
+						window.localStorage["user_logged_in"] = 1;
+											
+						if (window.localStorage.getItem("permissions") === null ) {
+							window.localStorage["permissions"] = '';
 						}
 						
-						var addressOne=studData["addressOne"];
-						var addressTwo=studData["addressTwo"];
-						var studContactNo=studData["studContactNo"];
+						var loginDataResponse=responseJson["loginDataResponse"];
+						window.localStorage["name"] = loginDataResponse["name"];
+						window.localStorage["userRoleId"] = loginDataResponse["userRoleId"];
+						window.localStorage["userRoleName"] = loginDataResponse["userRoleName"];
 						
-						var parentsName=studData["parentsName"];
-						var parentEmail=studData["email"];
-						window.localStorage["email"]=parentEmail;
+						//checkingUserAssignedRoles(); 
+						$person_details_right_panel=$(".person_details_right_panel");
+						$person_details_right_panel.find(".name").html(window.localStorage["name"]);
+						$person_details_right_panel.find(".email").html(window.localStorage["username"]);
 						
-						var parentsMobileNo=studContactNo;
+						var allData=responseJson["allData"];
 						
-						// 4= Parent Role, 9= Student Role
-						if(loginDataResponse["userRoleId"]==4 ){
-							window.localStorage["mobile"]=parentsMobileNo;
-						}
-						else if(loginDataResponse["userRoleId"]==9){
-							window.localStorage["mobile"]=studMobileNo;
-						}
-						$person_details_right_panel.find(".contact_number").html(window.localStorage["mobile"]);
-						
-						window.localStorage["studDetailsId"] = studentDetailsId;
-						window.localStorage["studStandardDivisionId"] = studentStandardDivisionId;
-						
-						// User Profile Details - Compact Info
-						var $userCompactInfoObj = $('.user-compact-info');
-						$userCompactInfoObj.find(".mb-student-photo img").attr("src", userImgSrc);
-						$userCompactInfoObj.find(".mb-student-name").html(studName);
-						
-						// User Profile Details - More Info
-						var $userMoreInfoObj = $userCompactInfoObj.find(".mb-student-more-info");
-						$userMoreInfoObj.find(".user-id").html("");
-						$userMoreInfoObj.find(".user-id-other span").html(admissionNo);
-						$userMoreInfoObj.find(".gender span").html(gender);
-						$userMoreInfoObj.find(".age span").html(age);
-						
-						// User Profile Details - Deatiled Info
-						// Student Contact Details
-						var $userDetailedInfoObj = $(".user-detailed-info");
-						var $userDetailedContactInfo = $userDetailedInfoObj.find(".user-contact-info-content");
-						$userDetailedContactInfo.find(".address-info span").html(addressOne+" "+addressTwo);
-						$userDetailedContactInfo.find(".mobile-info span").html(parentsMobileNo);
-						$userDetailedContactInfo.find(".email-info span").html(studentEmail);
-						
-						// Student Parent Details
-						var $parentInfoObj = $userDetailedInfoObj.find(".user-parent-info-content");
-						$parentInfoObj.find(".parent-name span").html(parentsName);
-						$parentInfoObj.find(".parent-mobile span").html(parentsMobileNo);
-						$parentInfoObj.find(".parent-email span").html(parentEmail);
-						
-						// Student Acheivements/Awards Details
-						var $userAwardInfoContentObj = $userDetailedInfoObj.find(".user-award-info-content .user-data-info");
-						$userAwardInfoContentObj.find('span').remove();
-						
-						var jsonObjAcheivements = allData["jsonObjAcheivements"];
-						var jsonArrAcheivements=jsonObjAcheivements["jsonArrAcheivements"];
-						
-						var $achievementDetailsUlObj=$('#achievementDetailsUl');
-						if(jsonArrAcheivements.length>0){
-							jQuery.each(jsonArrAcheivements, function(index, item) {
+						if(loginDataResponse["userRoleId"]==4 || loginDataResponse["userRoleId"]==9){ // 4= Parent Role, 9= Student Role
+							
+							$("#staff_homepage").hide();
+							$("#student_homepage").show();
+							
+							// Student & Parent Related data
+							var studData= allData["jsonObjStudData"];
+							
+							var studName=studData["name"];
+							var studMobileNo=studData["mobileNumber"];
+							var studentEmail=studData["studentEmail"];
+							var admissionNo=studData["admissionNo"];
+							var rollNumber=studData["rollNumber"];
+							var studentDetailsId=studData["studentDetailsId"];
+							var studentStandardDivisionId=studData["studentStandardDivisionId"];
+							var age=studData["age"];
+							var gender=studData["gender"];
+							
+							var userImgSrc = "img/avatars/avatar-male.png";
+							var studImage = studData["image"];
+							if(gender){
+								gender='Male';
+								userImgSrc = "img/avatars/avatar-male.png";
+							}else{
+								gender='Female';
+								userImgSrc = "img/avatars/avatar-female.png";
+							}
+							
+							var addressOne=studData["addressOne"];
+							var addressTwo=studData["addressTwo"];
+							var studContactNo=studData["studContactNo"];
+							
+							var parentsName=studData["parentsName"];
+							var parentEmail=studData["email"];
+							window.localStorage["email"]=parentEmail;
+							
+							var parentsMobileNo=studContactNo;
+							
+							// 4= Parent Role, 9= Student Role
+							if(loginDataResponse["userRoleId"]==4 ){
+								window.localStorage["mobile"]=parentsMobileNo;
+							}
+							else if(loginDataResponse["userRoleId"]==9){
+								window.localStorage["mobile"]=studMobileNo;
+							}
+							$person_details_right_panel.find(".contact_number").html(window.localStorage["mobile"]);
+							
+							window.localStorage["studDetailsId"] = studentDetailsId;
+							window.localStorage["studStandardDivisionId"] = studentStandardDivisionId;
+							
+							// User Profile Details - Compact Info
+							var $userCompactInfoObj = $('.user-compact-info');
+							$userCompactInfoObj.find(".mb-student-photo img").attr("src", userImgSrc);
+							$userCompactInfoObj.find(".mb-student-name").html(studName);
+							
+							// User Profile Details - More Info
+							var $userMoreInfoObj = $userCompactInfoObj.find(".mb-student-more-info");
+							$userMoreInfoObj.find(".user-id").html("");
+							$userMoreInfoObj.find(".user-id-other span").html(admissionNo);
+							$userMoreInfoObj.find(".gender span").html(gender);
+							$userMoreInfoObj.find(".age span").html(age);
+							
+							// User Profile Details - Deatiled Info
+							// Student Contact Details
+							var $userDetailedInfoObj = $(".user-detailed-info");
+							var $userDetailedContactInfo = $userDetailedInfoObj.find(".user-contact-info-content");
+							$userDetailedContactInfo.find(".address-info span").html(addressOne+" "+addressTwo);
+							$userDetailedContactInfo.find(".mobile-info span").html(parentsMobileNo);
+							$userDetailedContactInfo.find(".email-info span").html(studentEmail);
+							
+							// Student Parent Details
+							var $parentInfoObj = $userDetailedInfoObj.find(".user-parent-info-content");
+							$parentInfoObj.find(".parent-name span").html(parentsName);
+							$parentInfoObj.find(".parent-mobile span").html(parentsMobileNo);
+							$parentInfoObj.find(".parent-email span").html(parentEmail);
+							
+							// Student Acheivements/Awards Details
+							var $userAwardInfoContentObj = $userDetailedInfoObj.find(".user-award-info-content .user-data-info");
+							$userAwardInfoContentObj.find('span').remove();
+							
+							var jsonObjAcheivements = allData["jsonObjAcheivements"];
+							var jsonArrAcheivements=jsonObjAcheivements["jsonArrAcheivements"];
+							
+							var $achievementDetailsUlObj=$('#achievementDetailsUl');
+							if(jsonArrAcheivements.length>0){
+								jQuery.each(jsonArrAcheivements, function(index, item) {
+									var dataEleObj='<span class="line-break-span">'+
+														'<i class="fa fa-trophy fa-fw"></i>'+
+														'<span>'+item["studentAcademicAchievementDetails"]+'</span>'+
+													'</span>';
+									$userAwardInfoContentObj.append(dataEleObj);
+								});
+							}
+							else{
 								var dataEleObj='<span class="line-break-span">'+
-													'<i class="fa fa-trophy fa-fw"></i>'+
-													'<span>'+item["studentAcademicAchievementDetails"]+'</span>'+
+													'<i class="fa fa-info-circle fa-fw"></i>'+
+													'<span>No awards gained yet, just Belive You Can.</span>'+
 												'</span>';
 								$userAwardInfoContentObj.append(dataEleObj);
-							});
-						}
-						else{
-							var dataEleObj='<span class="line-break-span">'+
-												'<i class="fa fa-info-circle fa-fw"></i>'+
-												'<span>No awards gained yet, just Belive You Can.</span>'+
-											'</span>';
-							$userAwardInfoContentObj.append(dataEleObj);
-						}
-						
-						// Student Attendance related data
-						var jsonArrAttendance = allData["jsonArrAttendance"];
-						
-						var $leaveDescriptionTableObj=$('#leaveDescription');
-						$leaveDescriptionTableObj.find('tbody tr').remove();
-						jQuery.each(jsonArrAttendance, function(index, item) {
-							var jsonObj=item;
+							}
 							
-							var trObj='<tr>'+
-					                 	'<td class="date">'+jsonObj["date"]+'</td>'+
-					                 	'<td class="reason">'+jsonObj["reason"]+'</td>'+
-			                 			'<td class="approve-type red">'+jsonObj["approveType"]+'</td>'+
-				                	 '</tr>';
-							//$leaveDescriptionTableObj.find('tbody').append(trObj);
-						});
-						
-						var mDataGetStudentAttendance={};
-						mDataGetStudentAttendance.p1=studentStandardDivisionId;
-						mDataGetStudentAttendance.p2=1;
-						mDataGetStudentAttendance.p3=0;
-						getDataByAction("getStudentAttendance", JSON.stringify(mDataGetStudentAttendance), getAttendanceSuccessCallback, commonErrorCallback);
-						
-						// Assignment related data
-						var jsonObjAssignment=allData["jsonObjAssignment"];
-						
-						var assignmentSubmissionDate=jsonObjAssignment["assignmentSubmissionDate"];
-						var studAssignmentName=jsonObjAssignment["studAssignmentName"];
-						
-						var $assignmentDivObj=$(".div-block.assignment");
-						$assignmentDivObj.find(".div-block-data").html('');
-						if(studAssignmentName != "No Assignments"){
-							$assignmentDivObj.find(".div-block-data").append('<p class="message"><span class="bold">Assignment: </span>'+studAssignmentName+'</p>');
-							$assignmentDivObj.find(".div-block-data").append('<p class="message"><span class="bold">Submission Date: </span>'+assignmentSubmissionDate+'</p>');
-						}else{
-							$assignmentDivObj.find(".div-block-data").append('<p class="message assignment-name">Enjoy you do not have any assignments</p>');
+							// Student Attendance related data
+							var jsonArrAttendance = allData["jsonArrAttendance"];
+							
+							var $leaveDescriptionTableObj=$('#leaveDescription');
+							$leaveDescriptionTableObj.find('tbody tr').remove();
+							jQuery.each(jsonArrAttendance, function(index, item) {
+								var jsonObj=item;
+								
+								var trObj='<tr>'+
+						                 	'<td class="date">'+jsonObj["date"]+'</td>'+
+						                 	'<td class="reason">'+jsonObj["reason"]+'</td>'+
+				                 			'<td class="approve-type red">'+jsonObj["approveType"]+'</td>'+
+					                	 '</tr>';
+								//$leaveDescriptionTableObj.find('tbody').append(trObj);
+							});
+							
+							var mDataGetStudentAttendance={};
+							mDataGetStudentAttendance.p1=studentStandardDivisionId;
+							mDataGetStudentAttendance.p2=1;
+							mDataGetStudentAttendance.p3=0;
+							getDataByAction("getStudentAttendance", JSON.stringify(mDataGetStudentAttendance), getAttendanceSuccessCallback, commonErrorCallback);
+							
+							// Assignment related data
+							var jsonObjAssignment=allData["jsonObjAssignment"];
+							
+							var assignmentSubmissionDate=jsonObjAssignment["assignmentSubmissionDate"];
+							var studAssignmentName=jsonObjAssignment["studAssignmentName"];
+							
+							var $assignmentDivObj=$(".div-block.assignment");
+							$assignmentDivObj.find(".div-block-data").html('');
+							if(studAssignmentName != "No Assignments"){
+								$assignmentDivObj.find(".div-block-data").append('<p class="message"><span class="bold">Assignment: </span>'+studAssignmentName+'</p>');
+								$assignmentDivObj.find(".div-block-data").append('<p class="message"><span class="bold">Submission Date: </span>'+assignmentSubmissionDate+'</p>');
+							}else{
+								$assignmentDivObj.find(".div-block-data").append('<p class="message assignment-name">Enjoy you do not have any assignments</p>');
+							}
+							
+							// Fees related data
+							var jsonObjFees=allData["jsonObjFees"];
+							
+							var paymentPendingAmount=jsonObjFees["paymentPendingAmount"];
+							var lastPaymentDate=jsonObjFees["lastPaymentDate"];
+							var paymentAmountPaid=jsonObjFees["paymentAmountPaid"];
+							var paymentMsg=jsonObjFees["paymentMsg"];
+							
+							var $accountDetailsDivObj=$(".div-block.account-details");
+							$accountDetailsDivObj.find(".div-block-data").html('');
+							
+							$accountDetailsDivObj.find(".div-block-data").append('<p class="message">'+paymentMsg+'</p>');
+							$accountDetailsDivObj.find(".div-block-data").append('<p class="message"><span class="">Pending Amount: </span>'+paymentPendingAmount+'</p>');
+							$accountDetailsDivObj.find(".div-block-data").append('<p class="message"><span class="">Amount Paid: </span>'+paymentAmountPaid+'</p>');
+							$accountDetailsDivObj.find(".div-block-data").append('<p class="message"><span class="">Lats Payment Date: </span>'+lastPaymentDate+'</p>');
+							// Health Details related data
+							var jsonObjHealth=allData["jsonObjHealth"];
+							var healthDetails=jsonObjHealth["healthDetails"];
+							
+							var $healthDetailsDivObj=$(".div-block.health-details");
+							$healthDetailsDivObj.find(".div-block-data").html('');
+							
+							if(healthDetails != "No Details"){
+								$healthDetailsDivObj.find(".div-block-data").append('<p class="message">'+healthDetails+'</p>');
+							}else{
+								$healthDetailsDivObj.find(".div-block-data").append('<p class="message">No health problems reported.</p>');
+							}
 						}
-						
-						// Fees related data
-						var jsonObjFees=allData["jsonObjFees"];
-						
-						var paymentPendingAmount=jsonObjFees["paymentPendingAmount"];
-						var lastPaymentDate=jsonObjFees["lastPaymentDate"];
-						var paymentAmountPaid=jsonObjFees["paymentAmountPaid"];
-						var paymentMsg=jsonObjFees["paymentMsg"];
-						
-						var $accountDetailsDivObj=$(".div-block.account-details");
-						$accountDetailsDivObj.find(".div-block-data").html('');
-						
-						$accountDetailsDivObj.find(".div-block-data").append('<p class="message">'+paymentMsg+'</p>');
-						$accountDetailsDivObj.find(".div-block-data").append('<p class="message"><span class="">Pending Amount: </span>'+paymentPendingAmount+'</p>');
-						$accountDetailsDivObj.find(".div-block-data").append('<p class="message"><span class="">Amount Paid: </span>'+paymentAmountPaid+'</p>');
-						$accountDetailsDivObj.find(".div-block-data").append('<p class="message"><span class="">Lats Payment Date: </span>'+lastPaymentDate+'</p>');
-						
-						
-						// Health Details related data
-						var jsonObjHealth=allData["jsonObjHealth"];
-						var healthDetails=jsonObjHealth["healthDetails"];
-						
-						var $healthDetailsDivObj=$(".div-block.health-details");
-						$healthDetailsDivObj.find(".div-block-data").html('');
-						
-						if(healthDetails != "No Details"){
-							$healthDetailsDivObj.find(".div-block-data").append('<p class="message">'+healthDetails+'</p>');
-						}else{
-							$healthDetailsDivObj.find(".div-block-data").append('<p class="message">No health problems reported.</p>');
+						else if(loginDataResponse["userRoleId"]==2){ // Teacher Role
+							window.localStorage["staffDetailsId"] = loginDataResponse["staffDetailsId"];
+							$("#staff_homepage").show();
+							$("#student_homepage").hide();
 						}
-						
-					}
-					else if(loginDataResponse["userRoleId"]==2){ // Teacher Role
-						window.localStorage["staffDetailsId"] = loginDataResponse["staffDetailsId"];
-						$("#staff_homepage").show();
-						$("#student_homepage").hide();
-						
 						panelsInitialization(true, true, loginDataResponse["userRoleId"]);
+						$.mobile.changePage('#home-page',{ transition: "slideup"});
+					}else{
+						window.localStorage["password"] = '';
+						window.localStorage["user_logged_in"] = 0;
+						window.localStorage["appUserData"] = '';
 						
-						console.log(responseJson["loginDataResponse"]);
+						window.localStorage["email"] = '';
+						
+						var form = $("#loginForm");
+						$("#username", form).val(window.localStorage["username"]);
+						$.mobile.changePage('#login-page','slide');
+						
+						navigator.notification.alert(responseMessage,		//'Invalid Credentials, please try again.',
+						    alertConfirm, 'EDIT', 'Ok');
 					}
-					
-					$.mobile.changePage('#home-page',{ transition: "slideup"});
-				}else{
-					window.localStorage["password"] = '';
-					window.localStorage["user_logged_in"] = 0;
-					window.localStorage["appUserData"] = '';
-					
-					window.localStorage["email"] = '';
-					
-					var form = $("#loginForm");
-					$("#username", form).val(window.localStorage["username"]);
-					$.mobile.changePage('#login-page','slide');
-					
-					navigator.notification.alert(responseMessage,		//'Invalid Credentials, please try again.',
-					    alertConfirm, 'EDIT', 'Ok');
-				}
 				hideModal();
 			   },
 			   error:function(data,t,f){
@@ -863,18 +799,11 @@ function handleLogin() {
 		$("#submitButton").removeAttr("disabled");
 	}
 	else{
-		navigator.notification.alert(
-			'You must enter a username and password.',
-			alertConfirm,
-			'EDIT',            // title
-			'Ok'                  // buttonName
-		);
+		navigator.notification.alert('You must enter a username and password.', alertConfirm, 'EDIT', 'Ok');
 		$("#submitButton").removeAttr("disabled");
 	}
 	return false;
 }
-
-function checkingUserAssignedRoles(){}
 
 function showExitDialog() {
     navigator.notification.confirm(
@@ -896,14 +825,8 @@ function alertexit(button){
 function doLogout() {
 	var connectionType=checkConnection();
 	//var connectionType="Unknown connection";//For Testing
-	
 	if(connectionType=="Unknown connection" || connectionType=="No network connection"){
-		navigator.notification.alert(
-		    'Logout requires active internet connection',
-		    alertConfirm,
-		    'EDIT',            // title
-		    'Ok'                  // buttonName
-		);
+		navigator.notification.alert('Logout requires active internet connection', alertConfirm, 'EDIT', 'Ok');
 	}
 	else if(connectionType=="WiFi connection" || connectionType=="Cell 4G connection" || connectionType=="Cell 3G connection" || connectionType=="Cell 2G connection"){
 		showLogoutDialog();
@@ -993,7 +916,6 @@ function currentDateTime() {
 	if(formattedSeconds < 10){
 		formattedSeconds = "0"+formattedSeconds;
 	}
-	
     var datetimeValue = formatdateTimeStr(currentdate.getFullYear()) + "-"
     				+formatdateTimeStr(currentdate.getMonth()+1)  +"-"
 				    +formatdateTimeStr(currentdate.getDate()) 
@@ -1011,56 +933,46 @@ function formatdateTimeStr(i) {
 function calculateDateTimeDiff(old_date,new_date) {
 	// The number of milliseconds in one second
      var ONE_SECOND = 1000;
-     
      // Convert both dates to milliseconds
      var old_date_obj = new Date(old_date).getTime();
      var new_date_obj = new Date(new_date).getTime();
-     
      // Calculate the difference in milliseconds
      var difference_ms = Math.abs(new_date_obj - old_date_obj)
-
      // Convert back to totalSeconds
      var totalSeconds = Math.round(difference_ms / ONE_SECOND);
-     
      //alert('total seconds--' +totalSeconds);
      return totalSeconds;
 }
+//function checkingUserAssignedRoles(){}
 
 /* ************* Database Code Starts   -------------------------  */
-
 // Open Database
 function openDatabase() {
    db.transaction(initializeDB, errorCB, successCB);
 }
-
 //Close Database
 function closeDatabase() {
 }
-
 //Populate the database 
 function initializeDB(tx) {
 	tx.executeSql('CREATE TABLE IF NOT EXISTS datas (id integer primary key autoincrement,pid integer,stud_manager text )');
 }
-
 //Transaction success callback
 function successCB() {
 	//alert('db transcation success');
 }
-
 //Transaction error callback
 function errorCB(err) {
 	//alert("Error processing SQL: "+err.code);
 	//console.log("Error processing SQL: "+err.code);
 }
-
 /* ************* Database Code Ends   -------------------------  */
-
 
 /*  ------------------- Function/Module Wise Code(For Parents/Student) Starts -------------------------  */
 
 	function getDataByAction(actionName, mDataJsonString, successCallbackFn, errorCallbackFn) {
-		var connectionType=checkConnection();
-		//var connectionType="WiFi connection";//For Testing
+		//var connectionType=checkConnection();
+		var connectionType="WiFi connection";//For Testing
 		
 		if(connectionType=="Unknown connection" || connectionType=="No network connection"){
 			navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');
@@ -1070,13 +982,40 @@ function errorCB(err) {
 			var loginData={};
 			loginData.username=window.localStorage["username"];
 			loginData.password=window.localStorage["password"];
-			loginData.gcmregdid = window.localStorage["gcmregistrationId"];
-			//loginData.gcmregdid = "reg";//For Testing
+			//loginData.gcmregdid = window.localStorage["gcmregistrationId"];
+			loginData.gcmregdid = "reg";//For Testing
 			
 			$.ajax({
 				//type : 'POST',
 				url:appUrl,
 				data : {"action":actionName, "loginData":JSON.stringify(loginData), "mData":mDataJsonString },
+				success: successCallbackFn,
+			    error: errorCallbackFn
+			});
+		}
+		else{
+			navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');
+		}
+	}
+	
+	function getDataByUrlAndData(url, data, successCallbackFn, errorCallbackFn, ajaxCallType) {
+		//var connectionType=checkConnection();
+		var connectionType="WiFi connection";//For Testing
+		if(connectionType=="Unknown connection" || connectionType=="No network connection"){
+			navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');
+		}
+		else if(connectionType=="WiFi connection" || connectionType=="Cell 4G connection" || connectionType=="Cell 3G connection" || connectionType=="Cell 2G connection"){
+			showModal();
+			var loginData={};
+			loginData.username=window.localStorage["username"];
+			loginData.password=window.localStorage["password"];
+			//loginData.gcmregdid = window.localStorage["gcmregistrationId"];
+			loginData.gcmregdid = "reg";//For Testing
+			
+			$.ajax({
+				type : ajaxCallType,
+				url: url,
+				data : data,
 				success: successCallbackFn,
 			    error: errorCallbackFn
 			});
@@ -1137,19 +1076,14 @@ function errorCB(err) {
 	
 	function getAttendanceSuccessCallback(data){
 		var responseJson=jQuery.parseJSON(data);
-		
 		if(responseJson.statusCode == "0" ){
 			var actionResponse=responseJson["actionResponse"];
-			
 			var studentAttendence = actionResponse["output"];
 			var periodsList = actionResponse["periodsList"];
-			 
 			var maxDays = actionResponse["monthDays"];
 			var month = actionResponse["month"];
 			var monthYear = actionResponse["monthYear"];
-			 
 			$("#monthWithYear").html(monthYear);
-			 
 			drawSparkline(studentAttendence, periodsList);						
 		}else{
 			navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');					
@@ -1201,16 +1135,13 @@ function errorCB(err) {
 	
 	function commonPageSuccessCallback(data){
 		var responseJson=jQuery.parseJSON(data);
-		
 		if(responseJson.statusCode == "0" ){
 			//var $parentEleObj=$('.common-page-tab1 .table-main-div');
 			var $parentEleObj = $('.common-page-tab1 .mb-st-assignment-list ul.st-assigment');
 			$parentEleObj.html("");
 			$('.common-page-tab1 .mb-st-assignment-list').show();
-			
 			var actionHeading=responseJson["actionHeading"];
 			$('.common-page-tab1 .common-page-tab-heading').html(actionHeading);
-			
 			var action=responseJson["action"];
 			var jsonData=responseJson["data"];
 			
@@ -1253,7 +1184,6 @@ function errorCB(err) {
 			else if(action=="getStaffAttendanceForStaff"){
 				commonPageStaffAttendanceForStaffData($parentEleObj, jsonData);
 			}
-			
 			$.mobile.changePage('#common-page','slide');
 		}else{
 			navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');					
@@ -1283,7 +1213,6 @@ function errorCB(err) {
 	
 	function getNewsEventAndCommListForParentSuccessCB(data){
 		var responseJson=jQuery.parseJSON(data);
-		
 		if(responseJson.statusCode == "0" ){
 			var $parentEleObj=$('#allChatsDiv ul.all-chats-ul');
 			$parentEleObj.html("");
@@ -1291,7 +1220,6 @@ function errorCB(err) {
 			//$('.common-user-list-details .page-tab-heading').html(actionHeading);
 			var action=responseJson["action"];
 			var jsonData=responseJson["data"];
-		
 			if(jsonData.length > 0){
 				jQuery.each(jsonData, function(index, item) {
 					var onclickFn = "alertCustomMsg('No reply option availabe for this event.');return false;";
@@ -1300,32 +1228,33 @@ function errorCB(err) {
 					}
 					var dataEleObj = '<li onclick=" '+onclickFn+' " data-id="'+ item["id"] +'" data-name="'+ item["name"] +'" data-participationFlag="'+ item["participation_required"] +'" '+
 											' >'+
-											'<div class="main-content">'+
-												'<div class="feat_small_icon">'+
-													'<i class="fa fa-calendar"></i>'+
-												'</div>'+
-												'<div class="feat_small_details">'+
-													'<h5> '+ item["name"] +' </h5>'+
-													'<a href="#" class="ui-link"> '+ item["message"] + '</a>'+
-												'</div>'+
-											'</div>'+	
-											'<div class="time_detail">'+
-												'<span class="time_sub">'+
-													' Contact Person: '+ item["contact_person_name"] +'</span>'+
+										'<div class="main-content">'+
+											'<div class="feat_small_icon">'+
+												'<i class="fa fa-calendar"></i>'+
 											'</div>'+
-											'<div class="time_detail">'+
-												'<span class="time_sub">'+
-													'Start Date: '+ item["start_date"] +' '+ item["start_time"] +' </span>'+
-												'<span class="sub_person"> </span>'+
+											'<div class="feat_small_details">'+
+												'<h5> '+ item["name"] +' </h5>'+
+												'<a href="#" class="ui-link"> '+ item["message"] + '</a>'+
 											'</div>'+
-											'<div class="time_detail">'+
-												'<span class="time_sub">'+
-													'End Date: '+ item["end_date"] +' '+ item["end_time"] +' </span>'+
-											'</div>'+
-											'<div class="time_detail">'+
-												'<span class="time_sub">'+
-													'Evevt Type: '+ item["evevt_type"] +' </span>'+
-											'</div>'+
+										'</div>'+	
+										'<div class="time_detail">'+
+											'<span class="time_sub">'+
+												' Contact Person: '+ item["contact_person_name"] +'</span>'+
+										'</div>'+
+										'<div class="time_detail">'+
+											'<span class="time_sub">'+
+												'Start Date: '+ item["start_date"] +' '+ item["start_time"] +' </span>'+
+											'<span class="sub_person"> </span>'+
+										'</div>'+
+										'<div class="time_detail">'+
+											'<span class="time_sub">'+
+												'End Date: '+ item["end_date"] +' '+ item["end_time"] +' </span>'+
+										'</div>'+
+										'<div class="time_detail">'+
+											'<span class="time_sub">'+
+												'Evevt Type: '+ item["evevt_type"] +' </span>'+
+										'</div>'+
+										
 									'</li>';
 					$parentEleObj.append(dataEleObj);
 				});
@@ -1356,14 +1285,13 @@ function errorCB(err) {
 			var $parentEleObj=$('#oneToOneChatSection ul.chat');
 			$parentEleObj.html("");
 			var jsonData=responseJson["data"];
-			$("#chat-page .eventId").val(jsonData["id"]);	
+			$("#chat-page .eventId").val(jsonData["id"]);
 			
 			if( jsonData["participation_required"] ){
 				$(".msg-send-conatiner").show();	
 			}else{
 				$(".msg-send-conatiner").hide();	
 			}
-			
 			var commentsArr = jsonData["commentsArr"];
 			if(commentsArr.length > 0){
 				jQuery.each(commentsArr, function(index, item) {
@@ -1373,7 +1301,6 @@ function errorCB(err) {
 					}else{
 						msgInOutClass ="msg-out";
 					}
-					
 					var dataEleObj = '<li class="'+ msgInOutClass +'">'+
 										'<span class="avatar"><span></span><img src="img/avatars/avatar-male.png" alt=""></span>'+
 										'<div class="message">'+
@@ -1496,7 +1423,6 @@ function errorCB(err) {
 	function getHolidays(){
 		mData={};	
 		mData.p1="";
-		
 		getDataByAction("getHolidays", JSON.stringify(mData), commonPageSuccessCallback, commonErrorCallback);
 	}
 	
@@ -1586,9 +1512,7 @@ function errorCB(err) {
 	
 	function assignmentForStudTabsSuccessCB(data){
 		var responseJson=jQuery.parseJSON(data);
-		
 		if(responseJson.statusCode == "0" ){
-			
 			var $mbStudentAssignment =$('.mb-student-assignment');
 			var $parentEleObj = $mbStudentAssignment.find('.mb-st-assignment-list ul.st-assigment');
 			var $parentEleObjCompleted = $mbStudentAssignment.find('.mb-st-assignment-completed ul.st-assigment');
@@ -1598,19 +1522,14 @@ function errorCB(err) {
 			$parentEleObjPending.html("");
 			
 			var jsonData=responseJson["data"];
-			
 			var totalAssignmentCount=0, pendingAssignmentCount = 0, completedAssignmentCount= 0, notCompletedAssignmentCount= 0;
 			totalAssignmentCount = jsonData.length;
 			if(jsonData.length > 0){
 				jQuery.each(jsonData, function(index, item) {
 					var pendingFlag= false, completedFlag= false;
-					
 					var statusClass = "";
 					var studAssignmentStatus = item["studAssignmentStatus"];
-					
-					// Yellow 1 4 5 
-					// Green 2 8 9
-					// Red 3 6 7
+					// Yellow 1 4 5 // Green 2 8 9	// Red 3 6 7
 					if(studAssignmentStatus == 1 || studAssignmentStatus == 4 || studAssignmentStatus == 5  ){
 						statusClass = "";
 						pendingFlag =  true;
@@ -1624,7 +1543,6 @@ function errorCB(err) {
 						statusClass = "status-pending";
 						notCompletedAssignmentCount++;
 					}
-					
 					var dataEleObj = '<li>'+
 										'<i class="fa fa-dot-circle-o status-circle '+statusClass+' "></i>'+
 										'<div class="st-assign-detail">'+
@@ -1646,7 +1564,6 @@ function errorCB(err) {
 									'</li>';
 					
 					var otherDetails='Comment :'+item["comment"]+'<br/><p>Description: '+item["assignmentDescription"]+'</p>';
-					
 					if(pendingFlag){
 						$parentEleObjPending.append(dataEleObj);
 					}else if(completedFlag){
@@ -1661,13 +1578,11 @@ function errorCB(err) {
 				if(pendingAssignmentCount == 0){
 					commonPageLiNoDataMsg($parentEleObjPending, noDataFoundMsg);
 				}
-				
 			}else{
 				commonPageLiNoDataMsg($parentEleObj, noDataFoundMsg);
 				commonPageLiNoDataMsg($parentEleObjCompleted, noDataFoundMsg);
 				commonPageLiNoDataMsg($parentEleObjPending, noDataFoundMsg);
 			}
-			
 			$(".mb-student-assignment .mb-student-assignment-dashboard li").each(function( index ) {
 				var $currentLink = $(this).find("a");
 				var relAttr = $(this).find("a").attr("rel");
@@ -1792,7 +1707,6 @@ function errorCB(err) {
 		}
 	}
 	
-	
 	function getDisciplines(){
 		mData={};	
 		mData.p1=window.localStorage["studDetailsId"];
@@ -1909,7 +1823,6 @@ function errorCB(err) {
 	// getStanDivisionMapForStaff 
 	// getSubjectAllocationForStaff 
 	// getStaffAttendanceForStaff
-	
 	var userListsLi='<li class="user_list_li" onclick="replaceOnClickMethod;" >'+
 						'<div class="user-details">'+
 							'<div class="user-img"><img title="" alt="" src="img/avatars/avatar-male.png"></div>'+
@@ -1946,7 +1859,6 @@ function errorCB(err) {
 		mData={};	
 		mData.p1=window.localStorage["staffDetailsId"];
 		mData.p2="";
-		
 		getDataByAction("getStaffSDMapByStaffData", JSON.stringify(mData), getStanDivisionMapForStaffSuccessCallback, commonErrorCallback);
 	}
 	
@@ -1969,7 +1881,6 @@ function errorCB(err) {
 			navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');					
 		}
 		hideModal();
-		//stan-div-students-page
 		$.mobile.changePage('#common-user-list-page', 'slide');
 	}
 	
@@ -1980,10 +1891,9 @@ function errorCB(err) {
 				var yearString=0;
 				var dataEleObj='<li onclick="staffStanDivMapActionBtn(this);" >'+
 									'<div class="mb-student-container" data-ssdmid="' + item["ssdmid"] + '" data-sdid="' + item["sdid"] + '" >'+
-										'<div class="st-profile-img">'+
-											'<span><span></span><i class="fa fa-user" aria-hidden="true"></i>'+
+										'<div class="st-profile-img list">'+
+											'<span><span></span><i class="fa fa-tags" aria-hidden="true"></i>'+
 										'</div>'+
-										
 										'<div class="mb-st-content">'+											
 											'<div class="st-prof-info">'+								
 												'<p>' + item["stanDivName"] + '</p>'+
@@ -1993,36 +1903,23 @@ function errorCB(err) {
 											'</div>'+							
 										'</div>'+
 									'</div>'+
-									
 									'<div class="attendance-form animate bounceInRight display-none" style="position: relative; top: 0px;">'+
 										'<div class="st-atte-detail-info">'+
 											'<div class="st-atte-approve" onclick="getSSDListByStanDivIdYear(' + item["sdid"] + ',' + yearString + ');">'+
 												'<label>Attendance</label>'+
 												'<a class="" href="#"> <i class="fa fa-calendar-check-o"></i></a>'+
 											'</div>'+
-											
+											/*
 											'<div class="st-atte-approve">'+
 												'<label>Details</label>'+
 												'<a class="" href="#"> <i class="fa fa-check"></i></a>'+
 											'</div>'+
-											
+											*/
 										'</div>'+	
 									'</div>'+
-									
 								'</li>';
-				//var jsonObj=item;				
-				//dataEleObj=dataEleObj.replace(/replaceName/g, item["stanDivName"]);
-				//dataEleObj=dataEleObj.replace(/replaceUserId/g, item["ssdmid"]);
-				//dataEleObj=dataEleObj.replace(/replaceUserData1/g, item["stanName"]);
-				
-				//var yearString=0;
-				//var onClickMethod='getSSDListByStanDivIdYear( '+ item["sdid"] +' , '+ yearString +' )';
-				//dataEleObj=dataEleObj.replace(/replaceOnClickMethod/g, onClickMethod);
 				var hiddenData="";
 				hiddenData+="";
-				//dataEleObj=dataEleObj.replace(/replaceHiddenFields/g, hiddenData);
-				// replaceHiddenFields
-				
 				$parentEleObj.append(dataEleObj);
 			});
 		
@@ -2032,56 +1929,47 @@ function errorCB(err) {
 		}
 	}
 	
-	
 	function getSSDListByStanDivIdYear(stanDivId, year){
 		mData={};	
 		mData.p1 = stanDivId;
 		mData.p2 = "";
 		mData.p3 = window.localStorage["staffDetailsId"];
-		
 		getDataByAction("getSSDListByStanDivIdYear", JSON.stringify(mData), getSSDListByStanDivIdYearSuccessCallback, commonErrorCallback);
 	}
 	
 	function getSSDListByStanDivIdYearSuccessCallback(data){
+		var page="take-attendance-page";
 		var responseJson=jQuery.parseJSON(data);
-		
 		if(responseJson.statusCode == "0" ){
-			var $parentEleObj=$('.stan-div-students-details ul.user_list_detailed');
+			var $parentEleObj=$('#'+page+' .stan-div-students-details ul.user_list_detailed');
 			$parentEleObj.html("");
-			
 			var actionHeading=responseJson["actionHeading"];
 			$('.stan-div-students-details .page-tab-heading').html(actionHeading);
-			
 			var action=responseJson["action"];
 			var jsonData=responseJson["data"];
-		
 			sSDListByStanDivIdYearDataParse($parentEleObj, jsonData);
 		}
 		else{
 			navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');					
 		}
 		hideModal();
-		//stan-div-students-page
-		$.mobile.changePage('#stan-div-students-page','slide');
+		$.mobile.changePage('#'+page,'slide');
 	}
 	
 	function sSDListByStanDivIdYearDataParse($parentEleObj, jsonData){
 		$parentEleObj.html("");
 		if(jsonData.length > 0){
 			jQuery.each(jsonData, function(index, item) {
-				
 				var dataEleObj='<li data-sdid=" ' + item["studid"] + ' "  data-ssdid=" ' + item["ssdid"] + ' "  data-rollno=" ' + item["roll_no"] + ' " >'+
 									'<div class="mb-student-container" data-ssdid="' + item["ssdid"] + '" >'+
 										'<div class="st-profile-img">'+
 											'<span><span></span><img alt="" src="img/avatars/avatar-male.png"></span>'+
 										'</div>'+
-										
 										'<div class="mb-st-content">'+											
 											'<div class="st-prof-info">'+								
 												'<p>' + item["name"] + '</p>'+
 												'<span class="st-contact-no">' + item["roll_no"] + '</span>'+
 												//'<span class="st-atte-percent">99%</span>'+
-												
 												'<div class="st-period-info period-result">'+
 													'<ul class="period-list">'+
 														'<li><a class="atten-cust-checkbox" href="#">1</a></li>'+
@@ -2097,21 +1985,18 @@ function errorCB(err) {
 											'<a class="action-btn default" data-state="" onclick="attendanceActionBtn(this);" ></a>'+
 										'</div>'+
 									'</div>'+
-									
 									'<div class="attendance-form animate bounceInRight display-none" style="position: relative; top: 0px;">'+
 										'<div class="st-atte-detail-info">'+
 											'<div class="st-atte-approve" data-sdid="' + item["studid"] + '" >'+
 												'<label>Approve</label>'+
 												'<a class="atten-cust-checkbox attendanceApproveCheckbox" href="#" id="attendanceApproveCheckbox" name="attendanceApproveCheckbox" data-approvereasonid="" onclick="attendanceApproveCheckboxFn(this);"> <i class="fa fa-check"></i></a>'+
 												'<label data-sdid="' + item["studid"] + '" name="approveReasonsSelectLabel" id="approveReasonsSelectLabel" for="approveReasonsSelect" class="select approveReasonsSelectLabel" onclick="openapproveReasonsSelect(this);"></label>'+
-												
 												'<select name="approveReasonsSelect'+item["studid"]+'" id="approveReasonsSelect'+item["studid"]+'" data-native-menu="false" class="approveReasonsSelect approveReasonsSelect'+item["studid"]+' display-none" data-sdid="' + item["studid"] + '" onchange="approveReasonsSelectChangeFn(this);" > cur'+
 													'<option value="0">-- Select Reason  --</option>'+
 													'<option value="1">No Reason</option>'+
 													'<option value="2">Sick Leave</option>'+
 													'<option value="3">Approved By Parent</option>'+
 												'</select>'+
-												
 											'</div>'+
 											'<div class="st-period-info">'+
 												'<label>Periods</label>'+
@@ -2129,24 +2014,9 @@ function errorCB(err) {
 											'</div>'+
 										'</div>'+	
 									'</div>'+
-									
 								'</li>';
-				
-				//var jsonObj=item;
-				//dataEleObj=dataEleObj.replace(/replaceName/g, jsonObj["name"]);
-				//dataEleObj=dataEleObj.replace(/replaceUserId/g, jsonObj["ssdid"]);
-				//dataEleObj=dataEleObj.replace(/replaceUserData1/g, jsonObj["roll_no"]);
-				
-				//var onClickMethod='';
-				//dataEleObj=dataEleObj.replace(/replaceOnClickMethod/g, onClickMethod);
-				//var hiddenData='';
-				//hiddenData+='<input type="hidden" id="ssdid" value="'+ jsonObj["ssdid"] +'">';
-				//hiddenData+='<input type="hidden" id="studid" value="'+ jsonObj["sid"] +'">';
-				//dataEleObj=dataEleObj.replace(/replaceHiddenFields/g, hiddenData);
-				
 				$parentEleObj.append(dataEleObj);
 			});
-		
 		}else{
 			var dataEleObj=tableDivObj;
 			$parentEleObj.append(dataEleObj);
@@ -2166,7 +2036,6 @@ function errorCB(err) {
 		mData.p2=window.localStorage["studStandardDivisionId"];
 		getDataByAction("getTimetable", JSON.stringify(mData), commonPageSuccessCallback, commonErrorCallback);
 	}
-
 /*  ------------------- Function/Module Wise Code(For Parents/Student) Ends -------------------------  */
 	function moreDetails(currObj){
 		var $parentDiv = $(currObj).parents(".more-details-main");
@@ -2230,7 +2099,6 @@ function errorCB(err) {
 				});
 			}	
 		});
-		
 		if(absentyFoundFlag){
 			$(thiss).removeClass('absent present presentok').addClass('absent');
 			$(thiss).data("state","absent");
@@ -2262,7 +2130,7 @@ function errorCB(err) {
 	
 	function approveReasonsSelectChangeFn(thiss){
 		$(thiss).parents('.st-atte-approve').find('.attendanceApproveCheckbox').data("approvereasonid", $(thiss).val());
-		$(thiss).parents('.st-atte-approve').find('.approveReasonsSelectLabel').text($(thiss).find(":selected").text());
+		//$(thiss).parents('.st-atte-approve').find('.approveReasonsSelectLabel').text($(thiss).find(":selected").text());
 	}		
 	
 	//$('.st-atte-detail-info .atten-cust-checkbox').click(
@@ -2313,7 +2181,7 @@ function errorCB(err) {
 				var mainJsonObj=[];
 				mainJsonObj["absentOnDate"] = ""; //absenteeDate;
 				mainJsonObj["periodsForDay"] = 1; //$(".selected-date").attr("noOfPeriods");
-				mainJsonObj["year"] = "2015-16"; //$("#currentSelectedYear :selected").text();
+				mainJsonObj["year"] = "0"; //$("#currentSelectedYear :selected").text();
 				
 				var mainArr=[];
 				$("ul#markAttendanceUl li").each(function(index, value) {
@@ -2342,7 +2210,7 @@ function errorCB(err) {
 						mainArr.push(studAbsentyObj);
 					}
 				});
-				//console.log("main arr..."+JSON.stringify(mainArr));
+				console.log("main arr..."+JSON.stringify(mainArr));
 				
 				var studentAttDet = JSON.stringify(mainArr);
 				if(mainArr.length > 0){
@@ -2369,7 +2237,8 @@ function errorCB(err) {
 						}
 					});
 					*/
-				}else{
+				}
+				else{
 					//$("#ajaxFailure #displayErrorMsg").html("Please select period number.");
 				}
 			}else{
@@ -2377,15 +2246,15 @@ function errorCB(err) {
 			}
 	}
 	
-	function getSchoolInfo() {
+	function getSchoolInfo1() {
 		var form = $("#schoolCodeForm");
 		$("#getSchoolInfoSubmitBtn", form).attr("disabled","disabled");
 		var schoolCode = $("#schoolCode", form).val();
-		//schoolCode ='editlocal'; //schoolCode
+		schoolCode ='editlocal'; //schoolCode
 		
 		if(schoolCode != '') {
-			var connectionType=checkConnection();
-			//var connectionType="WiFi connection";//For Testing
+			//var connectionType=checkConnection();
+			var connectionType="WiFi connection";//For Testing
 			
 			var mData={};			
 			if(connectionType=="Unknown connection" || connectionType=="No network connection"){
@@ -2407,10 +2276,9 @@ function errorCB(err) {
 						var status = jsonArrInstitutes["status"];
 						if(status == 1){
 							window.localStorage["schoolCode"] = schoolCode;
-							var server_ip = jsonArrInstitutes["server_ip"];
-							//appUrl='http://' + server_ip + ':8080/Edit/appEntry.do';
-							appUrl='http://' + server_ip + '/appEntry.do';
-							window.localStorage["appUrl"] = appUrl;
+							//var server_ip = jsonArrInstitutes["server_ip"];
+							var server_ip = "192.168.1.11";
+							appUrl='http://' + server_ip + ':8080/Edit/appEntry.do';
 							$(".schoolCodeContainer").hide();
 							$(".loginFormContainer").show();
 							$(".schoolCodeLabel").html(schoolCode);
@@ -2420,12 +2288,12 @@ function errorCB(err) {
 						hideModal();
 				   },
 				   error:function(data,t,f){
-					   hideModal();
-					   navigator.notification.alert("Connection Problem" ,alertConfirm,'EDIT','Ok');
-					   var responseJson = $.parseJSON(data);
-					   if(responseJson.status==404){
-						   navigator.notification.alert("Connection Problem" ,alertConfirm,'EDIT','Ok');
-					   }
+					   	hideModal();
+					   	navigator.notification.alert("Connection Problem" ,alertConfirm,'EDIT','Ok');
+					   	var responseJson = $.parseJSON(data);
+						if(responseJson.status==404){
+						  navigator.notification.alert("Connection Problem" ,alertConfirm,'EDIT','Ok');
+						}
 				   }
 				});
 			}
@@ -2439,6 +2307,64 @@ function errorCB(err) {
 			$("#getSchoolInfoSubmitBtn").removeAttr("disabled");
 		}
 		return false;
+	}
+	
+	function getSchoolInfo(){
+		var form = $("#schoolCodeForm");
+		$("#getSchoolInfoSubmitBtn", form).attr("disabled","disabled");
+		var schoolCode = $("#schoolCode", form).val();
+		//schoolCode ='editlocal'; //schoolCode
+		//schoolCode ='kcs003'; //schoolCode
+		
+		if(schoolCode != '') {
+			var mData={};
+			showModal();
+			mData.schoolCode = schoolCode;
+			var schoolInfoAppUrl ='http://editapi.edit-ims.com/editimsapi.php';
+			var dataToSend = {};
+			dataToSend["action"] = "instcode";
+			dataToSend["instcode"] = schoolCode;
+			window.localStorage["schoolCode"] = schoolCode;
+			dataToSend["mData"] = JSON.stringify(mData);
+			//{"action":"instcode","instcode": schoolCode, "mData":JSON.stringify(mData) },
+			getDataByUrlAndData(schoolInfoAppUrl, dataToSend, schoolInfoSuccessCB, schoolInfoErrorCB, ajaxCallPost);
+			
+			$("#getSchoolInfoSubmitBtn").removeAttr("disabled");
+		}
+		else{
+			navigator.notification.alert('You must enter school code.',	alertConfirm,'EDIT','Ok');
+			$("#getSchoolInfoSubmitBtn").removeAttr("disabled");
+		}
+		return false;
+	}
+	
+	function schoolInfoSuccessCB(data){
+		var responseJson = jQuery.parseJSON(data);
+		var jsonArrInstitutes = responseJson["jsonArrInstitutes"];
+		var status = jsonArrInstitutes["status"];
+		if(status == 1){
+			var server_ip = jsonArrInstitutes["server_ip"];
+			//var server_ip = "192.168.1.11";
+			//appUrl='http://' + server_ip + ':8080/Edit/appEntry.do';
+			appUrl='http://' + server_ip + '/appEntry.do';
+			//appUrl='http://119.81.82.114:8080/EditKCS/appEntry.do';
+			
+			$(".schoolCodeContainer").hide();
+			$(".loginFormContainer").show();
+			$(".schoolCodeLabel").html(window.localStorage["schoolCode"]);
+		}else if(status == 0){
+			navigator.notification.alert('Please input correct institute code', alertConfirm, 'EDIT','Ok');
+		}
+		hideModal();
+	}
+	
+	function schoolInfoErrorCB(data){
+		 hideModal();
+		 navigator.notification.alert("Connection Problem" ,alertConfirm,'EDIT','Ok');
+		 var responseJson = $.parseJSON(data);
+		 if(responseJson.status==404){
+		   navigator.notification.alert("Connection Problem" ,alertConfirm,'EDIT','Ok');
+		 }
 	}
 	
 	function changeSchoolCode(){
