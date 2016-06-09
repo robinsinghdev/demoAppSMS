@@ -319,7 +319,7 @@ hr.style {
 #menu-wrapper {
     left: 0px;
     top: 0px;
-    z-index: -1;
+/*     z-index: -1; */
     height: 100%;
     width: 100%;
     background: none repeat scroll 0% 0% #303135 ;
@@ -380,6 +380,16 @@ hr.style {
 .menu > li.logout:before {
 	content: "\f08b";
 }
+.menu > li.attendance:before {
+	content: "\f274";
+}
+.menu > li.mapping:before {
+	content: "\f0e8";
+}
+.menu > li.bookmark:before {
+	content: "\f097";
+}
+
 .menu > li.icon:before, .menu > li ul li:before {
     background-size: 25px auto;
     background-position: center center;
@@ -459,6 +469,7 @@ ul.features_list_detailed li {
     margin: 0;
     padding: 5px;
 }
+
 ul.features_list_detailed li div.main-content{min-height: 55px;}
 ul.features_list_detailed li .feat_small_icon {
     float: left;
@@ -1130,14 +1141,14 @@ ul.user_list_detailed li.user_list_li .action_icon {
 }
 .no-border{border: 0;}
 .ui-btn.margin-right{margin-right: 10px;}
-.notification-count-link{
+.notification-count-link {
 /* 	display: none !important; */
 }
 .notification-count-link span{
 	background-color: #ffd02b;
     border-radius: 50%;
     color: #000;
-    display: block;
+/*     display: block; */
     float: left;
     font-size: 12px;
     height: 20px;
@@ -1145,7 +1156,6 @@ ul.user_list_detailed li.user_list_li .action_icon {
     text-align: center;
     width: 20px;
 }
-
 
 
 /* period-list-attendance-div CSS Starts */

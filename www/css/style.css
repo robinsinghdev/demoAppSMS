@@ -120,8 +120,30 @@ body {
 	font-size:14px;
 }
  */
- .ui-content {
+ 
+.ui-content {
     padding: 0 !important;
+} 
+.login-page .ui-content {
+    background-color: #290450 !important;
+    height: 100%;
+}
+
+.ui-panel.ui-panel-open {
+    position:fixed;
+}
+.ui-panel-inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0px;
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
+}
+
+.ui-panel-page-content-position-left.ui-panel-page-content-display-push {
+    margin-left: 0;
 }
 
 /*-------------mb-stuent-sm-info---------------*/
@@ -509,7 +531,8 @@ span.student-monthly-info {
     overflow: hidden;
     width: 65px;
 }
-.st-profile-img > span  span{   box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.6) inset;    position: absolute;}
+.st-profile-img > span span{   box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.6) inset;position: absolute;}
+.st-profile-img.list > span span{   box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.6) inset;position: absolute;}
 .st-profile-img span img {
     width: 100%;
 }
@@ -531,8 +554,8 @@ span.student-monthly-info {
 	color: #767676;
 	float:left;
 	margin-right:15px;
-	padding-left:18px;
-	background:url(../img/st_icons/mb-student-atten-list-icons.png) no-repeat 0 0;
+/* 	padding-left:18px; */
+/* 	background:url(../img/st_icons/mb-student-atten-list-icons.png) no-repeat 0 0; */
 	height:18px;
 }
 .st-prof-info span.st-atte-percent{background-position:0 -18px;}
@@ -588,9 +611,9 @@ span.student-monthly-info {
     width: 100%;
     z-index: 99;
 }
-.mb-student-container .st-profile-img .fa.fa-user {
+.mb-student-container .st-profile-img i.fa {
     color: #290450;
-    font-size: 50px;
+    font-size: 40px;
     line-height: 65px;
 }
 .st-period-info.period-result {
@@ -959,3 +982,4 @@ div.mb-st-assignment-list, div.mb-st-common-list  {
 .mb-student-profile .student-profile-content > img {
     width: 100%;
 }
+.schoolCodeLabelLink{color: #ffc100 !important;}
