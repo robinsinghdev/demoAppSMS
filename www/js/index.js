@@ -545,8 +545,8 @@ function handleLogin() {
 	//p = 'staff' ;//staff 
 	
 	if(u != '' && p!= '') {
-		//var connectionType=checkConnection();
-		var connectionType="WiFi connection";//For Testing
+		var connectionType=checkConnection();
+		//var connectionType="WiFi connection";//For Testing
 		
 		var loginData={};
 		if(connectionType=="Unknown connection" || connectionType=="No network connection"){
@@ -563,8 +563,8 @@ function handleLogin() {
 			showModal();
 			loginData.username=u;
 			loginData.password=p;
-			//loginData.gcmregdid = window.localStorage["gcmregistrationId"];
-			loginData.gcmregdid = "reg";//For Testing
+			loginData.gcmregdid = window.localStorage["gcmregistrationId"];
+			//loginData.gcmregdid = "reg";//For Testing
 			$.ajax({
 				//type : 'POST',
 				url:appUrl,
@@ -971,8 +971,8 @@ function errorCB(err) {
 /*  ------------------- Function/Module Wise Code(For Parents/Student) Starts -------------------------  */
 
 	function getDataByAction(actionName, mDataJsonString, successCallbackFn, errorCallbackFn) {
-		//var connectionType=checkConnection();
-		var connectionType="WiFi connection";//For Testing
+		var connectionType=checkConnection();
+		//var connectionType="WiFi connection";//For Testing
 		
 		if(connectionType=="Unknown connection" || connectionType=="No network connection"){
 			navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');
@@ -982,8 +982,8 @@ function errorCB(err) {
 			var loginData={};
 			loginData.username=window.localStorage["username"];
 			loginData.password=window.localStorage["password"];
-			//loginData.gcmregdid = window.localStorage["gcmregistrationId"];
-			loginData.gcmregdid = "reg";//For Testing
+			loginData.gcmregdid = window.localStorage["gcmregistrationId"];
+			//loginData.gcmregdid = "reg";//For Testing
 			
 			$.ajax({
 				//type : 'POST',
@@ -999,8 +999,8 @@ function errorCB(err) {
 	}
 	
 	function getDataByUrlAndData(url, data, successCallbackFn, errorCallbackFn, ajaxCallType) {
-		//var connectionType=checkConnection();
-		var connectionType="WiFi connection";//For Testing
+		var connectionType=checkConnection();
+		//var connectionType="WiFi connection";//For Testing
 		if(connectionType=="Unknown connection" || connectionType=="No network connection"){
 			navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');
 		}
@@ -1009,8 +1009,8 @@ function errorCB(err) {
 			var loginData={};
 			loginData.username=window.localStorage["username"];
 			loginData.password=window.localStorage["password"];
-			//loginData.gcmregdid = window.localStorage["gcmregistrationId"];
-			loginData.gcmregdid = "reg";//For Testing
+			loginData.gcmregdid = window.localStorage["gcmregistrationId"];
+			//loginData.gcmregdid = "reg";//For Testing
 			
 			$.ajax({
 				type : ajaxCallType,
@@ -2253,8 +2253,8 @@ function errorCB(err) {
 		schoolCode ='editlocal'; //schoolCode
 		
 		if(schoolCode != '') {
-			//var connectionType=checkConnection();
-			var connectionType="WiFi connection";//For Testing
+			var connectionType=checkConnection();
+			//var connectionType="WiFi connection";//For Testing
 			
 			var mData={};			
 			if(connectionType=="Unknown connection" || connectionType=="No network connection"){
