@@ -5,7 +5,7 @@ versionCode = "7"
 xmlns="http://www.w3.org/ns/widgets" 
 xmlns:gap   = "http://phonegap.com/ns/1.0" 
 xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>EDIT-New</name>
+    <name>EDIT IMS</name>
     <description>
         An application for EDIT Web App by Stavyah Technologies LLP.
     </description>
