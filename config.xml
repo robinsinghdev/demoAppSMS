@@ -1,15 +1,15 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.stavyah.editnew" 
-version="1.0.5"
-versionCode = "6" 
+<widget id="com.stavyah.edit" 
+version="1.0.6"
+versionCode = "7" 
 xmlns="http://www.w3.org/ns/widgets" 
 xmlns:gap   = "http://phonegap.com/ns/1.0" 
 xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>EDIT-New</name>
     <description>
-        An application for EDIT by Stavyah.
+        An application for EDIT Web App by Stavyah Technologies LLP.
     </description>
-    <author email="mangesh@stavyah.com" href="http://stavyah.com">
+    <author email="mangesh@stavyah.com" href="http://www.edit-ims.com">
         Stavyah Technologies LLP
     </author>
     
@@ -76,7 +76,6 @@ xmlns:cdv="http://cordova.apache.org/ns/1.0">
         <splash src="res/android/splash_default.png" />
          <!-- 
         <icon src="res/app_icon.png"/>
-        
          -->
          
     </platform>
