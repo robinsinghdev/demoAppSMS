@@ -540,8 +540,8 @@ function handleLogin() {
 	//u='jat@g.com'; //staff username
 	
 	//u='mahantesh@g.com'; //parent 
-	u = 'ambika_jbr@g.com'; //staff
-	p='admin'; // parent
+	//u = 'ambika_jbr@g.com'; //staff
+	//p='admin'; // parent
 	//p = 'staff' ;//staff 
 	
 	if(u != '' && p!= '') {
