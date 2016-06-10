@@ -2248,69 +2248,6 @@ function errorCB(err) {
 			}
 	}
 	
-	function getSchoolInfo1() {
-		var form = $("#schoolCodeForm");
-		$("#getSchoolInfoSubmitBtn", form).attr("disabled","disabled");
-		var schoolCode = $("#schoolCode", form).val();
-		schoolCode ='editlocal'; //schoolCode
-		
-		if(schoolCode != '') {
-			var connectionType=checkConnection();
-			//var connectionType="WiFi connection";//For Testing
-			
-			var mData={};			
-			if(connectionType=="Unknown connection" || connectionType=="No network connection"){
-				navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');
-			}
-			else if(connectionType=="WiFi connection" || connectionType=="Cell 4G connection" 
-				|| connectionType=="Cell 3G connection" || connectionType=="Cell 2G connection")
-			{
-				showModal();
-				mData.schoolCode = schoolCode;
-				var schoolInfoAppUrl ='http://editapi.edit-ims.com/editimsapi.php';
-				$.ajax({
-					type : 'POST',
-					url : schoolInfoAppUrl,
-					data : {"action":"instcode","instcode": schoolCode, "mData":JSON.stringify(mData) },
-					success:function(data){
-						var responseJson = jQuery.parseJSON(data);
-						var jsonArrInstitutes = responseJson["jsonArrInstitutes"];
-						var status = jsonArrInstitutes["status"];
-						if(status == 1){
-							window.localStorage["schoolCode"] = schoolCode;
-							//var server_ip = jsonArrInstitutes["server_ip"];
-							var server_ip = "192.168.1.11";
-							appUrl='http://' + server_ip + ':8080/Edit/appEntry.do';
-							$(".schoolCodeContainer").hide();
-							$(".loginFormContainer").show();
-							$(".schoolCodeLabel").html(schoolCode);
-						}else if(status == 0){
-							navigator.notification.alert('Please input correct institute code', alertConfirm, 'EDIT','Ok');
-						}
-						hideModal();
-				   },
-				   error:function(data,t,f){
-					   	hideModal();
-					   	navigator.notification.alert("Connection Problem" ,alertConfirm,'EDIT','Ok');
-					   	var responseJson = $.parseJSON(data);
-						if(responseJson.status==404){
-						  navigator.notification.alert("Connection Problem" ,alertConfirm,'EDIT','Ok');
-						}
-				   }
-				});
-			}
-			else{
-				navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');
-			}
-			$("#getSchoolInfoSubmitBtn").removeAttr("disabled");
-		}
-		else{
-			navigator.notification.alert('You must enter school code.',	alertConfirm,'EDIT','Ok');
-			$("#getSchoolInfoSubmitBtn").removeAttr("disabled");
-		}
-		return false;
-	}
-	
 	function getSchoolInfo(){
 		var form = $("#schoolCodeForm");
 		$("#getSchoolInfoSubmitBtn", form).attr("disabled","disabled");
@@ -2345,14 +2282,6 @@ function errorCB(err) {
 		var jsonArrInstitutes = responseJson["jsonArrInstitutes"];
 		var status = jsonArrInstitutes["status"];
 		if(status == 1){
-			//var server_ip = jsonArrInstitutes["server_ip"];
-			//var server_ip = "192.168.1.11";
-			//appUrl='http://' + server_ip + ':8080/Edit/appEntry.do';
-			//appUrl='http://' + server_ip + '/appEntry.do';
-			//appUrl='http://119.81.82.114:8080/EditKCS/appEntry.do';
-			//appUrl=server_ip;
-			//appUrl='http://122.166.218.28:8080/Edit/appEntry.do';
-			
 			var server_appentry = jsonArrInstitutes["server_appentry"];
 			console.log(server_appentry);
 			appUrl=server_appentry;
