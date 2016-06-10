@@ -374,7 +374,8 @@ var app = {
 			$(".schoolCodeLabel").html(window.localStorage["schoolCode"]);
         	checkPreAuth();
         }	
-		$("#loginForm").on("submit",handleLogin);
+        $("#loginForm").on("submit",handleLogin);
+		$("#schoolCodeForm").on("submit",getSchoolInfo);
     },
 };
 
