@@ -369,6 +369,7 @@ var app = {
         }else{
     		//db = window.sqlitePlugin.openDatabase({name: "stims.db", location: 2});
     		//db.transaction(initializeDB, errorCB, successCB);
+        	appUrl=window.localStorage["appUrl"];
         	$(".schoolCodeContainer").hide();
 			$(".loginFormContainer").show();
 			$(".schoolCodeLabel").html(window.localStorage["schoolCode"]);
@@ -2355,6 +2356,7 @@ function errorCB(err) {
 			var server_appentry = jsonArrInstitutes["server_appentry"];
 			console.log(server_appentry);
 			appUrl=server_appentry;
+			window.localStorage["appUrl"]=server_appentry;
 			$(".schoolCodeContainer").hide();
 			$(".loginFormContainer").show();
 			$(".schoolCodeLabel").html(window.localStorage["schoolCode"]);
