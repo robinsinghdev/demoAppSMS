@@ -7,7 +7,7 @@ xmlns:gap   = "http://phonegap.com/ns/1.0"
 xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>EDIT IMS</name>
     <description>
-        An application for EDIT Web App by Stavyah Technologies LLP.
+        An application for EDIT Web App for Parents, Students and Teachers.
     </description>
     <author email="mangesh@stavyah.com" href="http://www.edit-ims.com">
         Stavyah Technologies LLP
