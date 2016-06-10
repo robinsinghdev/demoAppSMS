@@ -2343,12 +2343,17 @@ function errorCB(err) {
 		var jsonArrInstitutes = responseJson["jsonArrInstitutes"];
 		var status = jsonArrInstitutes["status"];
 		if(status == 1){
-			var server_ip = jsonArrInstitutes["server_ip"];
+			//var server_ip = jsonArrInstitutes["server_ip"];
 			//var server_ip = "192.168.1.11";
 			//appUrl='http://' + server_ip + ':8080/Edit/appEntry.do';
 			//appUrl='http://' + server_ip + '/appEntry.do';
 			//appUrl='http://119.81.82.114:8080/EditKCS/appEntry.do';
-			appUrl=server_ip;
+			//appUrl=server_ip;
+			//appUrl='http://122.166.218.28:8080/Edit/appEntry.do';
+			
+			var server_appentry = jsonArrInstitutes["server_appentry"];
+			console.log(server_appentry);
+			appUrl=server_appentry;
 			$(".schoolCodeContainer").hide();
 			$(".loginFormContainer").show();
 			$(".schoolCodeLabel").html(window.localStorage["schoolCode"]);

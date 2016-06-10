@@ -45,10 +45,11 @@
 							<form  id="schoolCodeForm" action="">
 								<div class="input-field">
 									<label for="schoolCode">Institute Code</label>
-									<input type="text" name="schoolCode" id="schoolCode" placeholder="Institute Code Code"/>
+									<input type="text" name="schoolCode" id="schoolCode" placeholder="Institute Code Code" maxlength="20" required />
 								</div>
 								
-								<input type="button" class="submit" value="Submit" id="getSchoolInfoSubmitBtn" data-theme="a" onclick="getSchoolInfo();" />
+								<input type="submit" class="submit" value="Submit" id="getSchoolInfoSubmitBtn" data-theme="a" />
+								<!-- onclick="getSchoolInfo();" -->
 							</form>
 						</div>						
 						<div class="form-container loginFormContainer" style="display: none;">
@@ -62,14 +63,15 @@
 								</div>
 								<div class="input-field">
 									<label for="username">Username</label>
-									<input type="email" name="username" id="username" placeholder="Username"/>
+									<input type="text" name="username" id="username" placeholder="Username" maxlength="20" required />
 								</div>
 								<div class="input-field">
 									<label for="password">Password </label>
-									<input type="password" name="password" id="password" placeholder="Password" autocomplete="off"/>
+									<input type="password" name="password" id="password" placeholder="Password" autocomplete="off" required />
 								</div>
 								<!-- <input type="submit" value="Login" id="submitButton" data-theme="a" /> -->
-								<input type="button" value="Login" id="submitButton" data-theme="a" onclick="handleLogin();" />
+								<input type="submit" value="Login" id="submitButton" data-theme="a" />
+								<!-- onclick="handleLogin();" -->
 							</form>
 						</div>	
 					</div>
