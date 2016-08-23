@@ -57,6 +57,11 @@ var rightPanelObj = //'<div id="rightPanel" class="panel right" data-role="panel
 										'<span class="menu-li-title">Holidays List</span>'+
 									'</a>'+
 								'</li>'+
+								'<li class="icon info">'+
+									'<a href="http://www.edit-ims.com/privacypolicy.html" data-rel="close" >'+
+										'<span class="menu-li-title">Privacy Policy</span>'+
+									'</a>'+
+								'</li>'+
 								/*
 								'<li class="icon password">'+
 									'<a href="#" data-rel="close">'+
@@ -566,12 +571,12 @@ function handleLogin() {
 	//u='ven000082st'; //student 
 	//p='student'; // student
 	
-	u='GAY000007SF'; //staff
-	p='staff'; // staff 
+	//u='GAY000007SF'; //staff
+	//p='staff'; // staff 
 	
 	if(u != '' && p!= '') {
 		var connectionType=checkConnection();
-		var connectionType="WiFi connection";//For Testing
+		//var connectionType="WiFi connection";//For Testing
 		
 		var loginData={};
 		if(connectionType=="Unknown connection" || connectionType=="No network connection"){
@@ -589,7 +594,7 @@ function handleLogin() {
 			loginData.username=u;
 			loginData.password=p;
 			loginData.gcmregdid = window.localStorage["gcmregistrationId"];
-			loginData.gcmregdid = "reg";//For Testing
+			//loginData.gcmregdid = "reg";//For Testing
 			
 			$.ajax({
 				//type : 'POST',
@@ -1091,8 +1096,8 @@ function errorCB(err) {
 /*  ------------------- Function/Module Wise Code(For Parents/Student) Starts -------------------------  */
 
 	function getDataByAction(actionName, mDataJsonString, successCallbackFn, errorCallbackFn) {
-		//var connectionType=checkConnection();
-		var connectionType="WiFi connection";//For Testing
+		var connectionType=checkConnection();
+		//var connectionType="WiFi connection";//For Testing
 		
 		if(connectionType=="Unknown connection" || connectionType=="No network connection"){
 			navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');
@@ -1119,8 +1124,8 @@ function errorCB(err) {
 	}
 	
 	function getDataByUrlAndData(url, data, successCallbackFn, errorCallbackFn, ajaxCallType) {
-		//var connectionType=checkConnection();
-		var connectionType="WiFi connection";//For Testing
+		var connectionType=checkConnection();
+		//var connectionType="WiFi connection";//For Testing
 		if(connectionType=="Unknown connection" || connectionType=="No network connection"){
 			navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');
 		}
@@ -2625,8 +2630,7 @@ function errorCB(err) {
 		var form = $("#schoolCodeForm");
 		$("#getSchoolInfoSubmitBtn", form).attr("disabled","disabled");
 		var schoolCode = $("#schoolCode", form).val();
-		schoolCode ='editlocal001'; //schoolCode
-		//schoolCode ='kcs003'; //schoolCode
+		//schoolCode ='editlocal001'; //schoolCode
 		
 		if(schoolCode != '') {
 			var mData={};
@@ -2644,8 +2648,8 @@ function errorCB(err) {
 			$("#getSchoolInfoSubmitBtn").removeAttr("disabled");
 		}
 		else{
-			navigator.notification.alert('You must enter school code.',	alertConfirm,'EDIT','Ok');
 			$("#getSchoolInfoSubmitBtn").removeAttr("disabled");
+			navigator.notification.alert('You must enter school code.',	alertConfirm,'EDIT','Ok');
 		}
 		return false;
 	}
