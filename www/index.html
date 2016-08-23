@@ -3,9 +3,13 @@
     <head>
 <!--         <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; connect-src *"> -->
 <!--         <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; connect-src *"> -->
-        <meta charset="utf-8" />
+        
+        <meta charset="utf-8" />    
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            
         <meta name="format-detection" content="telephone=no" />
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, target-densitydpi=medium-dpi" />
+        
         
         <meta http-equiv="Content-Security-Policy" content="default-src *; script-src * 'unsafe-eval' 'unsafe-inline'; connect-src *; img-src *; style-src * 'unsafe-inline' ; media-src *;">
 
@@ -23,7 +27,7 @@
 		<script src="libs/jqm-datebox-1.4.5.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
          <!-- jquery.ajax-cross-origin.min.js  -->
-        <script type="text/javascript" src="libs/jquery.ajax-cross-origin.min.js"></script>
+        <!-- <script type="text/javascript" src="libs/jquery.ajax-cross-origin.min.js"></script> -->
         <!-- Sparkline  -->
 	    <script type="text/javascript" src="libs/sparkline/jquery.sparkline.min.js" ></script>
         <script type="text/javascript">
@@ -48,7 +52,7 @@
 									<input type="text" name="schoolCode" id="schoolCode" placeholder="Institute Code Code" maxlength="20" required />
 								</div>
 								
-								<input type="submit" class="submit" value="Submit" id="getSchoolInfoSubmitBtn" data-theme="a" />
+								<input type="button" class="submit" value="Submit" id="getSchoolInfoSubmitBtn" data-theme="a" onclick="getSchoolInfo();" />
 								<!-- onclick="getSchoolInfo();" -->
 							</form>
 						</div>						
@@ -70,7 +74,7 @@
 									<input type="password" name="password" id="password" placeholder="Password" autocomplete="off" required />
 								</div>
 								<!-- <input type="submit" value="Login" id="submitButton" data-theme="a" /> -->
-								<input type="submit" value="Login" id="submitButton" data-theme="a" />
+								<input type="button" value="Login" id="submitButton" data-theme="a" onclick="handleLogin();" />
 								<!-- onclick="handleLogin();" -->
 							</form>
 						</div>	
@@ -417,7 +421,9 @@
 						</div>
 						
 						<div id="staff_homepage" class="home-dashboard display-none">
-							Staff homepage
+							<div class="user-data"></div>
+							<div class="dynamic-data"></div>
+							<div class="other-data"></div>
 						</div>
 					</div>
 				</div>
@@ -457,7 +463,6 @@
                             	<div class="msg-send">
 									<textarea class="commentBox"></textarea>
 									<button type="button" class="btn btn-primary" onclick="addCommentDetails();">SEND</button>
-<!-- 									<a id="saveUpdateStudAttendanceBtn" href="#" onclick="saveUpdateStudAttendance();" data-icon="" data-theme="b" class="app-link active">Done</a> -->
 								</div>
                             </li>
                         </ul>
@@ -502,6 +507,7 @@
                 <div data-role="content" >   
                 	<div class="stan-div-students-details"> 
     					<div class="page-tab-heading common-page-tab-heading bottom-border"></div>
+    					
     					<div>
 							<ul class="user_list_detailed mb-student-attendance-list" id="markAttendanceUl" data-filter="true" data-filter-placeholder="Search.."></ul>
 						</div>	
@@ -516,6 +522,7 @@
                 <div data-role="content" >   
                 	<div class="stan-div-students-details"> 
     					<div class="page-tab-heading common-page-tab-heading bottom-border"></div>
+    					<div class="attendance-date-div common-page-tab-heading bottom-border"></div>
     					<div>
 							<ul class="user_list_detailed mb-student-attendance-list" id="markAttendanceUl" data-filter="true" data-filter-placeholder="Search.."></ul>
 						</div>	
@@ -524,7 +531,7 @@
                 <div data-role="footer" data-position="fixed">
 					<div id="navbar" data-role="navbar">
                         <ul>
-                            <li><a id="saveUpdateStudAttendanceBtn" href="#" onclick="saveUpdateStudAttendance();" data-icon="" data-theme="b" class="app-link active">Done</a></li>
+                            <li><a id="saveUpdateStudAttendanceBtn" href="#" onclick="saveUpdateStudAttendance();" data-icon="" data-theme="b" class="app-link active" style="color: black;">Submit Attendance</a></li>
                         </ul>
                     </div>
 				</div>
@@ -601,6 +608,97 @@
  							</div>
 					</div>
                 </div>
+            </div>
+            
+            <div id="common-list-page" data-role="page">
+                <div data-role="header" data-id="header" id="header" data-position="fixed" class="ui-header app-header-section">
+                    <h1 class="common-page-heading"></h1>
+                </div>
+                
+                <div data-role="content" >
+                	<div id="dynamicDataMain" class="dynamic-data-main" >
+                			<div class="dynamic-data-heading bottom-border"></div>
+							
+						    <div class="data-div">
+						    	<ul class="user_list_detailed mb-student-attendance-list"></ul>
+ 							</div>
+					</div>
+                </div>
+            </div>
+            
+            <div id="show-my-subjects" data-role="page">
+                <div data-role="header" data-id="header" id="header" data-position="fixed" class="ui-header app-header-section">
+                    <h1 class="page-heading"></h1>
+                </div>
+                
+                <div data-role="content" >
+                	<div id="dynamicDataMain" class="dynamic-data-main" >
+                			<div class="dynamic-data-heading common-page-tab-heading bottom-border"></div>
+							
+						    <div class="data-div"></div>
+					</div>
+                </div>
+            </div>
+            
+            <div id="show-homework-data" data-role="page">
+                <div data-role="header" data-id="header" id="header" data-position="fixed" class="ui-header app-header-section">
+                    <h1 class="page-heading"></h1>
+                </div>
+                
+                <div data-role="content" >
+                	<div id="dynamicDataMain" class="dynamic-data-main" >
+                			<div class="dynamic-data-heading common-page-tab-heading bottom-border"></div>
+                			<div class="dynamic-date-div common-page-tab-heading bottom-border"></div>
+							
+						    <div class="data-div"></div>
+					</div>
+                </div>
+            </div>
+            
+            <div id="data-entry-homework" data-role="page">
+                <div data-role="header" data-id="header" id="header" data-position="fixed" class="ui-header app-header-section">
+                    <h1>Homework</h1>
+                </div>
+                
+                <div data-role="content" id="data-entry-homework-content">
+                    <div>
+                    	<form id="dataEntryHomeworkForm">
+		                    <div class="common-page-tab-heading bottom-border">
+		                    	Class:<span class="curr-class">5 A </span>
+		                    </div>
+		                    <div class="show-data">
+							    <label for="">Assign Date:Today </label>
+		                    </div>
+		                    
+		                    <input type="hidden" name="studhwId" id="studhwId" value="" ></input>
+		                    <input type="hidden" name="staffSelectedSDID" id="staffSelectedSDID" value=""></input>
+		                    
+		                    <div class="ui-field-contain">
+							    <label for="">Submission After(in days) </label>
+							    <input type="number" name="subAfterInDays" id="subAfterInDays" value="1" required ></input>
+		                    </div>
+		                    
+		                    <div class="ui-field-contain">
+		                    	<label for="selectSubject">Subject</label>
+		                    	<select name="selectSubject" id="selectSubject" data-mini="true" required>                    
+		                        </select>
+		                    </div> 
+		                    
+		                    <div class="ui-field-contain">
+							    <label for="Comment">Homework Text </label>
+							    <textarea cols="" rows="4" name="homeworkText" id="homeworkText" required ></textarea>
+		                    </div>     
+		                    
+		                    <div class="ui-grid-a">
+		                    	<a href="#" data-icon="" data-theme="b" class="app-link active ui-link ui-btn ui-btn-b" 
+						      		onclick="saveUpdateHomeworkData();" style="color: black;">Submit
+						      	</a>
+						    </div>
+						</form>	    
+                	</div>
+                	
+                </div>	
+				
             </div>
 			
             <div id="data-entry" data-role="page">
