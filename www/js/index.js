@@ -91,7 +91,13 @@ var leftPanelObjForStudent=
 									'<span class="menu-li-title">Home</span>'+
 									'<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">'+
 								'</a>'+
-							'</li>'+					
+							'</li>'+	
+							'<li class="icon assignment">'+
+								'<a href="#" onclick="getHomeworkData(0);" data-rel="close" >'+
+									'<span class="menu-li-title">Homework</span>'+
+									'<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">'+
+								'</a>'+
+							'</li>'+
 							'<li class="icon assignment">'+
 								'<a href="#" onclick="getAssignments();" data-rel="close" >'+
 									'<span class="menu-li-title">Assignment & Test</span>'+
@@ -167,9 +173,24 @@ var leftPanelObjForStaff=
 								'<span class="menu-li-title">My Subjects</span>'+
 								'<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">'+
 							'</a>'+
-						'</li>'+		
+						'</li>'+
+							
 						'<li class="icon attendance">'+
-							'<a href="#" onclick="getStaffAttendanceForStaff();" data-rel="close">'+
+							'<a href="#" onclick="getStanDivisionMapForStaff();" data-rel="close">'+
+								'<span class="menu-li-title">Take Attendance</span>'+
+								'<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">'+
+							'</a>'+
+						'</li>'+
+							
+						'<li class="icon bookmark">'+
+							'<a href="#" onclick="getStanDivisionMapForStaff();" data-rel="close">'+
+								'<span class="menu-li-title">Assign Homework</span>'+
+								'<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">'+
+							'</a>'+
+						'</li>';
+						/*
+						'<li class="icon attendance">'+
+							'<a href="#" onclick="getAttendanceForStaff();" data-rel="close">'+
 								'<span class="menu-li-title">My Attendance</span>'+
 								'<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">'+
 							'</a>'+
@@ -186,7 +207,7 @@ var leftPanelObjForStaff=
 								'<img class="menu-li-arrow" src="img/icons/arrow-forward.png" alt="">'+
 							'</a>'+
 						'</li>';
-						/*
+						
 						'<li class="icon timetable">'+
 							'<a href="#" onclick="getTimetable(); " data-rel="close">'+
 								'<span class="menu-li-title">Holidays</span>'+
@@ -537,18 +558,20 @@ function handleLogin() {
 	$("#submitButton",form).attr("disabled","disabled");
 	var u = $("#username", form).val();
 	var p = $("#password", form).val();
-	//u='hcsvenkatesh@g.com'; //parent 
-	//u='sanjithhcs@g.com'; //student 
-	//u='jat@g.com'; //staff username
 	
-	//u='mahantesh@g.com'; //parent 
-	//u = 'ambika_jbr@g.com'; //staff
-	//p='admin'; // parent
-	//p = 'staff' ;//staff 
+	// Default test login data
+	//u='ven000082pt'; //parent 
+	//p='parent'; // parent
+	
+	//u='ven000082st'; //student 
+	//p='student'; // student
+	
+	u='GAY000007SF'; //staff
+	p='staff'; // staff 
 	
 	if(u != '' && p!= '') {
 		var connectionType=checkConnection();
-		//var connectionType="WiFi connection";//For Testing
+		var connectionType="WiFi connection";//For Testing
 		
 		var loginData={};
 		if(connectionType=="Unknown connection" || connectionType=="No network connection"){
@@ -566,7 +589,8 @@ function handleLogin() {
 			loginData.username=u;
 			loginData.password=p;
 			loginData.gcmregdid = window.localStorage["gcmregistrationId"];
-			//loginData.gcmregdid = "reg";//For Testing
+			loginData.gcmregdid = "reg";//For Testing
+			
 			$.ajax({
 				//type : 'POST',
 				url:appUrl,
@@ -766,6 +790,98 @@ function handleLogin() {
 							window.localStorage["staffDetailsId"] = loginDataResponse["staffDetailsId"];
 							$("#staff_homepage").show();
 							$("#student_homepage").hide();
+							
+							var $userDataEle=$("#staff_homepage").find(".user-data");
+							
+							var $dynamicDataEle=$("#staff_homepage").find(".dynamic-data");
+														
+							var dataEleObj='<ul class="user_list_detailed mb-student-attendance-list">';
+							//onclick="getUserProfile();"
+							dataEleObj+='<li >'+
+											'<div class="mb-student-container less-zindex" >'+
+												'<div class="full-width">'+											
+													'<div class="st-prof-info">'+								
+														'<p>Hello, '+window.localStorage["name"]+'</p>'+
+														'<p class="st-contact-no">'+window.localStorage["username"]+"("+window.localStorage["userRoleName"]+')</p>'+
+														'<span class="st-contact-no">TIP: Click on below links to see related data.</span>'+
+													'</div>'+							
+												'</div>'+
+											'</div>'+
+										'</li>';
+							dataEleObj+='<li onclick="getStanDivisionMapForStaff();" >'+
+												'<div class="mb-student-container less-zindex" >'+
+													'<div class="st-profile-img list">'+
+														'<span><span></span><i class="fa fa-tags" aria-hidden="true"></i>'+
+													'</div>'+
+													'<div class="mb-st-content full-width">'+											
+														'<div class="st-prof-info">'+								
+															'<p>My Classes</p>'+
+															'<span class="st-contact-no">Classes assigned to you.</span>'+
+														'</div>'+							
+													'</div>'+
+												'</div>'+
+											'</li>';
+							
+							dataEleObj+='<li onclick="getSubjectAllocationForStaff();" >'+
+											'<div class="mb-student-container less-zindex" >'+
+												'<div class="st-profile-img list">'+
+													'<span><span></span><i class="fa fa-files-o" aria-hidden="true"></i>'+
+												'</div>'+
+												'<div class="mb-st-content full-width">'+											
+													'<div class="st-prof-info">'+								
+														'<p>My Subjects</p>'+
+														'<span class="st-contact-no">Subjects assigned to you.</span>'+
+													'</div>'+							
+												'</div>'+
+											'</div>'+
+										'</li>';
+							
+							dataEleObj+='<li onclick="getStanDivisionMapForStaff();" >'+
+											'<div class="mb-student-container less-zindex" >'+
+												'<div class="st-profile-img list">'+
+													'<span><span></span><i class="fa fa-calendar-check-o" aria-hidden="true"></i>'+
+												'</div>'+
+												'<div class="mb-st-content full-width">'+											
+													'<div class="st-prof-info">'+								
+														'<p>Take Attendance</p>'+
+														'<span class="st-contact-no">Take Class Attendance.</span>'+
+													'</div>'+							
+												'</div>'+
+											'</div>'+
+										'</li>';
+							dataEleObj+='<li onclick="getStanDivisionMapForStaff();" >'+
+											'<div class="mb-student-container less-zindex" >'+
+												'<div class="st-profile-img list">'+
+													'<span><span></span><i class="fa fa-file-text" aria-hidden="true"></i>'+
+												'</div>'+
+												'<div class="mb-st-content full-width">'+											
+													'<div class="st-prof-info">'+								
+														'<p>Assign Homework</p>'+
+														'<span class="st-contact-no">Assigned Homework.</span>'+
+													'</div>'+							
+												'</div>'+
+											'</div>'+
+										'</li>';
+							
+							/*
+							dataEleObj+='<li onclick="getAttendanceForStaff();" >'+
+											'<div class="mb-student-container" >'+
+												'<div class="st-profile-img list">'+
+													'<span><span></span><i class="fa fa-calendar-check-o" aria-hidden="true"></i>'+
+												'</div>'+
+												'<div class="mb-st-content full-width">'+											
+													'<div class="st-prof-info">'+								
+														'<p>My Attendance</p>'+
+														'<span class="st-contact-no">Mark Attendance & Reports.</span>'+
+													'</div>'+							
+												'</div>'+
+											'</div>'+
+										'</li>';
+							*/
+							dataEleObj+='</ul>';
+			
+							$dynamicDataEle.append(dataEleObj);
+							
 						}
 						panelsInitialization(true, true, loginDataResponse["userRoleId"]);
 						$.mobile.changePage('#home-page',{ transition: "slideup"});
@@ -875,7 +991,9 @@ function refreshSelect(ele,currentValue){
 	// Grabbing a select field
 	var el = $(ele);
 	// Select the relevant option, de-select any others
-	el.val(currentValue).attr('selected', true).siblings('option').removeAttr('selected');
+	if(currentValue!=""){
+		el.val(currentValue).attr('selected', true).siblings('option').removeAttr('selected');
+	}
 	// Initialize the selectmenu
 	el.selectmenu();
 	// jQM refresh
@@ -973,8 +1091,8 @@ function errorCB(err) {
 /*  ------------------- Function/Module Wise Code(For Parents/Student) Starts -------------------------  */
 
 	function getDataByAction(actionName, mDataJsonString, successCallbackFn, errorCallbackFn) {
-		var connectionType=checkConnection();
-		//var connectionType="WiFi connection";//For Testing
+		//var connectionType=checkConnection();
+		var connectionType="WiFi connection";//For Testing
 		
 		if(connectionType=="Unknown connection" || connectionType=="No network connection"){
 			navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');
@@ -1001,8 +1119,8 @@ function errorCB(err) {
 	}
 	
 	function getDataByUrlAndData(url, data, successCallbackFn, errorCallbackFn, ajaxCallType) {
-		var connectionType=checkConnection();
-		//var connectionType="WiFi connection";//For Testing
+		//var connectionType=checkConnection();
+		var connectionType="WiFi connection";//For Testing
 		if(connectionType=="Unknown connection" || connectionType=="No network connection"){
 			navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');
 		}
@@ -1144,6 +1262,7 @@ function errorCB(err) {
 			$('.common-page-tab1 .mb-st-assignment-list').show();
 			var actionHeading=responseJson["actionHeading"];
 			$('.common-page-tab1 .common-page-tab-heading').html(actionHeading);
+			
 			var action=responseJson["action"];
 			var jsonData=responseJson["data"];
 			
@@ -1181,10 +1300,14 @@ function errorCB(err) {
 				commonPageStanDivisionMapForStaffData($parentEleObj, jsonData);
 			}
 			else if(action=="getSubjectAllocationForStaff"){
-				commonPageSubjectAllocationForStaffData($parentEleObj, jsonData);
+				$commonListPageHeadingEle = $('#common-list-page #dynamicDataMain .dynamic-data-heading').html(actionHeading);;
+				$commonListPageUlEle = $('#common-list-page #dynamicDataMain .data-div ul');
+				$commonListPageUlEle.html("");
+				
+				commonPageSubjectAllocationForStaffData($commonListPageUlEle, jsonData);
 			}
-			else if(action=="getStaffAttendanceForStaff"){
-				commonPageStaffAttendanceForStaffData($parentEleObj, jsonData);
+			else if(action=="getAttendanceForStaff"){
+				commonPageAttendanceForStaffData($parentEleObj, jsonData);
 			}
 			$.mobile.changePage('#common-page','slide');
 		}else{
@@ -1824,7 +1947,7 @@ function errorCB(err) {
 	// Staff Realted Ajax Methods	
 	// getStanDivisionMapForStaff 
 	// getSubjectAllocationForStaff 
-	// getStaffAttendanceForStaff
+	// getAttendanceForStaff
 	var userListsLi='<li class="user_list_li" onclick="replaceOnClickMethod;" >'+
 						'<div class="user-details">'+
 							'<div class="user-img"><img title="" alt="" src="img/avatars/avatar-male.png"></div>'+
@@ -1886,6 +2009,7 @@ function errorCB(err) {
 		$.mobile.changePage('#common-user-list-page', 'slide');
 	}
 	
+	var staffSelectedSDID;
 	function getStanDivisionMapForStaffDataParse($parentEleObj, jsonData){
 		$parentEleObj.html("");
 		if(jsonData.length > 0){
@@ -1907,39 +2031,41 @@ function errorCB(err) {
 									'</div>'+
 									'<div class="attendance-form animate bounceInRight display-none" style="position: relative; top: 0px;">'+
 										'<div class="st-atte-detail-info">'+
-											'<div class="st-atte-approve" onclick="getSSDListByStanDivIdYear(' + item["sdid"] + ',' + yearString + ');">'+
+											'<div class="st-atte-approve" onclick="getSSDListForAttendance(' + item["sdid"] + ',' + yearString + ');">'+
 												'<label>Attendance</label>'+
 												'<a class="" href="#"> <i class="fa fa-calendar-check-o"></i></a>'+
 											'</div>'+
-											/*
-											'<div class="st-atte-approve">'+
-												'<label>Details</label>'+
-												'<a class="" href="#"> <i class="fa fa-check"></i></a>'+
+											'<div class="st-atte-approve" onclick="getHomeworkData('+ item["sdid"] +');">'+
+												'<label>Homework</label>'+
+												'<a class="" href="#"> <i class="fa fa-file-text"></i></a>'+
 											'</div>'+
-											*/
 										'</div>'+	
 									'</div>'+
 								'</li>';
 				var hiddenData="";
 				hiddenData+="";
 				$parentEleObj.append(dataEleObj);
+				
 			});
-		
+			var tipText='<div>'+
+							'<strong>TIP: Click on above link to get actions.</strong>'+
+						'</div>';
+			$parentEleObj.after(tipText);
 		}else{
 			var dataEleObj=tableDivObj;
 			$parentEleObj.append(dataEleObj);
 		}
 	}
 	
-	function getSSDListByStanDivIdYear(stanDivId, year){
+	function getSSDListForAttendance(stanDivId, year){
 		mData={};	
 		mData.p1 = stanDivId;
-		mData.p2 = "";
+		mData.p2 = "";//year
 		mData.p3 = window.localStorage["staffDetailsId"];
-		getDataByAction("getSSDListByStanDivIdYear", JSON.stringify(mData), getSSDListByStanDivIdYearSuccessCallback, commonErrorCallback);
+		getDataByAction("getSSDListForAttendance", JSON.stringify(mData), getSSDListForAttendanceSuccessCB, commonErrorCallback);
 	}
 	
-	function getSSDListByStanDivIdYearSuccessCallback(data){
+	function getSSDListForAttendanceSuccessCB(data){
 		var page="take-attendance-page";
 		var responseJson=jQuery.parseJSON(data);
 		if(responseJson.statusCode == "0" ){
@@ -1949,7 +2075,8 @@ function errorCB(err) {
 			$('.stan-div-students-details .page-tab-heading').html(actionHeading);
 			var action=responseJson["action"];
 			var jsonData=responseJson["data"];
-			sSDListByStanDivIdYearDataParse($parentEleObj, jsonData);
+			var jsonDataAttendanceConfig=responseJson["attendanceConfig"];
+			parseSSDListForAttendance($parentEleObj, jsonData, jsonDataAttendanceConfig, responseJson);
 		}
 		else{
 			navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');					
@@ -1958,14 +2085,29 @@ function errorCB(err) {
 		$.mobile.changePage('#'+page,'slide');
 	}
 	
-	function sSDListByStanDivIdYearDataParse($parentEleObj, jsonData){
+	function parseSSDListForAttendance($parentEleObj, jsonData, jsonDataAttendanceConfig, responseJson){
 		$parentEleObj.html("");
 		if(jsonData.length > 0){
+			
+			var attendancePerDay=jsonDataAttendanceConfig["attendancePerDay"];
+			var dayType=jsonDataAttendanceConfig["dayType"];
+			var dayName=jsonDataAttendanceConfig["dayName"];
+			var serverCurrentDayName=jsonDataAttendanceConfig["serverCurrentDayName"];
+			var serverCurrentDate=jsonDataAttendanceConfig["serverCurrentDate"];
+			
+			var actionHeading= jsonData[0]["stanDivName"] + " " + responseJson["actionHeading"];
+			$('.stan-div-students-details .page-tab-heading').html(actionHeading);
+			
+			
+			var attendanceDateDivData= serverCurrentDate + " - " + serverCurrentDayName;
+			$('.stan-div-students-details .attendance-date-div').html(attendanceDateDivData);
+			
 			jQuery.each(jsonData, function(index, item) {
-				var dataEleObj='<li data-sdid=" ' + item["studid"] + ' "  data-ssdid=" ' + item["ssdid"] + ' "  data-rollno=" ' + item["roll_no"] + ' " >'+
+				
+				var dataEleObj='<li data-sdid="' + item["studid"] + '"  data-ssdid="' + item["ssdid"] + '"  data-rollno="' + item["roll_no"] + '" >'+
 									'<div class="mb-student-container" data-ssdid="' + item["ssdid"] + '" >'+
 										'<div class="st-profile-img">'+
-											'<span><span></span><img alt="" src="img/avatars/avatar-male.png"></span>'+
+											'<span><span></span><img alt="" src="' + item["image"] + '"></span>'+
 										'</div>'+
 										'<div class="mb-st-content">'+											
 											'<div class="st-prof-info">'+								
@@ -1973,15 +2115,14 @@ function errorCB(err) {
 												'<span class="st-contact-no">' + item["roll_no"] + '</span>'+
 												//'<span class="st-atte-percent">99%</span>'+
 												'<div class="st-period-info period-result">'+
-													'<ul class="period-list">'+
-														'<li><a class="atten-cust-checkbox" href="#">1</a></li>'+
-														'<li><a class="atten-cust-checkbox" href="#">2</a></li>'+
-														'<li><a class="atten-cust-checkbox" href="#">3</a></li>'+
-														'<li><a class="atten-cust-checkbox" href="#">4</a></li>'+
-														'<li><a class="atten-cust-checkbox" href="#">5</a></li>'+
-														'<li><a class="atten-cust-checkbox" href="#">6</a></li>'+
-														'<li><a class="atten-cust-checkbox" href="#">7</a></li>'+
-													'</ul>'+
+													'<ul class="period-list">';
+				
+													for(attenCount = 1; attenCount <= attendancePerDay; attenCount++) { 
+														  dataEleObj +=
+																'<li><a class="atten-cust-checkbox" href="#">'+ attenCount +'</a></li>';
+													}
+													
+										dataEleObj +='</ul>'+
 												'</div>'+
 											'</div>'+							
 											'<a class="action-btn default" data-state="" onclick="attendanceActionBtn(this);" ></a>'+
@@ -2002,17 +2143,20 @@ function errorCB(err) {
 											'</div>'+
 											'<div class="st-period-info">'+
 												'<label>Periods</label>'+
-												'<ul class="period-list">'+
-													'<li class="select-all"><a class="atten-cust-checkbox" href="#" onclick="attendanceCheckboxAll(this);">All</i></a></li>'+
+												'<ul class="period-list">';
+													
+													if(attendancePerDay>0){
+														dataEleObj +=
+															'<li class="select-all"><a class="atten-cust-checkbox" href="#" onclick="attendanceCheckboxAll(this);">All</i></a></li>';
+													}
+													
+													for(attenCount = 1; attenCount <= attendancePerDay; attenCount++) { 
+														dataEleObj +=
+															'<li class="single"><a class="atten-cust-checkbox" href="#" onclick="attendanceCheckbox(this);">'+ attenCount +'</a></li>';
+													}
 												
-													'<li class="single"><a class="atten-cust-checkbox" href="#" onclick="attendanceCheckbox(this);">1</a></li>'+
-													'<li class="single"><a class="atten-cust-checkbox" href="#" onclick="attendanceCheckbox(this);">2</a></li>'+
-													'<li class="single"><a class="atten-cust-checkbox" href="#" onclick="attendanceCheckbox(this);">3</a></li>'+
-													'<li class="single"><a class="atten-cust-checkbox" href="#" onclick="attendanceCheckbox(this);">4</a></li>'+
-													'<li class="single"><a class="atten-cust-checkbox" href="#" onclick="attendanceCheckbox(this);">5</a></li>'+
-													'<li class="single"><a class="atten-cust-checkbox" href="#" onclick="attendanceCheckbox(this);">6</a></li>'+
-													'<li class="single"><a class="atten-cust-checkbox" href="#" onclick="attendanceCheckbox(this);">7</a></li>'+
-												'</ul>'+
+									dataEleObj +='</ul>'+
+									
 											'</div>'+
 										'</div>'+	
 									'</div>'+
@@ -2027,16 +2171,263 @@ function errorCB(err) {
 	
 	function getSubjectAllocationForStaff(){
 		mData={};	
-		mData.p1=window.localStorage["studDetailsId"];
-		mData.p2=window.localStorage["studStandardDivisionId"];
-		getDataByAction("getTimetable", JSON.stringify(mData), commonPageSuccessCallback, commonErrorCallback);
+		mData.p1=window.localStorage["staffDetailsId"];
+		mData.p2="";//year
+		getDataByAction("getSubjectAllocationForStaff", JSON.stringify(mData), getSubjectAllocationForStaffSuccessCB, commonErrorCallback);
 	}
 	
-	function getStaffAttendanceForStaff(){
+	function getSubjectAllocationForStaffSuccessCB(data){
+		var page="show-my-subjects";
+		
+		var responseJson=jQuery.parseJSON(data);
+		
+		if(responseJson.statusCode == "0" ){
+			var actionHeading=responseJson["actionHeading"];
+			$('#'+page+' .dynamic-data-heading').html(actionHeading);
+			
+			var $parentEleObj=$('#'+page+' .dynamic-data-main .data-div');
+			$parentEleObj.html("");
+			
+			var action=responseJson["action"];
+			var jsonData=responseJson["data"];
+			
+			var dataEleObj= '<ul class="user_list_detailed mb-student-attendance-list">';
+			
+			$parentEleObj.html("");
+			
+			if(jsonData.length > 0){
+				
+				jQuery.each(jsonData, function(index, item) {
+					dataEleObj+='<li >'+
+									'<div class="mb-student-container" >'+
+										'<div class="st-profile-img list">'+
+											'<span><span></span><i class="fa fa-files-o" aria-hidden="true"></i>'+
+										'</div>'+
+										'<div class="mb-st-content full-width">'+											
+											'<div class="st-prof-info">'+								
+												'<p>'+ item["subjectName"] +'</p>'+
+												'<span class="st-contact-no">'+ item["stanDivName"] +
+													'<br/>'+ item["subjectShortName"] +'- '+ item["subjectCode"] +' </span>'+
+											'</div>'+							
+										'</div>'+
+									'</div>'+
+								'</li>';
+				});
+				dataEleObj+='</ul>';
+				
+				$parentEleObj.append(dataEleObj);
+			
+			}
+			else{
+				navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');					
+			}
+			hideModal();
+			$.mobile.changePage('#'+page,'slide');
+		}
+	}
+	
+	function saveUpdateStudAttendanceData(attenJsonData){
+		mData={};	
+		mData.p1="";//year
+		mData.p2="";//date
+		mData.p3=window.localStorage["userRoleId"];//user role id
+		var currUserId=0;
+		if(window.localStorage["userRoleId"] == 4 || window.localStorage["userRoleId"] == 9){
+			currUserId=window.localStorage["studDetailsId"];
+			mData.p5= window.localStorage["studStandardDivisionId"]; // Student Standard Division Id
+		}
+		else if(window.localStorage["userRoleId"] == 2){
+			currUserId=window.localStorage["staffDetailsId"];
+			//mData.p6= sdid; // Standard Division Id
+		}
+		else{
+			currUserId=window.localStorage["staffDetailsId"];
+		}
+		mData.p4= currUserId;// user id
+		
+		mData.p7= attenJsonData;// attenJsonData
+		getDataByAction("saveUpdateStudAttendanceData", JSON.stringify(mData), saveUpdateStudAttendanceDataSuccessCB, commonErrorCallback);
+	}
+	
+	function saveUpdateStudAttendanceDataSuccessCB(data){
+		var responseJson=jQuery.parseJSON(data);
+		
+		if(responseJson.statusCode == "0" ){
+			navigator.notification.alert("Attendance Updated Successfully.",alertConfirm,'EDIT','Ok');
+			hideModal();
+		}
+		else{
+			hideModal();
+			navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');					
+		}
+	}
+	
+	function getHomeworkData(sdid){
+		staffSelectedSDID=sdid;
+		mData={};	
+		mData.p1="";//year
+		mData.p2="";//date
+		mData.p3=window.localStorage["userRoleId"];//user role id
+		var currUserId=0;
+		if(window.localStorage["userRoleId"] == 4 || window.localStorage["userRoleId"] == 9){
+			currUserId=window.localStorage["studDetailsId"];
+			mData.p5= window.localStorage["studStandardDivisionId"]; // Student Standard Division Id
+		}
+		else if(window.localStorage["userRoleId"] == 2){
+			currUserId=window.localStorage["staffDetailsId"];
+			mData.p6= sdid; // Standard Division Id
+		}
+		else{
+			currUserId=window.localStorage["staffDetailsId"];
+		}
+		mData.p4= currUserId;// user id
+		getDataByAction("getHomeworkData", JSON.stringify(mData), getHomeworkDataSuccessCB, commonErrorCallback);
+	}
+	
+	var staffSubjectsArr=[];
+	function getHomeworkDataSuccessCB(data){
+		var page="show-homework-data";
+		
+		var responseJson=jQuery.parseJSON(data);
+		
+		if(responseJson.statusCode == "0" ){
+			var actionHeading=responseJson["actionHeading"] 
+								+ '<a style="color: black;" class="app-link active ui-link ui-btn ui-btn-b" '+
+								'data-theme="b" data-icon="" href="#" onclick="gotoAssignHomeworkPage();">Assign Homework</a>';
+			$('#'+page+' .dynamic-data-heading').html(actionHeading);
+			
+			var $parentEleObj=$('#'+page+' .dynamic-data-main .data-div');
+			$parentEleObj.html("");
+			
+			var action=responseJson["action"];
+			var jsonData=responseJson["data"];
+			var jsonDynDataArr=jsonData["dynData"];
+			
+			staffSubjectsArr=jsonData["staffSubjectsArr"];
+			
+			var dynDateData="";
+			$('#'+page+' .dynamic-date-div').html(jsonData["dynDate"]);
+			
+			var dataEleObj= '<ul class="user_list_detailed mb-student-attendance-list">';
+			
+			$parentEleObj.html("");
+			
+			if(jsonDynDataArr.length > 0){
+				jQuery.each(jsonDynDataArr, function(index, item) {
+					dataEleObj+='<li >'+
+									'<div class="mb-student-container" >'+
+										'<div class="st-profile-img list">'+
+											'<span><span></span><i class="fa fa-files-o" aria-hidden="true"></i>'+
+										'</div>'+
+										'<div class="mb-st-content full-width">'+											
+											'<div class="st-prof-info">'+								
+												'<p class="st-bg-dark-purple">'+ item["subjectName"] +'</p>'+
+												'<p class="st-bg-dark-purple">Assigned On:'+ item["homeworkAssignDate"] +'</p>'+
+												'<p class="st-bg-dark-purple">Submission Date:'+ item["homeworkSubmissionDate"] +'</p>'+
+												'<p class="st-contact-no">'+ item["homeworkText"] +' </p>'+
+											'</div>'+							
+										'</div>'+
+									'</div>'+
+								'</li>';
+				});
+			}
+			else{
+				dataEleObj+='<li >'+
+								'<div class="mb-student-container" >'+
+									'<div class="mb-st-content full-width">'+											
+										'<div class="st-prof-info">'+								
+											'<p class="st-bg-dark-purple">No Homework Assigned</p>'+
+										'</div>'+							
+									'</div>'+
+								'</div>'+
+							'</li>';
+			}
+			
+			dataEleObj+='</ul>';
+			$parentEleObj.append(dataEleObj);
+			
+			hideModal();
+			$.mobile.changePage('#'+page,'slide');
+		}
+		else{
+			navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');					
+		}
+	}
+	
+	function gotoAssignHomeworkPage(){
+		var page="data-entry-homework";
+		
+		var select=$('#'+page).find("#selectSubject");
+		
+		$('#'+page).find("#selectSubject option").remove();
+        $.each(staffSubjectsArr, function(index, itemData) {           
+            var optTempl = '<option value="' +itemData["stanSubjectId"]+ '">'+itemData["subjectName"]+'</option>';            
+            select.append(optTempl)
+        });
+        var option1 = $($("option", select).get(1));
+        var currentValue="";
+        if(staffSubjectsArr.length>0){
+        	currentValue=staffSubjectsArr[0]["stanSubjectId"];
+        }
+		refreshSelect(select, currentValue);
+		
+		$('#'+page).find("#staffSelectedSDID").val(staffSelectedSDID);
+		
+		$.mobile.changePage('#'+page,'slide');
+	}
+	
+	function saveUpdateHomeworkData(){
+		var $formObj=$("#data-entry-homework form#dataEntryHomeworkForm");
+		
+		if($formObj[0].checkValidity()){
+			var formData={};
+			formData["studhwId"]=$formObj.find("#studhwId").val();
+			formData["staffSelectedSDID"]=$formObj.find("#staffSelectedSDID").val();
+			formData["subAfterInDays"]=$formObj.find("#subAfterInDays").val();
+			formData["selectSubject"]=$formObj.find("#selectSubject option:selected").val();
+			formData["homeworkText"]=$formObj.find("#homeworkText").val();
+			
+			mData={};	
+			mData.p1="";//year
+			mData.p2="";//date
+			mData.p3=window.localStorage["userRoleId"];//user role id
+			var currUserId=0;
+			if(window.localStorage["userRoleId"] == 4 || window.localStorage["userRoleId"] == 9){
+				currUserId=window.localStorage["studDetailsId"];
+				mData.p5= window.localStorage["studStandardDivisionId"]; // Student Standard Division Id
+			}
+			else if(window.localStorage["userRoleId"] == 2){
+				currUserId=window.localStorage["staffDetailsId"];
+			}
+			else{
+				currUserId=window.localStorage["staffDetailsId"];
+			}
+			mData.p4= currUserId;// user id
+			mData.p7= formData;// user id
+			
+			getDataByAction("saveUpdateHomeworkData", JSON.stringify(mData), saveUpdateHomeworkDataSuccessCB, commonErrorCallback);
+		}
+		else{
+			navigator.notification.alert("Please fill the form.",alertConfirm,'EDIT','Ok');
+		}
+	}
+	
+	function saveUpdateHomeworkDataSuccessCB(data){
+		var responseJson=jQuery.parseJSON(data);
+		if(responseJson.statusCode == "0" ){
+			var $formObj=$("#data-entry-homework form#dataEntryHomeworkForm");
+			$formObj[0].reset();
+			
+			getStanDivisionMapForStaff();
+			navigator.notification.alert("Homework assigned sucessfully..",alertConfirm,'EDIT','Ok');
+		}
+		hideModal();
+	}	
+	
+	function getAttendanceForStaff(){
 		mData={};	
 		mData.p1=window.localStorage["studDetailsId"];
-		mData.p2=window.localStorage["studStandardDivisionId"];
-		getDataByAction("getTimetable", JSON.stringify(mData), commonPageSuccessCallback, commonErrorCallback);
+		getDataByAction("getAttendanceForStaff", JSON.stringify(mData), commonPageSuccessCallback, commonErrorCallback);
 	}
 /*  ------------------- Function/Module Wise Code(For Parents/Student) Ends -------------------------  */
 	function moreDetails(currObj){
@@ -2089,6 +2480,7 @@ function errorCB(err) {
 		var $periodAbsentyResultUlObj = $studLi.find( ".st-period-info.period-result ul.period-list" );
 		var absentyFoundFlag = false;
 		
+		$periodAbsentyResultUlObj.find("li a").removeClass("absent").addClass("present");
 		$($studLi).find(".period-list li.single").each(function(index, value) {
 			if($(this).find("a").hasClass("active")){
 				var periodNo = $(this).text();
@@ -2101,6 +2493,7 @@ function errorCB(err) {
 				});
 			}	
 		});
+		
 		if(absentyFoundFlag){
 			$(thiss).removeClass('absent present presentok').addClass('absent');
 			$(thiss).data("state","absent");
@@ -2175,84 +2568,64 @@ function errorCB(err) {
 	/* New Design for Edit CSS Ends */		
 	
 	function saveUpdateStudAttendance(){
-		//if( $(".attendance-book ul.attendance-dates li a").hasClass('selected-date')){
-		var absentyTakenFlag= $("ul#markAttendanceUl li").find(".attendance-form").hasClass("absent");
-		//console.log("absentyTakenFlag---"+absentyTakenFlag)
+		var mainJsonObj={};
+		mainJsonObj["absentOnDate"] = ""; //absenteeDate;
+		mainJsonObj["periodsForDay"] = 0; //$(".selected-date").attr("noOfPeriods");
+		mainJsonObj["year"] = ""; //$("#currentSelectedYear :selected").text();
+		
+		var mainArr=[];
+		
+		var listItemsAttendance = $("ul#markAttendanceUl li");
+		// //$("ul#markAttendanceUl li").each(function(index, value) {
+		listItemsAttendance.each(function(idx, li) {
+		    var $liEleObj = $(li);
+		    
+		    if(idx==0){
+		    	mainJsonObj["periodsForDay"] = $(this).find("ul.period-list li.single").length;
+		    }
+		    
+		    var absentyTakenFlag= $(this).find(".attendance-form").hasClass("absent");
+			console.log("absentyTakenFlag---"+absentyTakenFlag)
+			
 			if(absentyTakenFlag){
-				//var absenteeDate = $(".attendance-book ul.attendance-dates li a.selected-date").attr("rel");
-				var mainJsonObj=[];
-				mainJsonObj["absentOnDate"] = ""; //absenteeDate;
-				mainJsonObj["periodsForDay"] = 1; //$(".selected-date").attr("noOfPeriods");
-				mainJsonObj["year"] = "0"; //$("#currentSelectedYear :selected").text();
+				var studAbsentyObj = {};
+				var studAbsentyArr = [];
 				
-				var mainArr=[];
-				$("ul#markAttendanceUl li").each(function(index, value) {
-					var studAbsentyObj = {};
-					var studAbsentyArr = [];
-					
-					$(this).find(".period-list li.single").each(function(index, value) {
-						if($(this).find("a").hasClass("active")){
-							studAbsentyArr.push($(this).text());
-						}	
-					});		
-					studAbsentyObj["studAbsentyArr"] = studAbsentyArr;
-					
-					if(studAbsentyArr.length > 0){
-						studAbsentyObj["rollno"] = $(this).data("rollno");
-						studAbsentyObj["sdid"] = $(this).data("sdid");
-						studAbsentyObj["ssdid"] = $(this).data("ssdid");
-						
-						if ( $(this).find('.attendanceApproveCheckbox').hasClass('approved') ){
-							studAbsentyObj["approveStatus"]=1;
-							
-							studAbsentyObj["reasonType"] = $(this).find('.attendanceApproveCheckbox').data('approvereasonid');
-						}else{
-							studAbsentyObj["approveStatus"]=0;
-						}
-						mainArr.push(studAbsentyObj);
+				$(this).find(".period-list li.single").each(function(index, value) {
+					if($(this).find("a").hasClass("active")){
+						studAbsentyArr.push($(this).text());
 					}
 				});
-				console.log("main arr..."+JSON.stringify(mainArr));
+				studAbsentyObj["studAbsentyArr"] = studAbsentyArr;
 				
-				var studentAttDet = JSON.stringify(mainArr);
-				if(mainArr.length > 0){
-					//$("#please-wait-modal").modal({
-					/*	
-					$.ajax({
-						type:"POST",
-						url: appContextName + "/saveAjaxStudentAbsenty.do",
-						data: "studentAttDet=" + studentAttDet,
-						success: function(response){
-							 var responseData = $.parseJSON(response);
-							 var statusCode = responseData["statusCode"];
-							 var message = responseData["message"];
-							 $("#successStudentAbsenty").html(response);
-								if (statusCode==0){
-									//$("#ajaxSuccess #displayMsg").html("Attendance saved successfully");
-								}
-								else if(statusCode==1){
-									//$("#ajaxFailure #displayErrorMsg").html("There is problem while saving attendance.");
-								}
-						},
-						failure:function(e){
-							alert(e);
-						}
-					});
-					*/
+				if(studAbsentyArr.length > 0){
+					studAbsentyObj["rollno"] = $(this).data("rollno");
+					studAbsentyObj["sdid"] = $(this).data("sdid");
+					studAbsentyObj["ssdid"] = $(this).data("ssdid");
+					
+					studAbsentyObj["studentAbsenteeId"] = "";
+					
+					if ( $(this).find('.attendanceApproveCheckbox').hasClass('approved') ){
+						studAbsentyObj["approveStatus"]=1;
+						
+						studAbsentyObj["reasonType"] = $(this).find('.attendanceApproveCheckbox').data('approvereasonid');
+					}else{
+						studAbsentyObj["approveStatus"]=0;
+					}
+					mainArr.push(studAbsentyObj);
 				}
-				else{
-					//$("#ajaxFailure #displayErrorMsg").html("Please select period number.");
-				}
-			}else{
-				//$("#ajaxFailure #displayErrorMsg").html("Please select roll no.");
 			}
+		});
+		
+		mainJsonObj["studentAttDataArr"] = mainArr;
+		saveUpdateStudAttendanceData(JSON.stringify(mainJsonObj));
 	}
 	
 	function getSchoolInfo(){
 		var form = $("#schoolCodeForm");
 		$("#getSchoolInfoSubmitBtn", form).attr("disabled","disabled");
 		var schoolCode = $("#schoolCode", form).val();
-		//schoolCode ='editlocal'; //schoolCode
+		schoolCode ='editlocal001'; //schoolCode
 		//schoolCode ='kcs003'; //schoolCode
 		
 		if(schoolCode != '') {
@@ -2283,7 +2656,7 @@ function errorCB(err) {
 		var status = jsonArrInstitutes["status"];
 		if(status == 1){
 			var server_appentry = jsonArrInstitutes["server_appentry"];
-			console.log(server_appentry);
+			//console.log(server_appentry);
 			appUrl=server_appentry;
 			window.localStorage["appUrl"]=server_appentry;
 			$(".schoolCodeContainer").hide();
