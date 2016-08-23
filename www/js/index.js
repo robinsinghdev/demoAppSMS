@@ -57,8 +57,9 @@ var rightPanelObj = //'<div id="rightPanel" class="panel right" data-role="panel
 										'<span class="menu-li-title">Holidays List</span>'+
 									'</a>'+
 								'</li>'+
-								'<li class="icon info">'+
-									'<a href="http://www.edit-ims.com/privacypolicy.html" data-rel="close" >'+
+								'<li class="icon notification">'+
+									'<a href="#" '+
+								 ' onclick="openPrivacyPolicyExternalApp();" data-rel="close" >'+
 										'<span class="menu-li-title">Privacy Policy</span>'+
 									'</a>'+
 								'</li>'+
@@ -2296,9 +2297,15 @@ function errorCB(err) {
 		var responseJson=jQuery.parseJSON(data);
 		
 		if(responseJson.statusCode == "0" ){
-			var actionHeading=responseJson["actionHeading"] 
-								+ '<a style="color: black;" class="app-link active ui-link ui-btn ui-btn-b" '+
-								'data-theme="b" data-icon="" href="#" onclick="gotoAssignHomeworkPage();">Assign Homework</a>';
+			var actionHeading=responseJson["actionHeading"];
+			
+			if(window.localStorage["userRoleId"] == 4 || window.localStorage["userRoleId"] == 9){
+			}	
+			else if(window.localStorage["userRoleId"] == 2){
+				actionHeading+= '<a style="color: black;" class="app-link active ui-link ui-btn ui-btn-b" '+
+				'data-theme="b" data-icon="" href="#" onclick="gotoAssignHomeworkPage();">Assign Homework</a>';
+			}
+			
 			$('#'+page+' .dynamic-data-heading').html(actionHeading);
 			
 			var $parentEleObj=$('#'+page+' .dynamic-data-main .data-div');
@@ -2690,5 +2697,10 @@ function errorCB(err) {
 	
 	function alertCustomMsg(msg){
 		navigator.notification.alert(msg, alertConfirm, 'EDIT', 'Ok');	
+	}
+	
+	function openPrivacyPolicyExternalApp(){
+		var url="http://www.edit-ims.com/privacypolicy.html";
+		navigator.app.loadUrl(url, { openExternal:true });
 	}
 	
