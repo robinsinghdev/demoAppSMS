@@ -541,6 +541,11 @@ span.student-monthly-info {
     padding: 0 85px 0 90px;
     position: relative;
 }
+
+.mb-st-content.full-width {
+    width: 70%;
+}
+
 .st-prof-info {
     float: left;
     width: 100%;
@@ -600,6 +605,9 @@ span.student-monthly-info {
     width: 100%;
     z-index: 999;
 }
+.mb-student-attendance-list .mb-student-container.less-zindex {
+    z-index: 900  !important;
+}
 .mb-student-attendance-list .attendance-form {
     background: #ffd02b none repeat scroll 0 0;
     box-sizing: border-box;
@@ -637,7 +645,10 @@ span.student-monthly-info {
 	color: #454545;
 }
 .st-period-info.period-result .period-list a.atten-cust-checkbox.atten-cust-checkbox.absent {
-    background: #f56363 none repeat scroll 0 0;
+    background: #f56363;
+}
+.st-period-info.period-result .period-list a.atten-cust-checkbox.atten-cust-checkbox.present {
+    background: #39eb67 ;
 }
 .st-period-info.period-result .period-list a.atten-cust-checkbox.atten-cust-checkbox i {
     float: left;
@@ -983,3 +994,6 @@ div.mb-st-assignment-list, div.mb-st-common-list  {
     width: 100%;
 }
 .schoolCodeLabelLink{color: #ffc100 !important;}
+.st-bg-dark-purple{color:#290450}
+.st-bg-light-purple{color:#290450}
+.st-bg-yellow{color:#ffd02b}
