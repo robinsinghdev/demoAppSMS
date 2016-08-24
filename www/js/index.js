@@ -17,6 +17,9 @@ $( document ).on( "mobileinit", function() {
      $.mobile.toolbar.prototype.options.tapToggle = false;
 });
 
+var connectionType;
+var appName='EDIT';
+
 var rightPanelObj = //'<div id="rightPanel" class="panel right" data-role="panel" data-position="right" data-display="push" >'+
 						'<div id="menu-wrapper">'+
 							'<div class="menu-title">'+
@@ -505,6 +508,10 @@ function onBackKeyDown() {
 }
 
 function checkConnection() {
+	/*
+	connectionType="WiFi connection";//For Testing
+	return connectionType;
+	*/
     var networkState = navigator.connection.type;
     var states = {};
     states[Connection.UNKNOWN]  = 'Unknown connection';
@@ -519,7 +526,7 @@ function checkConnection() {
 }
 
 function checkPreAuth() {
-	var connectionType=checkConnection();
+	connectionType=checkConnection();
 	if(connectionType=="WiFi connection" || connectionType=="Cell 4G connection" || connectionType=="Cell 3G connection" || connectionType=="Cell 2G connection"){
 		var form = $("#loginForm");
 		if(window.localStorage["username"] != undefined && window.localStorage["password"] != undefined && window.localStorage.getItem("user_logged_in")==1) {
@@ -529,7 +536,7 @@ function checkPreAuth() {
 		}
 	}
 	else{
-		navigator.notification.alert(appRequiresWiFi, exitAppForcefully, 'EDIT','Ok');
+		navigator.notification.alert(appRequiresWiFi, exitAppForcefully, appName,'Ok');
 	}
 }
 
@@ -576,18 +583,17 @@ function handleLogin() {
 	//p='staff'; // staff 
 	
 	if(u != '' && p!= '') {
-		var connectionType=checkConnection();
-		//var connectionType="WiFi connection";//For Testing
+		connectionType=checkConnection();
 		
 		var loginData={};
 		if(connectionType=="Unknown connection" || connectionType=="No network connection"){
 			if(window.localStorage["user_logged_in"] ==1) {
-				navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');
+				navigator.notification.alert(appRequiresWiFi,alertConfirm,appName,'Ok');
 				//checkingUserAssignedRoles();
 				//$.mobile.changePage('#home-page',{ transition: "slideup"});
 			}
 			else{
-				navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');
+				navigator.notification.alert(appRequiresWiFi,alertConfirm,appName,'Ok');
 			}	
 		}
 		else if(connectionType=="WiFi connection" || connectionType=="Cell 4G connection" || connectionType=="Cell 3G connection" || connectionType=="Cell 2G connection"){
@@ -618,6 +624,7 @@ function handleLogin() {
 						window.localStorage["name"] = loginDataResponse["name"];
 						window.localStorage["userRoleId"] = loginDataResponse["userRoleId"];
 						window.localStorage["userRoleName"] = loginDataResponse["userRoleName"];
+						window.localStorage["userRoleNameSimple"] = "";// loginDataResponse["userRoleNameSimple"]; // FIXME
 						
 						//checkingUserAssignedRoles(); 
 						$person_details_right_panel=$(".person_details_right_panel");
@@ -801,6 +808,7 @@ function handleLogin() {
 							
 							var $dynamicDataEle=$("#staff_homepage").find(".dynamic-data");
 														
+							$dynamicDataEle.find("ul.user_list_detailed.mb-student-attendance-list").remove();
 							var dataEleObj='<ul class="user_list_detailed mb-student-attendance-list">';
 							//onclick="getUserProfile();"
 							dataEleObj+='<li >'+
@@ -903,27 +911,27 @@ function handleLogin() {
 						$.mobile.changePage('#login-page','slide');
 						
 						navigator.notification.alert(responseMessage,		//'Invalid Credentials, please try again.',
-						    alertConfirm, 'EDIT', 'Ok');
+						    alertConfirm, appName, 'Ok');
 					}
 				hideModal();
 			   },
 			   error:function(data,t,f){
 				   hideModal();
-				   navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');
+				   navigator.notification.alert(appRequiresWiFi,alertConfirm,appName,'Ok');
 				   var responseJson = $.parseJSON(data);
 				   if(responseJson.status==404){
-					   navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');
+					   navigator.notification.alert(appRequiresWiFi,alertConfirm,appName,'Ok');
 				   }
 			   }
 			});
 		}
 		else{
-			navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');
+			navigator.notification.alert(appRequiresWiFi,alertConfirm,appName,'Ok');
 		}
 		$("#submitButton").removeAttr("disabled");
 	}
 	else{
-		navigator.notification.alert('You must enter a username and password.', alertConfirm, 'EDIT', 'Ok');
+		navigator.notification.alert('You must enter a username and password.', alertConfirm, appName, 'Ok');
 		$("#submitButton").removeAttr("disabled");
 	}
 	return false;
@@ -933,7 +941,7 @@ function showExitDialog() {
     navigator.notification.confirm(
             ("Do you want to Exit?"), // message
             alertexit, // callback
-            'EDIT', // title
+            appName, // title
             'YES,NO' // buttonName
     );
 }
@@ -947,10 +955,9 @@ function alertexit(button){
 }
 
 function doLogout() {
-	var connectionType=checkConnection();
-	//var connectionType="Unknown connection";//For Testing
+	connectionType=checkConnection();
 	if(connectionType=="Unknown connection" || connectionType=="No network connection"){
-		navigator.notification.alert('Logout requires active internet connection', alertConfirm, 'EDIT', 'Ok');
+		navigator.notification.alert('Logout requires active internet connection', alertConfirm, appName, 'Ok');
 	}
 	else if(connectionType=="WiFi connection" || connectionType=="Cell 4G connection" || connectionType=="Cell 3G connection" || connectionType=="Cell 2G connection"){
 		showLogoutDialog();
@@ -972,7 +979,7 @@ function showLogoutDialog() {
     navigator.notification.confirm(
             ("Are you sure to Logout?"), // message
             alertlogout, // callback
-            'EDIT', // title
+            appName, // title
             'YES,NO' // buttonName
     );
 }
@@ -1097,11 +1104,10 @@ function errorCB(err) {
 /*  ------------------- Function/Module Wise Code(For Parents/Student) Starts -------------------------  */
 
 	function getDataByAction(actionName, mDataJsonString, successCallbackFn, errorCallbackFn) {
-		var connectionType=checkConnection();
-		//var connectionType="WiFi connection";//For Testing
+		connectionType=checkConnection();
 		
 		if(connectionType=="Unknown connection" || connectionType=="No network connection"){
-			navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');
+			navigator.notification.alert(appRequiresWiFi,alertConfirm,appName,'Ok');
 		}
 		else if(connectionType=="WiFi connection" || connectionType=="Cell 4G connection" || connectionType=="Cell 3G connection" || connectionType=="Cell 2G connection"){
 			showModal();
@@ -1120,15 +1126,14 @@ function errorCB(err) {
 			});
 		}
 		else{
-			navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');
+			navigator.notification.alert(appRequiresWiFi,alertConfirm,appName,'Ok');
 		}
 	}
 	
 	function getDataByUrlAndData(url, data, successCallbackFn, errorCallbackFn, ajaxCallType) {
-		var connectionType=checkConnection();
-		//var connectionType="WiFi connection";//For Testing
+		connectionType=checkConnection();
 		if(connectionType=="Unknown connection" || connectionType=="No network connection"){
-			navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');
+			navigator.notification.alert(appRequiresWiFi,alertConfirm,appName,'Ok');
 		}
 		else if(connectionType=="WiFi connection" || connectionType=="Cell 4G connection" || connectionType=="Cell 3G connection" || connectionType=="Cell 2G connection"){
 			showModal();
@@ -1147,7 +1152,7 @@ function errorCB(err) {
 			});
 		}
 		else{
-			navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');
+			navigator.notification.alert(appRequiresWiFi,alertConfirm,appName,'Ok');
 		}
 	}
 	
@@ -1160,10 +1165,10 @@ function errorCB(err) {
 	
 	function commonErrorCallback(data) {
 	    hideModal();
-		navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');
+		navigator.notification.alert(appRequiresWiFi,alertConfirm,appName,'Ok');
 		var responseJson = $.parseJSON(data);
 		if(responseJson.status==404){
-		     navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');
+		     navigator.notification.alert(appRequiresWiFi,alertConfirm,appName,'Ok');
 		}
 	}
 	
@@ -1212,7 +1217,7 @@ function errorCB(err) {
 			$("#monthWithYear").html(monthYear);
 			drawSparkline(studentAttendence, periodsList);						
 		}else{
-			navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');					
+			navigator.notification.alert(appRequiresWiFi,alertConfirm,appName,'Ok');					
 		}
 		hideModal();
 	}
@@ -1317,7 +1322,7 @@ function errorCB(err) {
 			}
 			$.mobile.changePage('#common-page','slide');
 		}else{
-			navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');					
+			navigator.notification.alert(appRequiresWiFi,alertConfirm,appName,'Ok');					
 		}
 		hideModal();
 	}
@@ -1395,7 +1400,7 @@ function errorCB(err) {
 			}
 		}
 		else{
-			navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');					
+			navigator.notification.alert(appRequiresWiFi,alertConfirm,appName,'Ok');					
 		}
 		hideModal();
 	}
@@ -1453,7 +1458,7 @@ function errorCB(err) {
 			}
 		}
 		else{
-			navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');					
+			navigator.notification.alert(appRequiresWiFi,alertConfirm,appName,'Ok');					
 		}
 		hideModal();
 	}
@@ -1498,7 +1503,7 @@ function errorCB(err) {
 				
 		}
 		else{
-			navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');					
+			navigator.notification.alert(appRequiresWiFi,alertConfirm,appName,'Ok');					
 		}
 		hideModal();
 	}
@@ -1728,7 +1733,7 @@ function errorCB(err) {
 			});
 			
 		}else{
-			navigator.notification.alert(serverBusyMsg, alertConfirm,'EDIT','Ok');					
+			navigator.notification.alert(serverBusyMsg, alertConfirm,appName,'Ok');					
 		}
 		hideModal();
 	}
@@ -2009,7 +2014,7 @@ function errorCB(err) {
 			getStanDivisionMapForStaffDataParse($parentEleObj, jsonData);
 		}
 		else{
-			navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');					
+			navigator.notification.alert(appRequiresWiFi,alertConfirm,appName,'Ok');					
 		}
 		hideModal();
 		$.mobile.changePage('#common-user-list-page', 'slide');
@@ -2053,13 +2058,19 @@ function errorCB(err) {
 				$parentEleObj.append(dataEleObj);
 				
 			});
+			/*
 			var tipText='<div>'+
 							'<strong>TIP: Click on above link to get actions.</strong>'+
 						'</div>';
+			
 			$parentEleObj.after(tipText);
+			*/
 		}else{
-			var dataEleObj=tableDivObj;
+			var resMsg="Its seesm that no classes assigned to you, please contact admintrator.";
+			var dataEleObj='<li>'+ resMsg +'</li>';
 			$parentEleObj.append(dataEleObj);
+			
+			navigator.notification.alert(resMsg, alertConfirm, appName, 'Ok');	
 		}
 	}
 	
@@ -2085,7 +2096,7 @@ function errorCB(err) {
 			parseSSDListForAttendance($parentEleObj, jsonData, jsonDataAttendanceConfig, responseJson);
 		}
 		else{
-			navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');					
+			navigator.notification.alert(appRequiresWiFi,alertConfirm,appName,'Ok');					
 		}
 		hideModal();
 		$.mobile.changePage('#'+page,'slide');
@@ -2151,7 +2162,7 @@ function errorCB(err) {
 												'<label>Periods</label>'+
 												'<ul class="period-list">';
 													
-													if(attendancePerDay>0){
+													if(attendancePerDay>1){
 														dataEleObj +=
 															'<li class="select-all"><a class="atten-cust-checkbox" href="#" onclick="attendanceCheckboxAll(this);">All</i></a></li>';
 													}
@@ -2225,7 +2236,14 @@ function errorCB(err) {
 			
 			}
 			else{
-				navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');					
+				var resMsg="Its seesm that no classes assigned to you, please contact admintrator.";
+				$parentEleObj.html("");
+				var dataEleObj= '<ul class="user_list_detailed mb-student-attendance-list">';
+				dataEleObj+='<li>'+resMsg+'</li>';
+				dataEleObj+='</ul>';
+				$parentEleObj.append(dataEleObj);
+				
+				navigator.notification.alert(resMsg,alertConfirm,appName,'Ok');					
 			}
 			hideModal();
 			$.mobile.changePage('#'+page,'slide');
@@ -2259,12 +2277,12 @@ function errorCB(err) {
 		var responseJson=jQuery.parseJSON(data);
 		
 		if(responseJson.statusCode == "0" ){
-			navigator.notification.alert("Attendance Updated Successfully.",alertConfirm,'EDIT','Ok');
+			navigator.notification.alert(responseJson.m, alertConfirm, appName, 'Ok');
 			hideModal();
 		}
 		else{
 			hideModal();
-			navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');					
+			navigator.notification.alert(appRequiresWiFi,alertConfirm,appName,'Ok');					
 		}
 	}
 	
@@ -2362,7 +2380,7 @@ function errorCB(err) {
 			$.mobile.changePage('#'+page,'slide');
 		}
 		else{
-			navigator.notification.alert(appRequiresWiFi,alertConfirm,'EDIT','Ok');					
+			navigator.notification.alert(appRequiresWiFi,alertConfirm,appName,'Ok');					
 		}
 	}
 	
@@ -2420,7 +2438,7 @@ function errorCB(err) {
 			getDataByAction("saveUpdateHomeworkData", JSON.stringify(mData), saveUpdateHomeworkDataSuccessCB, commonErrorCallback);
 		}
 		else{
-			navigator.notification.alert("Please fill the form.",alertConfirm,'EDIT','Ok');
+			navigator.notification.alert("Please fill the form.",alertConfirm,appName,'Ok');
 		}
 	}
 	
@@ -2431,7 +2449,7 @@ function errorCB(err) {
 			$formObj[0].reset();
 			
 			getStanDivisionMapForStaff();
-			navigator.notification.alert("Homework assigned sucessfully..",alertConfirm,'EDIT','Ok');
+			navigator.notification.alert("Homework assigned sucessfully..",alertConfirm,appName,'Ok');
 		}
 		hideModal();
 	}	
@@ -2656,7 +2674,7 @@ function errorCB(err) {
 		}
 		else{
 			$("#getSchoolInfoSubmitBtn").removeAttr("disabled");
-			navigator.notification.alert('You must enter school code.',	alertConfirm,'EDIT','Ok');
+			navigator.notification.alert('You must enter school code.',	alertConfirm,appName,'Ok');
 		}
 		return false;
 	}
@@ -2674,17 +2692,17 @@ function errorCB(err) {
 			$(".loginFormContainer").show();
 			$(".schoolCodeLabel").html(window.localStorage["schoolCode"]);
 		}else if(status == 0){
-			navigator.notification.alert('Please input correct institute code', alertConfirm, 'EDIT','Ok');
+			navigator.notification.alert('Please input correct institute code', alertConfirm, appName,'Ok');
 		}
 		hideModal();
 	}
 	
 	function schoolInfoErrorCB(data){
 		 hideModal();
-		 navigator.notification.alert("Connection Problem" ,alertConfirm,'EDIT','Ok');
+		 navigator.notification.alert("Connection Problem" ,alertConfirm,appName,'Ok');
 		 var responseJson = $.parseJSON(data);
 		 if(responseJson.status==404){
-		   navigator.notification.alert("Connection Problem" ,alertConfirm,'EDIT','Ok');
+		   navigator.notification.alert("Connection Problem" ,alertConfirm,appName,'Ok');
 		 }
 	}
 	
@@ -2696,7 +2714,7 @@ function errorCB(err) {
 	}
 	
 	function alertCustomMsg(msg){
-		navigator.notification.alert(msg, alertConfirm, 'EDIT', 'Ok');	
+		navigator.notification.alert(msg, alertConfirm, appName, 'Ok');	
 	}
 	
 	function openPrivacyPolicyExternalApp(){

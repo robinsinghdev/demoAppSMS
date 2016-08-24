@@ -260,6 +260,11 @@ a {
 .ui-loading .ui-loader-background {
     display:block;
 }
+/* 
+.ui-loader .ui-icon-loading {
+   background: url("url_to_your_custom_loader.gif");
+ }
+ */
 .sales-table-div{
 	margin-bottom: 10px;
 }
