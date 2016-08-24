@@ -2066,7 +2066,7 @@ function errorCB(err) {
 			$parentEleObj.after(tipText);
 			*/
 		}else{
-			var resMsg="Its seesm that no classes assigned to you, please contact admintrator.";
+			var resMsg="Its seesm that no classes assigned to you, please contact administrator.";
 			var dataEleObj='<li>'+ resMsg +'</li>';
 			$parentEleObj.append(dataEleObj);
 			
@@ -2236,7 +2236,7 @@ function errorCB(err) {
 			
 			}
 			else{
-				var resMsg="Its seesm that no classes assigned to you, please contact admintrator.";
+				var resMsg="Its seesm that no classes assigned to you, please contact administrator.";
 				$parentEleObj.html("");
 				var dataEleObj= '<ul class="user_list_detailed mb-student-attendance-list">';
 				dataEleObj+='<li>'+resMsg+'</li>';
